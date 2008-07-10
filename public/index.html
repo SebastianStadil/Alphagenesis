@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <noscript><meta http-equiv="refresh" content="0;upgrade_script.html"/></noscript>
+    <title>AlphaGenesis</title>
+    <script src="javascripts/appcelerator.js" type="text/javascript"></script>
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <style>img { border: none;}</style>
+	<script type="text/javascript">
+		function attribut_cost(attr) {
+			switch(attr) {
+				case '0':
+					return -40;
+					break;
+				case '1':
+					return -25;
+					break;
+				case '2':
+					return -12;
+					break;
+				case '3':
+					return -5;
+					break;
+				case '4':
+					return 0;
+					break;
+				case '5':
+					return 8;
+					break;
+				case '6':
+					return 16;
+					break;
+				case '7':
+					return 30;
+					break;
+				case '8':
+					return 45;
+					break;
+				default:
+					return 0;
+					break;
+			}
+		}
+	</script>
+</head>
+<body style="visibility:hidden" on="l:app.compiled then visible">
+
+	<div>
+		<app:editinplace type="text" id="name" saveOn="click then l:save" cancelOn="click then l:cancel" 
+			validator="required" position="right" defaultClassName="bold_value_grey_lg" defaultValue="Cliquez pour entrer votre nom">
+		</app:editinplace>
+	</div>
+	<div id="attributs">
+		<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>
+		Force <input on="change then l:attributs.changed" id="for" type="text" value="4" size="1" /><br />
+		Endurance <input on="change then l:attributs.changed" id="end" type="text" value="4" size="1" /><br />
+		Agilité <input on="change then l:attributs.changed" id="agi" type="text" value="4" size="1" /><br />
+		Dextérité <input on="change then l:attributs.changed" id="dex" type="text" value="4" size="1" /><br />
+		Métabolisme <input on="change then l:attributs.changed" id="met" type="text" value="4" size="1" /><br />
+		Réflexes <input on="change then l:attributs.changed" id="ref" type="text" value="4" size="1" /><br />
+		Entendement <input on="change then l:attributs.changed" id="ent" type="text" value="4" size="1" /><br />
+		Inventivité <input on="change then l:attributs.changed" id="inv" type="text" value="4" size="1" /><br />
+		Mémoire <input on="change then l:attributs.changed" id="mem" type="text" value="4" size="1" /><br />
+		Volonté <input on="change then l:attributs.changed" id="vol" type="text" value="4" size="1" /><br />
+		Charisme <input on="change then l:attributs.changed" id="cha" type="text" value="4" size="1" /><br />
+		Perception <input on="change then l:attributs.changed" id="per" type="text" value="4" size="1" /><br />
+		Ténacité <input on="l:attributs.calculated then value[ten]" id="ten" type="text" value="4" size="1" disabled="true" /><br />
+	</div>
+
+<app:script on="l:attributs.changed then execute">
+	total_attr_cost = attribut_cost($('for').value) + attribut_cost($('end').value) + attribut_cost($('agi').value) + attribut_cost($('dex').value) + attribut_cost($('met').value) + attribut_cost($('ref').value) + attribut_cost($('ent').value) + attribut_cost($('inv').value) + attribut_cost($('mem').value) + attribut_cost($('vol').value) + attribut_cost($('cha').value) + attribut_cost($('per').value);
+	ten = (Number($('end').value) + Number($('vol').value)) / 2;
+	$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
+</app:script>
+
+</body>
+</html>
