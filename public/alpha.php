@@ -155,7 +155,7 @@ function abreviateCompetence($competence) {
 			print "\t\t\t<tr>"
 				."\n\t\t\t\t<td>$attribut</td>"
 				."\n\t\t\t\t<td><input on='l:race.calculated then value[$id]' id='$id-race' type='text' value='4' size='1' disabled='true' /></td>"
-				."\n\t\t\t\t<td><span on='click then l:attribut.minus[attr=$id]'>[-]</span><input on='change then l:attributs.changed or l:attribut.change.$id then value[value]' id='$id' type='text' value='0' size='1' /><span on='click then l:attribut.plus[attr=$id]'>[+]</span></td>"
+				."\n\t\t\t\t<td><span on='click then l:attribut.change[attr=$id,change=-1]'>[-]</span><input on='change then l:attributs.changed or l:attribut.change.$id then value[value]' id='$id' type='text' value='0' size='1' /><span on='click then l:attribut.change[attr=$id,change=1]'>[+]</span></td>"
 				."\n\t\t\t\t<td><input on='l:attribut.change.$id then value[total]' id='$id-total' type='text' value='4' size='1' disabled='true' /></td>"
 				."\n\t\t\t</tr>\n";
 		}
@@ -184,6 +184,19 @@ function abreviateCompetence($competence) {
 		</table>
 	</div>
 
+<!-- Add or subtract one point to Attribute -->
+<app:script on="l:attribut.change then execute">
+	change = Number(this.data.change);
+	attrId = this.data.attr;
+	attrMod = Number($(attrId).value);
+	attrRace = Number($(attrId+'-race').value);
+	attrTotal = attrRace + attrMod;
+	if(attrMod<4 && change>0) {attrMod += change; attrTotal+= change;}
+	if(attrMod>-4 && change<0 && attrTotal>0) {attrMod += change; attrTotal+= change;}
+	$MQ("l:attribut.change."+attrId, {attr:attrId,value:attrMod,total:attrTotal});
+</app:script>
+
+<!-- Subtract one point to Attribute -->
 <app:script on="l:attribut.minus then execute">
 	attr = this.data.attr;
 	value = Number($(attr).value);
@@ -192,6 +205,7 @@ function abreviateCompetence($competence) {
 	$MQ("l:attribut.change."+attr, {attr:attr,value:value,total:total});
 </app:script>
 
+<!-- Add one point to Attribute -->
 <app:script on="l:attribut.plus then execute">
 	attr = this.data.attr;
 	value = Number($(attr).value);
@@ -200,6 +214,7 @@ function abreviateCompetence($competence) {
 	$MQ("l:attribut.change."+attr, {attr:attr,value:value,total:total});
 </app:script>
 
+<!-- Calculate PP used for Race, update Racial attributes -->
 <app:script on="l:race.changed then execute">
 	attr = race_attributs($('race').value);
 	pp = race_cost($('race').value);
@@ -209,6 +224,7 @@ function abreviateCompetence($competence) {
 	} ?>});
 </app:script>
 
+<!-- Calculate PP used for Attributs, calculate Ténacité -->
 <app:script on="l:attributs.changed then execute">
 	<?php
 	$arr = array();
@@ -222,6 +238,7 @@ function abreviateCompetence($competence) {
 	$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
 </app:script>
 
+<!-- Calculate PP used for Compétences -->
 <app:script on="l:competences.changed then execute">
 	<?php
 	$arr = array();
