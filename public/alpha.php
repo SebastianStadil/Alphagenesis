@@ -22,10 +22,25 @@ class database {
 	}
 	// returns array with attributs
 	function getAttributes() {
-		$query = "select * from wiki_wikidb_fielddata where table_title = 'Attributs'";
+		$query = "select * from wiki_wikidb_fielddata where table_title = 'Attributs' order by row_id";
 		$results = mysql_query("$query");
-		$array = mysql_fetch_array($results);
-		return $results;
+		
+		$items = array();
+		$itemId = '-1';
+		while ($row = mysql_fetch_array($results)) {
+			// If new item, store old in $items, create new item along with new itemId
+			if($itemId != $row['row_id']) {
+				if($item['nom'] != '') {$items[] = $item['nom'];}
+				$item = array();
+				$itemId = $row['row_id'];
+			}
+			$key = $row['field_name'];
+			$value = $row['field_value'];
+			$item[$key] = $value;
+		}
+		if($item['nom'] != '') {$items[] = $item['nom'];}
+		
+		return $items;
 	}
 	// returns array with category as key and array of competences as value
 	function getCompetences() {
@@ -58,9 +73,9 @@ class database {
 }
 
 // Custom data
-$attr = array('Force', 'Endurance', 'Agilité', 'Dextérité', 'Métabolisme', 'Réflexes', 'Entendement', 'Inventivité', 'Mémoire', 'Volonté', 'Charisme', 'Perception');
 $db = new database;
 $comp = $db->getCompetences();
+$attr = $db->getAttributes();
 //$comp = array('Combat' => array('Haches', 'Épées', 'Esquive'));
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon', 'Expert', 'Maître');
 $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
