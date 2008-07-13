@@ -1,7 +1,67 @@
 <?php
+
+// Database class
+class database {
+	// Database settings
+	public $DBserver;
+	public $DBname;
+	public $DBuser;
+	public $DBpassword;
+	public $DBprefix;
+	public $DBlink;
+	// constructor connects and selects database
+	function __construct() {
+		// Database settings
+		$DBserver         = "mysql.archipel.stadil.com";
+		$DBname           = "archipel";
+		$DBuser           = "archipel";
+		$DBpassword       = "acruis";
+		$DBprefix         = "wiki_";
+		mysql_connect($DBserver, $DBuser, $DBpassword);
+		mysql_select_db($DBname);
+	}
+	// returns array with attributs
+	function getAttributes() {
+		$query = "select * from wiki_wikidb_fielddata where table_title = 'Attributs'";
+		$results = mysql_query("$query");
+		$array = mysql_fetch_array($results);
+		return $results;
+	}
+	// returns array with category as key and array of competences as value
+	function getCompetences() {
+		$query = "select * from wiki_wikidb_fielddata where table_title = 'Compétences' order by row_id";
+		$results = mysql_query("$query");
+		
+		$items = array();
+		$itemId = '-1';
+		while ($row = mysql_fetch_array($results)) {
+			// If new item, store old in $items, create new item along with new itemId
+			if($itemId != $row['row_id']) {
+				if($item['categorie'] != '') {$items[$item['categorie']][] = $item['nom'];}
+				$item = array();
+				$itemId = $row['row_id'];
+			}
+			$key = $row['field_name'];
+			$value = $row['field_value'];
+			$item[$key] = $value;
+		}
+		if($item['categorie'] != '') {$items[$item['categorie']][] = $item['nom'];}
+		
+		return $items;
+	}
+	// returns array with races
+	function getRaces() {
+		$query = "select * from wiki_wikidb_fielddata where table_title = 'Races'";
+		$results = mysql_query("$query");
+		return $results;
+	}
+}
+
 // Custom data
 $attr = array('Force', 'Endurance', 'Agilité', 'Dextérité', 'Métabolisme', 'Réflexes', 'Entendement', 'Inventivité', 'Mémoire', 'Volonté', 'Charisme', 'Perception');
-$comp = array('Haches', 'Épées', 'Esquive');
+$db = new database;
+$comp = $db->getCompetences();
+//$comp = array('Combat' => array('Haches', 'Épées', 'Esquive'));
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon', 'Expert', 'Maître');
 $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
 			   'Minotaure' => array('5', '5', '3', '4', '4', '4', '4', '3', '4', '4', '5', '3'));
@@ -36,7 +96,7 @@ function abreviateCompetence($competence) {
 <?php			foreach($races as $race => $attributs) {
 					print "\t\t\t\tcase '$race':\n\t\t\t\t\t";
 					foreach($attr as $key => $attribut) {
-						print abreviateAttribut($attribut) . "=" . $races["$race"][$key] . ";";
+						print "var" . abreviateAttribut($attribut) . "=" . $races["$race"][$key] . ";";
 					}
 					print "\n"
 					."\t\t\t\t\tbreak;\n";
@@ -129,13 +189,13 @@ function abreviateCompetence($competence) {
 	</div>
 	
 	<div id="races">
-		<h3>Race (<span on="l:race.calculated then value[pp]">0</span>pp)</h3>
+		<h3>Race (<span on="l:racial.attributes.update.response then value[pp]">0</span>pp)</h3>
 <?php
 		$opt = '';
 		foreach($races as $race => $attributs) {
 			$opt .= "\n\t\t\t<option value='$race'>$race</option>";
 		}
-		print "<select id='race' on='change then l:race.changed'>$opt\n\t\t</select>\n";
+		print "<select id='race' on='change then l:racial.attributes.update.request'>$opt\n\t\t</select>\n";
 		?>
 	</div>
 	
@@ -154,15 +214,15 @@ function abreviateCompetence($competence) {
 			$id = abreviateAttribut($attribut);
 			print "\t\t\t<tr>"
 				."\n\t\t\t\t<td>$attribut</td>"
-				."\n\t\t\t\t<td><input on='l:race.calculated then value[$id]' id='$id-race' type='text' value='4' size='1' disabled='true' /></td>"
-				."\n\t\t\t\t<td><span on='click then l:attribut.change[attr=$id,change=-1]'>[-]</span><input on='change then l:attributs.changed or l:attribut.change.$id then value[value]' id='$id' type='text' value='0' size='1' /><span on='click then l:attribut.change[attr=$id,change=1]'>[+]</span></td>"
-				."\n\t\t\t\t<td><input on='l:attribut.change.$id then value[total]' id='$id-total' type='text' value='4' size='1' disabled='true' /></td>"
+				."\n\t\t\t\t<td><input on='change then l:attribute.total.update.request[attr=$id] or l:racial.attributes.update.response then value[$id]' id='$id-race' type='text' value='4' size='1' disabled='true' /></td>"
+				."\n\t\t\t\t<td><span on='click then l:attribut.change[attr=$id,change=-1]'>[-]</span><input on='change then l:attributes.cost.recalculate.request and l:attribute.total.update.request[attr=$id] or l:attribut.change.$id then value[value]' id='$id-mod' type='text' value='0' size='1' /><span on='click then l:attribut.change[attr=$id,change=1]'>[+]</span></td>"
+				."\n\t\t\t\t<td><input on='l:attribute.total.update.response[attr=$id] then value[total] or l:attribut.change.$id then value[total]' id='$id-total' type='text' value='4' size='1' disabled='true' /></td>"
 				."\n\t\t\t</tr>\n";
 		}
 		print "\t\t\t<tr>"
 				."\n\t\t\t\t<td>Ténacité</td>"
-				."\n\t\t\t\t<td><input on='l:race.calculated then value[ten]' id='ten-race' type='text' value='4' size='1' disabled='true' /></td>"
-				."\n\t\t\t\t<td><input on='l:attributs.calculated then value[ten]' id='ten' type='text' value='4' size='1' disabled='true' /></td>"
+				."\n\t\t\t\t<td><input on='' id='ten-race' type='text' value='4' size='1' disabled='true' /></td>"
+				."\n\t\t\t\t<td><input on='' id='ten' type='text' value='4' size='1' disabled='true' /></td>"
 				."\n\t\t\t\t<td><input on='' id='ten-total' type='text' value='4' size='1' disabled='true' /></td>"
 				."\n\t\t\t</tr>\n";
 		?>
@@ -171,70 +231,65 @@ function abreviateCompetence($competence) {
 	
 	<div id="competences">
 		<h3>Compétences (<span on="l:competences.calculated then value[pp]">0</span>pp)</h3>
-		<table>
 <?php
 		$opt = "";
 		foreach($_comp as $niveau => $nom) {
 			$opt .= "\n\t\t\t<option value='$niveau'>$nom</option>";
 		}
-		foreach($comp as $competence) {
-			$id = abreviateCompetence($competence);
-			print "\t\t<tr><td>$competence</td>\n\t\t<td><select id='$id' on='change then l:competences.changed'>$opt\n\t\t</select></td></tr>\n";
+		foreach($comp as $category => $competences) {
+			print "\n\t\t<h4>$category</h4>"
+				 ."\n\t\t<table>";
+			foreach($competences as $competence) {
+				$id = abreviateCompetence($competence);
+				print "\t\t<tr><td>$competence</td>\n\t\t<td><select id='$id' on='change then l:competences.changed'>$opt\n\t\t</select></td></tr>\n";
+			}
+			print "\n\t\t</table>";
 		} ?>
-		</table>
 	</div>
 
 <!-- Add or subtract one point to Attribute -->
 <app:script on="l:attribut.change then execute">
 	change = Number(this.data.change);
 	attrId = this.data.attr;
-	attrMod = Number($(attrId).value);
 	attrRace = Number($(attrId+'-race').value);
+	attrMod = Number($(attrId+'-mod').value);
 	attrTotal = attrRace + attrMod;
-	if(attrMod<4 && change>0) {attrMod += change; attrTotal+= change;}
-	if(attrMod>-4 && change<0 && attrTotal>0) {attrMod += change; attrTotal+= change;}
+	if(attrMod<4 && change>0) {attrMod += change; attrTotal += change;}
+	if(attrMod>-4 && change<0 && attrTotal>0) {attrMod += change; attrTotal += change;}
 	$MQ("l:attribut.change."+attrId, {attr:attrId,value:attrMod,total:attrTotal});
 </app:script>
 
-<!-- Subtract one point to Attribute -->
-<app:script on="l:attribut.minus then execute">
-	attr = this.data.attr;
-	value = Number($(attr).value);
-	if(value>-4) {value -= 1;}
-	total = Number($(attr+'-race').value) + value;
-	$MQ("l:attribut.change."+attr, {attr:attr,value:value,total:total});
-</app:script>
-
-<!-- Add one point to Attribute -->
-<app:script on="l:attribut.plus then execute">
-	attr = this.data.attr;
-	value = Number($(attr).value);
-	if(value<4) {value += 1;}
-	total = Number($(attr+'-race').value) + value;
-	$MQ("l:attribut.change."+attr, {attr:attr,value:value,total:total});
+<!-- Update attribute total -->
+<app:script on="l:attribute.total.update.request then execute">
+	attrId = this.data.attr;
+	attrRace = Number($(attrId+'-race').value);
+	attrMod = Number($(attrId+'-mod').value);
+	attrTotal = attrRace + attrMod;
+	$MQ("l:attribute.total.update.response", {attr:attrId,total:attrTotal});
 </app:script>
 
 <!-- Calculate PP used for Race, update Racial attributes -->
-<app:script on="l:race.changed then execute">
-	attr = race_attributs($('race').value);
-	pp = race_cost($('race').value);
-	$MQ("l:race.calculated", {pp:pp<?php foreach($attr as $attribut) {
+<app:script on="l:racial.attributes.update.request then execute">
+	raceId = $('race').value
+	attr = race_attributs(raceId);
+	pp = race_cost(raceId);
+	$MQ("l:racial.attributes.update.response", {pp:pp<?php foreach($attr as $attribut) {
 		$attrId = abreviateAttribut($attribut);
-		print ",$attrId:$attrId";
+		print ",$attrId:var$attrId";
 	} ?>});
 </app:script>
 
 <!-- Calculate PP used for Attributs, calculate Ténacité -->
-<app:script on="l:attributs.changed then execute">
+<app:script on="l:attributes.cost.recalculate.request then execute">
 	<?php
 	$arr = array();
 	foreach($attr as $value) {
-		$arr[] = "attribut_cost($('".abreviateAttribut($value)."').value)";
+		$arr[] = "attribut_cost($('".abreviateAttribut($value)."-mod').value)";
 	}
 	$sum = implode($arr, " + ");
 	print "total_attr_cost = $sum;\n"
 	?>
-	ten = (Number($('<?php print abreviateAttribut("Endurance"); ?>').value) + Number($('<?php print abreviateAttribut("Volonté"); ?>').value)) / 2;
+	ten = (Number($('<?php print abreviateAttribut("Endurance"); ?>-total').value) + Number($('<?php print abreviateAttribut("Volonté"); ?>-total').value)) / 2;
 	$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
 </app:script>
 
