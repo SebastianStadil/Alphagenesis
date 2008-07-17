@@ -65,10 +65,28 @@ class database {
 		return $items;
 	}
 	// returns array with races
+	// $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
+	//			   'Minotaure' => array('5', '5', '3', '4', '4', '4', '4', '3', '4', '4', '5', '3'));
 	function getRaces() {
 		$query = "select * from wiki_wikidb_fielddata where table_title = 'Races'";
 		$results = mysql_query("$query");
-		return $results;
+		
+		$items = array();
+		$itemId = '-1';
+		while ($row = mysql_fetch_array($results)) {
+			// If new item, store old in $items, create new item along with new itemId
+			if($itemId != $row['row_id']) {
+				if($item['nom'] != '') {$items[] = $item['nom'];}
+				$item = array();
+				$itemId = $row['row_id'];
+			}
+			$key = $row['field_name'];
+			$value = $row['field_value'];
+			$item[$key] = $value;
+		}
+		if($item['nom'] != '') {$items[] = $item['nom'];}
+		
+		return $items;
 	}
 }
 
@@ -76,7 +94,6 @@ class database {
 $db = new database;
 $comp = $db->getCompetences();
 $attr = $db->getAttributes();
-//$comp = array('Combat' => array('Haches', 'Épées', 'Esquive'));
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon', 'Expert', 'Maître');
 $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
 			   'Minotaure' => array('5', '5', '3', '4', '4', '4', '4', '3', '4', '4', '5', '3'));
@@ -96,7 +113,6 @@ function abreviateCompetence($competence) {
 	return abreviate($attribut, 5);
 }
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -195,9 +211,9 @@ function abreviateCompetence($competence) {
 		}
 	</script>
 </head>
-<body style="visibility:hidden" on="l:app.compiled then visible">
+<body style="visibility:hidden;" on="l:app.compiled then visible">
 
-	<div>
+	<div id="nom">
 		<app:editinplace type="text" id="name" saveOn="click then l:save" cancelOn="click then l:cancel" 
 			validator="required" position="right" defaultClassName="bold_value_grey_lg" defaultValue="Cliquez pour entrer votre nom">
 		</app:editinplace>
@@ -253,15 +269,17 @@ function abreviateCompetence($competence) {
 		}
 		foreach($comp as $category => $competences) {
 			print "\n\t\t<h4>$category</h4>"
-				 ."\n\t\t<table>";
+				 ."\n\t\t<table>\n";
 			foreach($competences as $competence) {
 				$id = abreviateCompetence($competence);
-				print "\t\t<tr><td>$competence</td>\n\t\t<td><select id='$id' on='change then l:competences.changed'>$opt\n\t\t</select></td></tr>\n";
+				print "\t\t<tr><td>$competence</td>"
+					 ."\n\t\t<td><select id='$id' on='change then l:competences.changed'>$opt\n\t\t</select></td></tr>\n";
 			}
 			print "\n\t\t</table>";
 		} ?>
 	</div>
 
+<div id="scripts" style="visibility:hidden;">
 <!-- Add or subtract one point to Attribute -->
 <app:script on="l:attribut.change then execute">
 	change = Number(this.data.change);
@@ -320,6 +338,7 @@ function abreviateCompetence($competence) {
 	?>
 	$MQ("l:competences.calculated", {pp:total_comp_cost});
 </app:script>
+</div>
 
 </body>
 </html>
