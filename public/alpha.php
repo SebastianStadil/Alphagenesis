@@ -96,7 +96,7 @@ $comp = $db->getCompetences();
 $_spec = $comp['Spécialisation'];
 $attr = $db->getAttributes();
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon');
-$_comp_adv = array('Spécialisé', 'Expert', 'Maître');
+$_comp_adv = array('Compagnon', 'Spécialisé', 'Expert', 'Maître');
 $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
 			   'Minotaure' => array('5', '5', '3', '4', '4', '4', '4', '3', '4', '4', '5', '3'));
 
@@ -106,10 +106,10 @@ $spec = array('Forge' => array('Métallurgie', "Forge d'armes", "Forge d'armures
 // Custom functions
 function replaceAccents($word) {
 	$word = str_replace("é","e",$word);
-	$word = str_replace(" ","",$word);
-	$word = str_replace("'","",$word);
 	$word = str_replace("ê","e",$word);
 	$word = str_replace("É","e",$word);
+	$word = str_replace(" ","",$word);
+	$word = str_replace("'","",$word);
 	return $word;
 }
 function abreviate($word, $n) {
@@ -219,6 +219,25 @@ function abreviateCompetence($competence) {
 					break;
 			}
 		}
+		function specialisation_cost(spec) {
+			switch(spec) {
+				case '0':
+					return 0;
+					break;
+				case '1':
+					return 2;
+					break;
+				case '2':
+					return 15;
+					break;
+				case '3':
+					return 36;
+					break;
+				default:
+					return 0;
+					break;
+			}
+		}
 	</script>
 </head>
 <body style="visibility:hidden;" on="l:app.compiled then visible">
@@ -296,7 +315,7 @@ function abreviateCompetence($competence) {
 					if (is_array($spec[$competence])) {
 						foreach ($spec[$competence] as $comp_spec) {
 							$id_spec = abreviateCompetence($comp_spec);
-							print "\t\t<tr on='l:spec.toggle.$id. then show else hide' style='display:none;'><td>$comp_spec ($id_spec)</td>"
+							print "\t\t<tr on='l:spec.toggle.$id.[value=3] then show else hide' style='display:none;'><td>$comp_spec ($id_spec)</td>"
 								 ."\n\t\t<td><select id='$id_spec' on='change then l:competences.changed'>$opt_spec\n\t\t</select></td></tr>\n";
 						}
 					}
@@ -358,10 +377,16 @@ function abreviateCompetence($competence) {
 	<?php
 	$arr = array();
 	foreach($comp as $category => $competences) {
+		// calculate cost of all competences
 		if ($category != "Spécialisation") {
 			foreach ($competences as $competence) {
 				$arr[] = "competences_cost($('".abreviateCompetence($competence)."').value)";
 			}
+		// calculate cost of all specialisations
+		} else {
+	//		foreach ($competences as $competence) {
+	//			$arr[] = "specialisation_cost($('".abreviateCompetence($competence)."').value)";
+	//		}
 		}
 	}
 	$sum = implode($arr, " + ");
