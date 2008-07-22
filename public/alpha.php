@@ -93,14 +93,24 @@ class database {
 // Custom data
 $db = new database;
 $comp = $db->getCompetences();
+$_spec = $comp['Spécialisation'];
 $attr = $db->getAttributes();
-$_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon', 'Expert', 'Maître');
+$_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon');
+$_comp_adv = array('Spécialisé', 'Expert', 'Maître');
 $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
 			   'Minotaure' => array('5', '5', '3', '4', '4', '4', '4', '3', '4', '4', '5', '3'));
 
+// Experimental
+$spec = array('Forge' => array('Métallurgie', "Forge d'armes", "Forge d'armures", "Forge d'outils"));
+
 // Custom functions
 function replaceAccents($word) {
-	return str_replace("é","e",$word);
+	$word = str_replace("é","e",$word);
+	$word = str_replace(" ","",$word);
+	$word = str_replace("'","",$word);
+	$word = str_replace("ê","e",$word);
+	$word = str_replace("É","e",$word);
+	return $word;
 }
 function abreviate($word, $n) {
 	$word = replaceAccents($word);
@@ -110,7 +120,7 @@ function abreviateAttribut($attribut) {
 	return abreviate($attribut, 4);
 }
 function abreviateCompetence($competence) {
-	return abreviate($attribut, 5);
+	return abreviate($competence, 10);
 }
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org">
@@ -267,15 +277,32 @@ function abreviateCompetence($competence) {
 		foreach($_comp as $niveau => $nom) {
 			$opt .= "\n\t\t\t<option value='$niveau'>$nom</option>";
 		}
+		$opt_spec = "";
+		foreach($_comp_adv as $niveau => $nom) {
+			$opt_spec .= "\n\t\t\t<option value='$niveau'>$nom</option>";
+		}
+		// For every category, print table with all competences in category, except category specialisations
 		foreach($comp as $category => $competences) {
-			print "\n\t\t<h4>$category</h4>"
-				 ."\n\t\t<table>\n";
-			foreach($competences as $competence) {
-				$id = abreviateCompetence($competence);
-				print "\t\t<tr><td>$competence</td>"
-					 ."\n\t\t<td><select id='$id' on='change then l:competences.changed'>$opt\n\t\t</select></td></tr>\n";
+			// Print only if competence is not a specialisation
+			if ($category != "Spécialisation") {
+				print "\n\t\t<h4>$category</h4>"
+					 ."\n\t\t<table>\n";
+				// Print every competence in category
+				foreach($competences as $competence) {
+					$id = abreviateCompetence($competence);
+					print "\t\t<tr><td>$competence ($id)</td>"
+						 ."\n\t\t<td><select id='$id' on='change then l:competences.changed and l:spec.toggle.$id.'>$opt\n\t\t</select></td></tr>\n";
+					// Print Specialisations of current competence
+					if (is_array($spec[$competence])) {
+						foreach ($spec[$competence] as $comp_spec) {
+							$id_spec = abreviateCompetence($comp_spec);
+							print "\t\t<tr on='l:spec.toggle.$id. then show else hide' style='display:none;'><td>$comp_spec ($id_spec)</td>"
+								 ."\n\t\t<td><select id='$id_spec' on='change then l:competences.changed'>$opt_spec\n\t\t</select></td></tr>\n";
+						}
+					}
+				}
+				print "\n\t\t</table>";
 			}
-			print "\n\t\t</table>";
 		} ?>
 	</div>
 
@@ -330,8 +357,12 @@ function abreviateCompetence($competence) {
 <app:script on="l:competences.changed then execute">
 	<?php
 	$arr = array();
-	foreach($comp as $competence) {
-		$arr[] = "competences_cost($('".abreviateCompetence($competence)."').value)";
+	foreach($comp as $category => $competences) {
+		if ($category != "Spécialisation") {
+			foreach ($competences as $competence) {
+				$arr[] = "competences_cost($('".abreviateCompetence($competence)."').value)";
+			}
+		}
 	}
 	$sum = implode($arr, " + ");
 	print "total_comp_cost = $sum;\n"
