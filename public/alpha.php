@@ -43,6 +43,8 @@ class database {
 		return $items;
 	}
 	// returns array with category as key and array of competences as value
+	// $comp['spécialisation'] = array('Forge' => array('Métallurgie', "Forge d'armes", "Forge d'armures", "Forge d'outils"));
+	// $comp['Survie'] = array('Attention', 'Discrétion', 'Furtivité');
 	function getCompetences() {
 		$query = "select * from wiki_wikidb_fielddata where table_title = 'Compétences' order by row_id";
 		$results = mysql_query("$query");
@@ -52,7 +54,14 @@ class database {
 		while ($row = mysql_fetch_array($results)) {
 			// If new item, store old in $items, create new item along with new itemId
 			if($itemId != $row['row_id']) {
-				if($item['categorie'] != '') {$items[$item['categorie']][] = $item['nom'];}
+				// Insert into $items[currentCategory] new element $item[name]
+				if($item['categorie'] != '') {
+					$items[$item['categorie']][] = $item['nom'];
+					if ($item['spécialisation'] != '') {
+						$specialisations = explode(", ", $item['spécialisation']);
+						$items['Spécialisation'][$item['nom']] = $specialisations;
+					}
+				}
 				$item = array();
 				$itemId = $row['row_id'];
 			}
@@ -60,7 +69,13 @@ class database {
 			$value = $row['field_value'];
 			$item[$key] = $value;
 		}
-		if($item['categorie'] != '') {$items[$item['categorie']][] = $item['nom'];}
+		if($item['categorie'] != '') {
+			$items[$item['categorie']][] = $item['nom'];
+			if ($item['spécialisation'] != '') {
+				$specialisations = explode(", ", $item['spécialisation']);
+				$items['Spécialisation'][$item['nom']] = $specialisations;
+			}
+		}
 		
 		return $items;
 	}
@@ -90,18 +105,20 @@ class database {
 	}
 }
 
+// if (categorie = Spécialisation) {
+//	// Insert into $items[Spécialisation][Competence] new element $specialisation
+// 	$items[$item['categorie']][$item['nom']][] = $specialisation;
+// }
+
 // Custom data
 $db = new database;
 $comp = $db->getCompetences();
-$_spec = $comp['Spécialisation'];
+$spec = $comp['Spécialisation'];
 $attr = $db->getAttributes();
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon');
 $_comp_adv = array('Compagnon', 'Spécialisé', 'Expert', 'Maître');
 $races = array('Humain' => array('4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'),
 			   'Minotaure' => array('5', '5', '3', '4', '4', '4', '4', '3', '4', '4', '5', '3'));
-
-// Experimental
-$spec = array('Forge' => array('Métallurgie', "Forge d'armes", "Forge d'armures", "Forge d'outils"));
 
 // Custom functions
 function replaceAccents($word) {
@@ -309,13 +326,13 @@ function abreviateCompetence($competence) {
 				// Print every competence in category
 				foreach($competences as $competence) {
 					$id = abreviateCompetence($competence);
-					print "\t\t<tr><td>$competence ($id)</td>"
+					print "\t\t<tr><td>$competence</td>"
 						 ."\n\t\t<td><select id='$id' on='change then l:competences.changed and l:spec.toggle.$id.'>$opt\n\t\t</select></td></tr>\n";
 					// Print Specialisations of current competence
 					if (is_array($spec[$competence])) {
 						foreach ($spec[$competence] as $comp_spec) {
 							$id_spec = abreviateCompetence($comp_spec);
-							print "\t\t<tr on='l:spec.toggle.$id.[value=3] then show else hide' style='display:none;'><td>$comp_spec ($id_spec)</td>"
+							print "\t\t<tr on='l:spec.toggle.$id.[value=3] then show else hide' style='display:none;'><td>$comp_spec</td>"
 								 ."\n\t\t<td><select id='$id_spec' on='change then l:competences.changed'>$opt_spec\n\t\t</select></td></tr>\n";
 						}
 					}
