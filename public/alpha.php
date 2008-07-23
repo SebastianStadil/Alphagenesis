@@ -56,8 +56,9 @@ class database {
 			if($itemId != $row['row_id']) {
 				// Insert into $items[currentCategory] new element $item[name]
 				if($item['categorie'] != '') {
-					$items[$item['categorie']][] = $item['nom'];
 					if ($item['spécialisation'] != '') {
+						// If item is specialisation, don't add
+						$items[$item['categorie']][] = $item['nom'];
 						$specialisations = explode(", ", $item['spécialisation']);
 						$items['Spécialisation'][$item['nom']] = $specialisations;
 					}
@@ -70,8 +71,9 @@ class database {
 			$item[$key] = $value;
 		}
 		if($item['categorie'] != '') {
-			$items[$item['categorie']][] = $item['nom'];
 			if ($item['spécialisation'] != '') {
+				// If item is specialisation, don't add
+				$items[$item['categorie']][] = $item['nom'];
 				$specialisations = explode(", ", $item['spécialisation']);
 				$items['Spécialisation'][$item['nom']] = $specialisations;
 			}
@@ -105,15 +107,10 @@ class database {
 	}
 }
 
-// if (categorie = Spécialisation) {
-//	// Insert into $items[Spécialisation][Competence] new element $specialisation
-// 	$items[$item['categorie']][$item['nom']][] = $specialisation;
-// }
-
 // Custom data
 $db = new database;
 $comp = $db->getCompetences();
-$spec = $comp['Spécialisation'];
+$spec = $comp['Spécialisation']; var_dump($spec);
 $attr = $db->getAttributes();
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon');
 $_comp_adv = array('Compagnon', 'Spécialisé', 'Expert', 'Maître');
@@ -332,7 +329,7 @@ function abreviateCompetence($competence) {
 					if (is_array($spec[$competence])) {
 						foreach ($spec[$competence] as $comp_spec) {
 							$id_spec = abreviateCompetence($comp_spec);
-							print "\t\t<tr on='l:spec.toggle.$id.[value=3] then show else hide' style='display:none;'><td>$comp_spec</td>"
+							print "\t\t<tr on='l:spec.toggle.$id.[value=3] then show and effect[highlight] else hide' style='display:none;'><td>$comp_spec</td>"
 								 ."\n\t\t<td><select id='$id_spec' on='change then l:competences.changed'>$opt_spec\n\t\t</select></td></tr>\n";
 						}
 					}
@@ -393,21 +390,23 @@ function abreviateCompetence($competence) {
 <app:script on="l:competences.changed then execute">
 	<?php
 	$arr = array();
+	// calculate cost of all competences
 	foreach($comp as $category => $competences) {
-		// calculate cost of all competences
 		if ($category != "Spécialisation") {
 			foreach ($competences as $competence) {
 				$arr[] = "competences_cost($('".abreviateCompetence($competence)."').value)";
 			}
-		// calculate cost of all specialisations
-		} else {
-	//		foreach ($competences as $competence) {
-	//			$arr[] = "specialisation_cost($('".abreviateCompetence($competence)."').value)";
-	//		}
+		}	
+	}
+	// calculate cost of all specialisations
+	foreach ($spec as $specialisations) {
+	//	$arr[] = "specialisation_cost($('".abreviateCompetence($specialisations)."').value)";
+		foreach ($specialisations as $specialisation) {
+			$arr[] = "specialisation_cost($('".abreviateCompetence($specialisation)."').value)";
 		}
 	}
 	$sum = implode($arr, " + ");
-	print "total_comp_cost = $sum;\n"
+	print "total_comp_cost = $sum;\n";
 	?>
 	$MQ("l:competences.calculated", {pp:total_comp_cost});
 </app:script>
