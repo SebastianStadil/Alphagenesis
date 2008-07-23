@@ -110,7 +110,7 @@ class database {
 // Custom data
 $db = new database;
 $comp = $db->getCompetences();
-$spec = $comp['Spécialisation']; var_dump($spec);
+$spec = $comp['Spécialisation'];
 $attr = $db->getAttributes();
 $_comp = array('Profane', 'Novice', 'Apprenti', 'Compagnon');
 $_comp_adv = array('Compagnon', 'Spécialisé', 'Expert', 'Maître');
@@ -143,6 +143,7 @@ function abreviateCompetence($competence) {
     <noscript><meta http-equiv="refresh" content="0;upgrade_script.html"/></noscript>
     <title>AlphaGenesis</title>
     <script src="javascripts/appcelerator.js" type="text/javascript"></script>
+	<link href="stylesheets/alpha.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="images/favicon.ico"/>
     <style>img { border: none;}</style>
 	<script type="text/javascript">
@@ -318,7 +319,8 @@ function abreviateCompetence($competence) {
 		foreach($comp as $category => $competences) {
 			// Print only if competence is not a specialisation
 			if ($category != "Spécialisation") {
-				print "\n\t\t<h4>$category</h4>"
+				print "\n\t\t<div class='categorieCompetences'>"
+					 ."\n\t\t<h4>$category</h4>"
 					 ."\n\t\t<table>\n";
 				// Print every competence in category
 				foreach($competences as $competence) {
@@ -330,11 +332,12 @@ function abreviateCompetence($competence) {
 						foreach ($spec[$competence] as $comp_spec) {
 							$id_spec = abreviateCompetence($comp_spec);
 							print "\t\t<tr on='l:spec.toggle.$id.[value=3] then show and effect[highlight] else hide' style='display:none;'><td>$comp_spec</td>"
-								 ."\n\t\t<td><select id='$id_spec' on='change then l:competences.changed'>$opt_spec\n\t\t</select></td></tr>\n";
+								 ."\n\t\t<td><select id='$id_spec' on='change then l:competences.changed or l:spec.toggle.$id. then reset'>$opt_spec\n\t\t</select></td></tr>\n";
 						}
 					}
 				}
-				print "\n\t\t</table>";
+				print "\n\t\t</table>"
+					 ."\n\t\t</div>";
 			}
 		} ?>
 	</div>

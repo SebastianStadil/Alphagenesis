@@ -1,0 +1,16 @@
+body {
+	
+}
+
+div#attributs {
+	float:left;
+}
+
+div#competences {
+	float:left;
+}
+
+div.categorieCompetences {
+	display:inline;
+	float:left;
+}
