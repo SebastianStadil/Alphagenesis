@@ -1,0 +1,9 @@
+--- 
+:type: service
+:dependencies: 
+- name: websdk
+  type: websdk
+:name: php
+:licenses: 
+- 6
+:version: 3.0.1.0
