@@ -1,4 +1,8 @@
 <?
+/**
+* This script helps you throw dice when you forgot
+* yours at home. Reload to throw again.
+**/
 function d($faces,$nombre) {
 	$total = 0;
 	for($c=0;$c<$nombre;$c++) {
@@ -31,29 +35,6 @@ function d($faces,$nombre) {
 		<td><? print d(6,4); ?></td>
 		<td><? print d(6,5); ?></td>
 		<td><? print d(6,6); ?></td>
-	</tr>
-</table>
-
-<table style="border-size:1px;">
-	<tr>
-		<td>1d10</td>
-		<td>2d10</td>
-		<td>3d10</td>
-		<td>4d10</td>
-		<td>5d10</td>
-		<td>6d10</td>
-		<td>7d10</td>
-		<td>8d10</td>
-	</tr>
-	<tr>
-		<td><? print d(10,1); ?></td>
-		<td><? print d(10,2); ?></td>
-		<td><? print d(10,3); ?></td>
-		<td><? print d(10,4); ?></td>
-		<td><? print d(10,5); ?></td>
-		<td><? print d(10,6); ?></td>
-		<td><? print d(10,7); ?></td>
-		<td><? print d(10,8); ?></td>
 	</tr>
 </table>
 

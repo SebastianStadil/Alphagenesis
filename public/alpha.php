@@ -1,4 +1,8 @@
 <?php
+/**
+* This is the main page for AlphaGenesis, with which
+* are created the characters.
+**/
 
 // Database class
 class database {

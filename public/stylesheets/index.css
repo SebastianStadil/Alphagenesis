@@ -1,0 +1,26 @@
+body {
+	margin:0;
+	padding:0;
+}
+
+div#header {
+	padding:5px 8px;
+	margin:auto;
+	background-color:#222;
+	border:thin 1px solid;
+	color:white;
+}
+
+div#header a {
+	text-decoration:none;
+	color:white;
+}
+
+div#loading {
+	display:none;
+	float:right;
+}
+
+div#character {
+	padding:5px 20px;
+}
