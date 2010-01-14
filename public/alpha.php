@@ -12,11 +12,11 @@ class database {
 	// constructor connects and selects database
 	function __construct() {
 		// Database settings
-		$DBserver         = "mysql.archipel.stadil.com";
-		$DBname           = "archipel";
-		$DBuser           = "archipel";
-		$DBpassword       = "acruis";
-		$DBprefix         = "wiki_";
+		$DBserver         = "host";
+		$DBname           = "db";
+		$DBuser           = "user";
+		$DBpassword       = "psw";
+		$DBprefix         = "pre_";
 		mysql_connect($DBserver, $DBuser, $DBpassword);
 		mysql_select_db($DBname);
 	}
