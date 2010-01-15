@@ -1,78 +1,248 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://www.appcelerator.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://appcelerator.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>AlphaGenesis</title>
-    <script src="javascripts/appcelerator.js" type="text/javascript"></script>
-    <link rel="shortcut icon" href="images/favicon.ico"/>
-    <style>img { border: none;}</style>
-	<script type="text/javascript">
-		function attribut_cost(attr) {
-			switch(attr) {
-				case '0':
-					return -40;
-					break;
-				case '1':
-					return -25;
-					break;
-				case '2':
-					return -12;
-					break;
-				case '3':
-					return -5;
-					break;
-				case '4':
-					return 0;
-					break;
-				case '5':
-					return 8;
-					break;
-				case '6':
-					return 16;
-					break;
-				case '7':
-					return 30;
-					break;
-				case '8':
-					return 45;
-					break;
-				default:
-					return 0;
-					break;
-			}
-		}
-	</script>
+    <title>Archipel Character Creator</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="appcelerator/images/favicon.ico"/>
+	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" />
+    <script src="javascripts/entourage.js" type="text/javascript"></script>
+<!--
+	<script src="javascripts/prototype.js" type="text/javascript"></script>
+	<script src="javascripts/scriptaculous.js" type="text/javascript"></script>
+-->
 </head>
+
 <body style="visibility:hidden" on="l:app.compiled then visible">
 
-	<div>
-		<app:editinplace type="text" id="name" saveOn="click then l:save" cancelOn="click then l:cancel" 
-			validator="required" position="right" defaultClassName="bold_value_grey_lg" defaultValue="Cliquez pour entrer votre nom">
-		</app:editinplace>
+	<!-- Character generator for Appcelerator 3.0.1 -->
+	<!-- This view allows you to view an existing character,
+	 	 or create a new one -->
+	
+	<!-- Header is the top menu that lets you choose between creating a new character,
+		 and loading one -->
+	<div id="header">
+		
+		<!-- When user clicks on 'Create new character, load empty character template -->
+		<a href="#" on="click then l:character.new.request">Create new character</a>
+		
+			<small>or</small>
+		
+		<!-- When user select an existing character, load character from server, update history -->
+		<a href="#" on="click then history[test]">Load existing:
+			<select>
+				<!-- Placeholder serves to show some functionality without real data -->
+				<option>Glaurung</option>
+				<option>Feanor</option>
+			</select>
+		</a>
+		
+		<!-- When user makes a request, show loading animation until response comes back -->
+		<div id="loading" on="l:character.new.request then show or
+							  l:character.new.response then hide"><img src="images/indicator_222.gif"></img></div>
 	</div>
-	<div id="attributs">
-		<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>
-		Force <input on="change then l:attributs.changed" id="for" type="text" value="4" size="1" /><br />
-		Endurance <input on="change then l:attributs.changed" id="end" type="text" value="4" size="1" /><br />
-		Agilité <input on="change then l:attributs.changed" id="agi" type="text" value="4" size="1" /><br />
-		Dextérité <input on="change then l:attributs.changed" id="dex" type="text" value="4" size="1" /><br />
-		Métabolisme <input on="change then l:attributs.changed" id="met" type="text" value="4" size="1" /><br />
-		Réflexes <input on="change then l:attributs.changed" id="ref" type="text" value="4" size="1" /><br />
-		Entendement <input on="change then l:attributs.changed" id="ent" type="text" value="4" size="1" /><br />
-		Inventivité <input on="change then l:attributs.changed" id="inv" type="text" value="4" size="1" /><br />
-		Mémoire <input on="change then l:attributs.changed" id="mem" type="text" value="4" size="1" /><br />
-		Volonté <input on="change then l:attributs.changed" id="vol" type="text" value="4" size="1" /><br />
-		Charisme <input on="change then l:attributs.changed" id="cha" type="text" value="4" size="1" /><br />
-		Perception <input on="change then l:attributs.changed" id="per" type="text" value="4" size="1" /><br />
-		Ténacité <input on="l:attributs.calculated then value[ten]" id="ten" type="text" value="4" size="1" disabled="true" /><br />
+	
+	
+	
+	
+	
+	<div id="helper" on="l:character.new.request then show">
+		<div control="jquery_accordion" id="helperAccordion">
+			<div id="_race" title="Races">
+				Elfe
+			</div>
+			<div id="_cultures" title="Cultures">
+				Naelis
+			</div>
+			<div id="_attributs" title="Attributs">
+				Force...
+			</div>
+			<div id="_competences" title="Compétences">
+				Étiquette
+			</div>
+			<div id="_dons_defauts" title="Dons et Défauts">
+				Deaf
+			</div>
+			<div id="_magie" title="Magie">
+				Choose your magic
+			</div>
+			<div id="_equipement" title="Équipement">
+				Swords
+			</div>
+		</div>
 	</div>
+	
+	
+	
+	
+	
+	<!-- Character div is the space in which we load the characters,
+	 	 when user creates new character, or selects existing, the div slides down from
+		 under the header div -->
+	<div id="character" on="l:character.new.request then show
+						 or l:app.compiled then hide">
 
-<app:script on="l:attributs.changed then execute">
-	total_attr_cost = attribut_cost($('for').value) + attribut_cost($('end').value) + attribut_cost($('agi').value) + attribut_cost($('dex').value) + attribut_cost($('met').value) + attribut_cost($('ref').value) + attribut_cost($('ent').value) + attribut_cost($('inv').value) + attribut_cost($('mem').value) + attribut_cost($('vol').value) + attribut_cost($('cha').value) + attribut_cost($('per').value);
-	ten = (Number($('end').value) + Number($('vol').value)) / 2;
-	$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
-</app:script>
+		<!-- Modal element for Getting Started -->
+<!--		
+		<div class="box" 
+			behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" 
+				on="l:app.compiled then show or l:close then hide">
+			<div>Use the top menu to create a new character, or view an existing one. Your
+				character's name will be used to save the file, and you will be prompted
+				for a password. You will need this password to later edit this character.</div>
+			<div class="right" on="click then l:close">Close</div>
+		</div>
+-->		
+		<!-- Dividers for the different parts of a character;
+		     we use an accordion here, which is vertically collapsing -->
+		<div control="jquery_tabs" id="mainTabs">
+			
+			<div id="personnage" title="Personnage">
+				<!-- Enter name for new character -->
+				<p>Enter character name</p>
+				<p id="name">Name</p>
 
+				<!-- Enter a class for the character -->
+				<p>Enter character class</p>
+				<p id="class">Class</p>
+				
+			</div>
+			<div id="attributs" title="Attributs (0pp)"> 
+				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>
+				<table class="table">
+					<tr>
+						<td class="nameCell">Force</td>
+						<td class="valueCell"><input on="change then l:attributs.changed" id="for" type="text" value="4" size="1" /></td>
+						<td class="nameCell">Entendement</td>
+						<td class="valueCell"><input on="change then l:attributs.changed" id="ent" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Endurance</td>
+						<td><input on="change then l:attributs.changed" id="end" type="text" value="4" size="1" /></td>
+						<td>Inventivité</td>
+						<td><input on="change then l:attributs.changed" id="inv" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Agilité</td>
+						<td><input on="change then l:attributs.changed" id="agi" type="text" value="4" size="1" /></td>
+						<td>Mémoire</td>
+						<td><input on="change then l:attributs.changed" id="mem" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Dextérité</td>
+						<td><input on="change then l:attributs.changed" id="dex" type="text" value="4" size="1" /></td>
+						<td>Volonté</td>
+						<td><input on="change then l:attributs.changed" id="vol" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Métabolisme</td>
+						<td><input on="change then l:attributs.changed" id="met" type="text" value="4" size="1" /></td>
+						<td>Perception</td>
+						<td><input on="change then l:attributs.changed" id="per" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Réflexes</td>
+						<td><input on="change then l:attributs.changed" id="ref" type="text" value="4" size="1" /></td>
+						<td>Charisme</td>
+						<td><input on="change then l:attributs.changed" id="cha" type="text" value="4" size="1" /></td>
+					</tr>
+				</table>
+			</div>
+			<div id="competences" title="Compétences (0pp)">
+				Content...
+			</div>
+			<div id="misc" title="Autre">
+				extra
+			</div>
+		</div>
+		
+		<h2>Équipement</h2>
+		<!-- Tabs to separate all the different kinds of equipement -->
+		<div id="equipTabs" control="jquery_tabs">			
+			<div id="liquidity" title="Liquidités (0 po)">
+				No gold.
+			</div>
+			<div id="armes" title="Armes">
+				The Butcher's Cleaver
+			</div>
+			<div id="armures" title="Armures">
+			    Arkaine's Valor
+			</div>
+			<div id="misc" title="Autre">
+			    Une tente et de la corde
+			</div>
+		</div>
+		
+		<h2>Magie</h2>
+		<!-- Tabs to separate all the different kinds of magic -->
+		<div id="magicTabs" control="jquery_tabs">
+			<div id="sorcellerie" title="Sorcellerie">
+				BdF !
+			</div>
+			<div id="elementalisme" title="Élémentalisme">
+			    Colère = feu ]:-)
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="scripts">
+		<!-- This script turns #name into an editable (Must uncomment js includes in <head> to enable)
+		Documentation for this method found here:
+		http://wiki.github.com/madrobby/scriptaculous/ajax-inplaceeditor -->
+<!--		<script type="text/javascript">
+			new Ajax.InPlaceEditor('name', '/demoajaxreturn.html');
+		</script>
+-->
+		<!-- This script turns #class into a selectable (Must uncomment js includes in <head> to enable)
+		Documentation for this method found here:
+		http://wiki.github.com/madrobby/scriptaculous/ajax-inplacecollectioneditor -->
+<!--		<script type="text/javascript">
+			new Ajax.InPlaceCollectionEditor('class', '/demoajaxreturn.html', {collection: ['warrior','mage','rogue']} );
+		</script>
+-->
+		<script type="text/javascript">
+			function attribut_cost(attr) {
+				switch(attr) {
+					case '0':
+						return -40;
+						break;
+					case '1':
+						return -25;
+						break;
+					case '2':
+						return -12;
+						break;
+					case '3':
+						return -5;
+						break;
+					case '4':
+						return 0;
+						break;
+					case '5':
+						return 8;
+						break;
+					case '6':
+						return 16;
+						break;
+					case '7':
+						return 30;
+						break;
+					case '8':
+						return 45;
+						break;
+					default:
+						return 0;
+						break;
+				}
+			}
+		</script>
+		<script type="text/javascript">
+			on="l:attributs.changed then execute"
+			var total_attr_cost = attribut_cost($('for').value) + attribut_cost($('end').value) + attribut_cost($('agi').value) + attribut_cost($('dex').value) + attribut_cost($('met').value) + attribut_cost($('ref').value) + attribut_cost($('ent').value) + attribut_cost($('inv').value) + attribut_cost($('mem').value) + attribut_cost($('vol').value) + attribut_cost($('cha').value) + attribut_cost($('per').value);
+			ten = (Number($('end').value) + Number($('vol').value)) / 2;
+			$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
+		</script>
+	</div>
 </body>
 </html>
