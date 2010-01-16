@@ -7,12 +7,12 @@
     <link rel="shortcut icon" href="appcelerator/images/favicon.ico"/>
 	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" /><!-- Stylesheet for the character creator -->
     <script src="javascripts/entourage.js" type="text/javascript"></script><!-- Appcelerator JS -->
-	<script src="javascripts/alpha.js" type="text/javascript"></script><!-- Archipel JS -->
 	<script src="javascripts/jquery.editable-1.3.3.min.js" type="text/javascript"></script><!-- Editable JS -->
+	<script src="javascripts/alpha.js" type="text/javascript"></script><!-- Archipel JS, must be after Editable JS -->
 </head>
 
 <!-- When appcelerator finishes compiling the page in the browser, it makes the page visible -->
-<body style="visibility:hidden" on="l:app.compiled then visible and script[$(document).ready(function(){a_editable();});]">
+<body style="visibility:hidden" on="l:app.compiled then visible and script[a_editable()]">
 
 	<!-- Character generator for Appcelerator 3.0.1 -->
 	<!-- This view allows you to view an existing character,
@@ -23,12 +23,12 @@
 	<div id="header">
 		
 		<!-- When user clicks on 'Create new character, load empty character template -->
-		<a href="#" on="click then l:character.new.request">Create new character</a>
+		<a href="#" on="click then l:character.new.request">Créer un nouveau personnage</a>
 		
-			<small>or</small>
+			<small>ou</small>
 		
 		<!-- When user select an existing character, load character from server, update history -->
-		<a href="#" on="click then history[test]">Load existing:
+		<a href="#" on="click then history[test]">Charger
 			<select>
 				<!-- Placeholder serves to show some functionality without real data -->
 				<option>Glaurung</option>
@@ -38,7 +38,7 @@
 		
 		<!-- When user makes a request, show loading animation until response comes back -->
 		<div id="loading" on="l:character.new.request then show or
-							  l:character.new.response then hide"><img src="images/indicator_222.gif"></img></div>
+							  l:character.new.response then hide"><img src="images/indicator_222.gif" /></div>
 	</div>
 	
 	
@@ -46,9 +46,28 @@
 	
 	
 	<div id="helper" on="l:character.new.request then show">
-		<div control="jquery_accordion" id="helperAccordion">
+		<div control="jquery_accordion" id="helperAccordion" on="l:step.change then activate[step]">
 			<div id="_race" title="Races">
-				Elfe
+				<div behavior="selectable">
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Humain
+					</div>
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Elfe
+					</div>
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Orc
+					</div>
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Minotaure
+					</div>
+				</div>
+				<div class="tooltip" behavior="tooltip[id=elfe,track=true]">Elfe</div>
+				<input type="text" id="elfe" value="Elfe"/>
 			</div>
 			<div id="_cultures" title="Cultures">
 				Naelis
@@ -98,26 +117,18 @@
 		<!-- Dividers for the different parts of a character;
 		     we use tabs here to separate content -->
 		<div control="jquery_tabs" id="mainTabs">
-			
 			<div id="personnage" title="Personnage">
-				<!-- Double-click to edit -->
-				<p><label for="name">Name</label>: <input type="text" name="name" value="" id="name"></p>
-				<p><label for="age">Age</label>: <input type="text" name="age" value="" id="age" size="3"></p>
-				<select name="Sexe" id="sex">
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-				</select>
-				<select name="Class" id="class">
-					<option value="mage">Mage</option>
-					<option value="rogue">Rogue</option>
-					<option value="warrior">Warrior</option>
-				</select>
-				
+				<!-- Click to edit, fields are found in alpha.js -->
 				<p class="editable">Name</p>
-				<p class="selectable">Class</p>
+				<p id="class" class="selectable">Class</p>
+				<p class="editable">Age</p>
+				<p id="sex" class="selectable">Sexe</p>
+				
+				<p on="click then l:race.select or l:race.selected then value[race]">Race</p>
+				<p on="click then l:step.change[step=1]">Culture</p>
 			</div>
-			<div id="attributs" title="Attributs (0pp)"> 
-				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>
+			<div id="attributs" title="Attributs (0pp)" on="click then l:step.change[step=2]"> 
+				<h3 on="click then l:step.change[step=3]">Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>
 				<table class="table">
 					<tr>
 						<td class="nameCell">Force</td>
@@ -201,8 +212,64 @@
 			<div id="elementalisme" title="Élémentalisme">
 			    Colère = feu ]:-)
 			</div>
+			<div id="runes" title="Magie runique">
+			    ¥ †¨√ˆ∫ø ~ !
+			</div>
+			<div id="psionisme" title="Psionisme">
+			    All your mind are belong to us!
+			</div>
 		</div>
 		
+		
+	</div>
+	
+	
+	
+	
+	<!-- Dialog for choosing your race -->
+	<div control="jquery_dialog[title=Choisissez votre peuple, height=600, width=960, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
+		 on="l:race.select then open" id="raceDialog">
+		<div behavior="selectable" class="rightPanel" id="raceChoose">
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=Humain] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Humain
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=Elfe] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Elfe
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=Orc] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Orc
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=Minotaur] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Minotaure
+			</div>
+		</div>
+		<div class="mainPanel" id="raceInfo">
+			<div class="descRace" on="l:race.selected[race=Humain] then show else hide">
+				Les humains, ça passe.
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet quam enim, eget ornare dui. Sed nec cursus mi. Phasellus a est sed turpis consequat egestas. Pellentesque pretium, eros vitae dignissim accumsan, urna neque feugiat erat, quis tempor orci felis nec arcu. Nullam ac lorem erat, vulputate molestie nisi. Donec dui quam, vehicula ut vehicula ac, porttitor eu odio. Nulla at magna a nibh volutpat sagittis. Sed auctor sapien eget velit aliquam sed aliquam tellus semper. Praesent faucibus imperdiet orci. Morbi justo leo, luctus vitae euismod id, ullamcorper ut metus. Aliquam varius ante non est feugiat fringilla fermentum dui dignissim. Aliquam vitae ultrices urna. Cras volutpat volutpat aliquam. Nulla facilisi. Cras odio ante, porttitor viverra dapibus in, ornare ac est. Vivamus ultricies vulputate quam, ut pulvinar magna tempus euismod. Curabitur in mauris vitae tellus suscipit faucibus.</p>
+				<p>Proin lorem lorem, aliquam sit amet fringilla ac, posuere vel nisi. Mauris vitae blandit augue. Suspendisse vel arcu eget massa rhoncus gravida. Curabitur urna metus, malesuada ac suscipit a, placerat vel justo. Integer egestas facilisis elementum. Curabitur ac ipsum lorem, a scelerisque enim. Sed commodo aliquam dui ac imperdiet. Nulla in erat et ipsum laoreet pellentesque. Etiam nec lectus eu risus sollicitudin pretium. Nunc laoreet vehicula viverra.</p>
+				<p>Suspendisse potenti. Cras ut arcu vitae enim eleifend lobortis. Phasellus ac nibh a arcu porttitor pulvinar. Nulla ac mauris sit amet justo sodales mattis. Proin eget tristique ipsum. Suspendisse vel faucibus ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut in ornare dui. Cras ornare malesuada ipsum, ut dapibus arcu lacinia nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nunc ante, fermentum at gravida id, semper ut odio. Integer nec velit dolor, ac tempus augue.</p>
+				<p>Nulla facilisi. Proin turpis nibh, congue nec laoreet eget, tempor sit amet ante. Pellentesque eu neque id felis interdum scelerisque et et ligula. Pellentesque eget ligula nisi, quis egestas leo. Quisque dignissim turpis quis tortor sodales sollicitudin. Mauris volutpat, dolor non fringilla faucibus, sapien lectus cursus justo, accumsan condimentum leo libero vitae dolor. Morbi volutpat tortor ut eros volutpat condimentum. Sed ac turpis enim, id accumsan tortor. Sed eleifend dolor a lectus vehicula interdum. Morbi ac mi quis odio mattis bibendum. Nulla lacinia vulputate ante, non iaculis dolor commodo vel. Nullam nec mauris at velit viverra interdum lobortis at erat.</p>
+				<p>Vestibulum molestie arcu id neque pharetra ac bibendum dolor congue. Aenean lacinia est vel eros fringilla mollis. Praesent hendrerit risus orci. Quisque a justo in quam ultricies elementum. Nam cursus hendrerit augue ac venenatis. Nam libero sem, varius at dapibus id, ultrices eget nunc. Donec at augue sodales diam venenatis iaculis vel nec sapien. Ut lacinia odio lobortis erat tincidunt sodales. Quisque at ligula ut metus gravida pulvinar ac at dolor. Maecenas et nisi sed nibh malesuada ornare. Cras tincidunt porta luctus. Curabitur non congue velit. Duis sed nunc metus.</p>
+		</div>
+			<div class="descRace" on="l:race.selected[race=Elfe] then show else hide">
+				Les elfes, c'est mieux.
+			</div>
+			<div class="descRace" on="l:race.selected[race=Orc] then show else hide">
+				Les orcs, c'est la classe.
+			</div>
+			<div class="descRace" on="l:race.selected[race=Minotaure] then show else hide">
+				Et les minotaures, ça poutre.
+			</div>
+		</div>
 	</div>
 </body>
 </html>

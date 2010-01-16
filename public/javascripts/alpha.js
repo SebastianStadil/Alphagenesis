@@ -4,22 +4,25 @@
 //
 // All rights reserved. Sorry.
 
-/* This script turns #id into an editable / selectable
-Documentation for this method found here:
-http://wiki.github.com/madrobby/scriptaculous/ajax-inplaceeditor
-and
-http://wiki.github.com/madrobby/scriptaculous/ajax-inplacecollectioneditor
-*/
-//	new Ajax.InPlaceEditor('name', '/demoajaxreturn.html');
-//	new Ajax.InPlaceEditor('age', '/demoajaxreturn.html');
-//	new Ajax.InPlaceCollectionEditor('class', '/demoajaxreturn.html', {collection: ['warrior','mage','rogue']} );
-//	new Ajax.InPlaceCollectionEditor('sex', '/demoajaxreturn.html', {collection: ['male','female','other']} );
-	
 // Makes tags.class editable in place
 function a_editable() {
+	var race;
 	$('p.editable').editable();
-	$('p.selectable').editable({type:'select',options:{'warrior':'Warrior','mage':'Mage','rogue':'Rogue'},submit:'save',cancel:'cancel',onSubmit:end});
-});
+	$('p#class').editable({type:'select',options:{'warrior':'Guerrier','mage':'Mage','rogue':'Voleur'},submit:'sauver',cancel:'annuler'});
+	$('p#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Autre'},submit:'sauver',cancel:'annuler'});
+	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
+																//$MQ({
+																//	name:'l:race.selected',
+																//	scope:'appcelerator',
+																//	payload:{
+																//		race:'humansss'//$('#raceDialog')
+																//	}
+																//});
+																$(this).dialog("close");
+															},
+												  "Annuler":function(){$(this).dialog("close");}
+												  });
+};
 
 // This script establishes the cost of increasing or decreasing an attribute
 function attribut_cost(attr) {
@@ -58,7 +61,7 @@ function attribut_cost(attr) {
 }
 
 // This script calculates and updates the cost of all the attribute modifications
-on="l:attributs.changed then execute"
-var total_attr_cost = attribut_cost($('for').value) + attribut_cost($('end').value) + attribut_cost($('agi').value) + attribut_cost($('dex').value) + attribut_cost($('met').value) + attribut_cost($('ref').value) + attribut_cost($('ent').value) + attribut_cost($('inv').value) + attribut_cost($('mem').value) + attribut_cost($('vol').value) + attribut_cost($('cha').value) + attribut_cost($('per').value);
-ten = (Number($('end').value) + Number($('vol').value)) / 2;
-$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
+//on="l:attributs.changed then execute"
+//var total_attr_cost = attribut_cost($('for').value) + attribut_cost($('end').value) + attribut_cost($('agi').value) + attribut_cost($('dex').value) + attribut_cost($('met').value) + attribut_cost($('ref').value) + attribut_cost($('ent').value) + attribut_cost($('inv').value) + attribut_cost($('mem').value) + attribut_cost($('vol').value) + attribut_cost($('cha').value) + attribut_cost($('per').value);
+//ten = (Number($('end').value) + Number($('vol').value)) / 2;
+//$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
