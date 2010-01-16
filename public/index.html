@@ -5,15 +5,14 @@
     <title>Archipel Character Creator</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="appcelerator/images/favicon.ico"/>
-	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" />
-    <script src="javascripts/entourage.js" type="text/javascript"></script>
-<!--
-	<script src="javascripts/prototype.js" type="text/javascript"></script>
-	<script src="javascripts/scriptaculous.js" type="text/javascript"></script>
--->
+	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" /><!-- Stylesheet for the character creator -->
+    <script src="javascripts/entourage.js" type="text/javascript"></script><!-- Appcelerator JS -->
+	<script src="javascripts/alpha.js" type="text/javascript"></script><!-- Archipel JS -->
+	<script src="javascripts/jquery.editable-1.3.3.min.js" type="text/javascript"></script><!-- Editable JS -->
 </head>
 
-<body style="visibility:hidden" on="l:app.compiled then visible">
+<!-- When appcelerator finishes compiling the page in the browser, it makes the page visible -->
+<body style="visibility:hidden" on="l:app.compiled then visible and script[$(document).ready(function(){a_editable();});]">
 
 	<!-- Character generator for Appcelerator 3.0.1 -->
 	<!-- This view allows you to view an existing character,
@@ -60,6 +59,9 @@
 			<div id="_competences" title="Compétences">
 				Étiquette
 			</div>
+			<div id="_options_de_combat" title="Options de Combat">
+				Hiyaa !
+			</div>
 			<div id="_dons_defauts" title="Dons et Défauts">
 				Deaf
 			</div>
@@ -94,18 +96,25 @@
 		</div>
 -->		
 		<!-- Dividers for the different parts of a character;
-		     we use an accordion here, which is vertically collapsing -->
+		     we use tabs here to separate content -->
 		<div control="jquery_tabs" id="mainTabs">
 			
 			<div id="personnage" title="Personnage">
-				<!-- Enter name for new character -->
-				<p>Enter character name</p>
-				<p id="name">Name</p>
-
-				<!-- Enter a class for the character -->
-				<p>Enter character class</p>
-				<p id="class">Class</p>
+				<!-- Double-click to edit -->
+				<p><label for="name">Name</label>: <input type="text" name="name" value="" id="name"></p>
+				<p><label for="age">Age</label>: <input type="text" name="age" value="" id="age" size="3"></p>
+				<select name="Sexe" id="sex">
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+				</select>
+				<select name="Class" id="class">
+					<option value="mage">Mage</option>
+					<option value="rogue">Rogue</option>
+					<option value="warrior">Warrior</option>
+				</select>
 				
+				<p class="editable">Name</p>
+				<p class="selectable">Class</p>
 			</div>
 			<div id="attributs" title="Attributs (0pp)"> 
 				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>
@@ -149,10 +158,20 @@
 				</table>
 			</div>
 			<div id="competences" title="Compétences (0pp)">
-				Content...
+				<input type="button" on="click then l:skill.add" value="Add skill"/>
+				<div control="jquery_dialog[title=Compétences, content=Add skill, autoOpen=false]"
+				     on="l:skill.add then open">
+					<div>Sword, Axe, Shield</div>
+				</div>
+				<div class="box" 
+					 behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" 
+					 on="l:skill.add2 then show or l:close then hide">
+					<div>Sword, Axe, Shield</div>
+					<div class="right" on="click then l:close">Close</div>
+				</div>
 			</div>
-			<div id="misc" title="Autre">
-				extra
+			<div id="bio" title="Bio">
+				Historique de personnage.
 			</div>
 		</div>
 		
@@ -184,65 +203,6 @@
 			</div>
 		</div>
 		
-	</div>
-	
-	<div class="scripts">
-		<!-- This script turns #name into an editable (Must uncomment js includes in <head> to enable)
-		Documentation for this method found here:
-		http://wiki.github.com/madrobby/scriptaculous/ajax-inplaceeditor -->
-<!--		<script type="text/javascript">
-			new Ajax.InPlaceEditor('name', '/demoajaxreturn.html');
-		</script>
--->
-		<!-- This script turns #class into a selectable (Must uncomment js includes in <head> to enable)
-		Documentation for this method found here:
-		http://wiki.github.com/madrobby/scriptaculous/ajax-inplacecollectioneditor -->
-<!--		<script type="text/javascript">
-			new Ajax.InPlaceCollectionEditor('class', '/demoajaxreturn.html', {collection: ['warrior','mage','rogue']} );
-		</script>
--->
-		<script type="text/javascript">
-			function attribut_cost(attr) {
-				switch(attr) {
-					case '0':
-						return -40;
-						break;
-					case '1':
-						return -25;
-						break;
-					case '2':
-						return -12;
-						break;
-					case '3':
-						return -5;
-						break;
-					case '4':
-						return 0;
-						break;
-					case '5':
-						return 8;
-						break;
-					case '6':
-						return 16;
-						break;
-					case '7':
-						return 30;
-						break;
-					case '8':
-						return 45;
-						break;
-					default:
-						return 0;
-						break;
-				}
-			}
-		</script>
-		<script type="text/javascript">
-			on="l:attributs.changed then execute"
-			var total_attr_cost = attribut_cost($('for').value) + attribut_cost($('end').value) + attribut_cost($('agi').value) + attribut_cost($('dex').value) + attribut_cost($('met').value) + attribut_cost($('ref').value) + attribut_cost($('ent').value) + attribut_cost($('inv').value) + attribut_cost($('mem').value) + attribut_cost($('vol').value) + attribut_cost($('cha').value) + attribut_cost($('per').value);
-			ten = (Number($('end').value) + Number($('vol').value)) / 2;
-			$MQ("l:attributs.calculated", {pp:total_attr_cost,ten:ten});
-		</script>
 	</div>
 </body>
 </html>
