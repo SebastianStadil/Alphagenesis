@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="appcelerator/images/favicon.ico"/>
 	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" /><!-- Stylesheet for the character creator -->
     <script src="javascripts/entourage.js" type="text/javascript"></script><!-- Appcelerator JS -->
-	<script src="javascripts/jquery.editable-1.3.3.min.js" type="text/javascript"></script><!-- Editable JS -->
+	<script src="javascripts/jquery.editable-1.3.3.js" type="text/javascript"></script><!-- Editable JS -->
 	<script src="javascripts/alpha.js" type="text/javascript"></script><!-- Archipel JS, must be after Editable JS -->
 </head>
 
@@ -107,7 +107,7 @@
 <!--		
 		<div class="box" 
 			behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" 
-				on="l:app.compiled then show or l:close then hide">
+					on="l:app.compiled then show or l:close then hide">
 			<div>Use the top menu to create a new character, or view an existing one. Your
 				character's name will be used to save the file, and you will be prompted
 				for a password. You will need this password to later edit this character.</div>
@@ -119,10 +119,12 @@
 		<div control="jquery_tabs" id="mainTabs">
 			<div id="personnage" title="Personnage">
 				<!-- Click to edit, fields are found in alpha.js -->
-				<p class="editable">Name</p>
-				<p id="class" class="selectable">Class</p>
-				<p class="editable">Age</p>
-				<p id="sex" class="selectable">Sexe</p>
+				
+				<span>Nom : </span><span id="name" class="editablePasMod">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Âge : </span><span id="age" class="editablePasMod">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Sexe : </span><span id="sex" class="editablePasMod">Homme</span>
 				
 				<p on="click then l:race.select or l:race.selected then value[race]">Race</p>
 				<p on="click then l:step.change[step=1]">Culture</p>

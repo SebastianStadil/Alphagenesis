@@ -7,9 +7,10 @@
 // Makes tags.class editable in place
 function a_editable() {
 	var race;
-	$('p.editable').editable();
-	$('p#class').editable({type:'select',options:{'warrior':'Guerrier','mage':'Mage','rogue':'Voleur'},submit:'sauver',cancel:'annuler'});
-	$('p#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Autre'},submit:'sauver',cancel:'annuler'});
+	$('span#name').editable({submitterId:'name'});
+	$('span#age').editable({submitterId:'age'});
+	$('span#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Spécial'},submit:'Ok',cancel:'Annuler',
+							submitterId:'sex'});
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
 																//$MQ({
 																//	name:'l:race.selected',
@@ -23,6 +24,8 @@ function a_editable() {
 												  "Annuler":function(){$(this).dialog("close");}
 												  });
 };
+
+
 
 // This script establishes the cost of increasing or decreasing an attribute
 function attribut_cost(attr) {

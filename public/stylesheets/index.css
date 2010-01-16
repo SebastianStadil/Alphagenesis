@@ -8,7 +8,7 @@ div#header {
 	padding:5px 8px;
 	margin:auto;
 	background-color:#222;
-	border:thin 1px solid;
+	border:1px solid;
 	color:white;
 	font: 12px sans-serif;
 }
@@ -53,7 +53,17 @@ div#character {
 	margin:auto;
 }
 
-.editable:hover, .selectable:hover {
+.editablePasMod {
+	font-style: italic;
+	color: #999999;
+}
+
+.editable {
+	font-style: normal;
+	color: #000000;
+}
+
+.editable:hover, .editablePasMod:hover{
 	background-color:#ffc;
 }
 
@@ -93,24 +103,24 @@ div#character {
 	width:200px;
 }
 
-	.selectRace {
-		float:left;
-		border:1px solid #ccc;
-		width:170px;
-		background-color:#ddd;
-		padding:8px;
-		margin:4px;
-	}
-	
-	/* Changes to make when a selectable is selected */
-	.resize
-	{
-		background-color:#ffffcc !important;
-	}
-	.resize_border
-	{
-		border:1px solid #ff0000;
-	}
+.selectRace {
+	float:left;
+	border:1px solid #ccc;
+	width:170px;
+	background-color:#ddd;
+	padding:8px;
+	margin:4px;
+}
+
+/* Changes to make when a selectable is selected */
+.resize
+{
+	background-color:#ffffcc !important;
+}
+.resize_border
+{
+	border:1px solid #ff0000;
+}
 
 .mainPanel {
 	margin-left:210px;
