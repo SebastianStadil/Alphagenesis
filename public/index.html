@@ -181,6 +181,12 @@
 					<div class="right" on="click then l:close">Close</div>
 				</div>
 			</div>
+			<div id="oc" title="Options de combat">
+				Les options de combat.
+			</div>
+			<div id="dons" title="Dons et Défauts">
+				Les dons et défauts.
+			</div>
 			<div id="bio" title="Bio">
 				Historique de personnage.
 			</div>
@@ -202,7 +208,7 @@
 			    Une tente et de la corde
 			</div>
 		</div>
-		
+				
 		<h2>Magie</h2>
 		<!-- Tabs to separate all the different kinds of magic -->
 		<div id="magicTabs" control="jquery_tabs">
@@ -246,27 +252,87 @@
 				Orc
 			</div>
 			<div class="selectRace" 
-				on="selecting then add[class=resize] and l:race.selected[race=Minotaur] or unselecting then remove[class=resize]"
+				on="selecting then add[class=resize] and l:race.selected[race=Minotaure] or unselecting then remove[class=resize]"
 				behavior="rounded[radius=5]">
 				Minotaure
 			</div>
 		</div>
 		<div class="mainPanel" id="raceInfo">
 			<div class="descRace" on="l:race.selected[race=Humain] then show else hide">
-				Les humains, ça passe.
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet quam enim, eget ornare dui. Sed nec cursus mi. Phasellus a est sed turpis consequat egestas. Pellentesque pretium, eros vitae dignissim accumsan, urna neque feugiat erat, quis tempor orci felis nec arcu. Nullam ac lorem erat, vulputate molestie nisi. Donec dui quam, vehicula ut vehicula ac, porttitor eu odio. Nulla at magna a nibh volutpat sagittis. Sed auctor sapien eget velit aliquam sed aliquam tellus semper. Praesent faucibus imperdiet orci. Morbi justo leo, luctus vitae euismod id, ullamcorper ut metus. Aliquam varius ante non est feugiat fringilla fermentum dui dignissim. Aliquam vitae ultrices urna. Cras volutpat volutpat aliquam. Nulla facilisi. Cras odio ante, porttitor viverra dapibus in, ornare ac est. Vivamus ultricies vulputate quam, ut pulvinar magna tempus euismod. Curabitur in mauris vitae tellus suscipit faucibus.</p>
-				<p>Proin lorem lorem, aliquam sit amet fringilla ac, posuere vel nisi. Mauris vitae blandit augue. Suspendisse vel arcu eget massa rhoncus gravida. Curabitur urna metus, malesuada ac suscipit a, placerat vel justo. Integer egestas facilisis elementum. Curabitur ac ipsum lorem, a scelerisque enim. Sed commodo aliquam dui ac imperdiet. Nulla in erat et ipsum laoreet pellentesque. Etiam nec lectus eu risus sollicitudin pretium. Nunc laoreet vehicula viverra.</p>
-				<p>Suspendisse potenti. Cras ut arcu vitae enim eleifend lobortis. Phasellus ac nibh a arcu porttitor pulvinar. Nulla ac mauris sit amet justo sodales mattis. Proin eget tristique ipsum. Suspendisse vel faucibus ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut in ornare dui. Cras ornare malesuada ipsum, ut dapibus arcu lacinia nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam nunc ante, fermentum at gravida id, semper ut odio. Integer nec velit dolor, ac tempus augue.</p>
+				<h3>Les humains</h3>
+				<img src="images/human.jpg" class="right portrait" />
+				<h4>Caractère</h4>
+				<p>Les humains sont la race la plus représentée sur archipel. Ils se sont vite multipliés en de nombreux endroits, développant de nombreuses civilisations originales, bien souvent au détriment d'autres races. Leurs adaptabilité, ambition et fort sentiment communautaire qui leur permettent de réaliser de grandes choses sans tenir compte de leur intérêt personnel ont permi presque partout la domination humaine. Un joueur choisissant d'interpréter un humain s'intégrera donc facilement dans la plupart des cités et états, bien que la xénophobie puisse aussi prévaloir entre peuples d'une même race... </p>
+				<h4>Morphologie</h4>
+				<p>Les humains présentent une grande variété morphologique : leur peau peut varier d'une teinte claire à un noir ébène en passant part des teintes de rouge et de jaune. Leurs cheveux ont de même des teintes très variées, blonds, noirs, bruns, roux et toutes les couleurs intermédiaires. Leur taille moyenne peut varier de 1m40 a 1m80 selon les peuples et leurs habitudes alimentaires. Tous les humains ont une espérance de vie d'environ 50 ans mais ce chiffre varie selon l'hygiène et le niveau de sophistication médicale à disposition. </p>
+				<h4>Attributs</h4>
+				<form on="l:load then value[attr]">
+					Force <span name="frc"></span><br />
+					Endurance <span name="end"></span>
+				</form>
+				<script type="text/javascript" charset="utf-8">
+					$MQ("l:load", {attr: {'frc':4, 'end':4, 'agi':4, 'dex':4, 'met':4, 'ref':4, 'ent':4, 'inv':4, 'mem':4, 'vol':4, 'per':4, 'cha':4}});
+				</script>
+				<form on="l:load then value[attr]">
+				<table class="table attributs">
+					<tr>
+						<td class="nameCell">Force</td>
+						<td class="valueCell"><input on="l:race.selected then value[2]" name="frc" id="for" type="text" value="" size="1" disabled /></td>
+						<td class="nameCell">Entendement</td>
+						<td class="valueCell"><input on="change then l:attributs.changed" id="ent" type="text" value="4" size="1" disabled /></td>
+					</tr>
+					<tr>
+						<td>Endurance</td>
+						<td><input on="change then l:attributs.changed" id="end" name="end" type="text" value="4" size="1" /></td>
+						<td>Inventivité</td>
+						<td><input on="change then l:attributs.changed" id="inv" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Agilité</td>
+						<td><input on="change then l:attributs.changed" id="agi" type="text" value="4" size="1" /></td>
+						<td>Mémoire</td>
+						<td><input on="change then l:attributs.changed" id="mem" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Dextérité</td>
+						<td><input on="change then l:attributs.changed" id="dex" type="text" value="4" size="1" /></td>
+						<td>Volonté</td>
+						<td><input on="change then l:attributs.changed" id="vol" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Métabolisme</td>
+						<td><input on="change then l:attributs.changed" id="met" type="text" value="4" size="1" /></td>
+						<td>Perception</td>
+						<td><input on="change then l:attributs.changed" id="per" type="text" value="4" size="1" /></td>
+					</tr>
+					<tr>
+						<td>Réflexes</td>
+						<td><input on="change then l:attributs.changed" id="ref" type="text" value="4" size="1" /></td>
+						<td>Charisme</td>
+						<td><input on="change then l:attributs.changed" id="cha" type="text" value="4" size="1" /></td>
+					</tr>
+				</table>
+				</form>
+				<h4>Géographie</h4>
+				<p>Comme dit ci dessus les humains ont accès à un grand nombre de civilisations différentes et même s'ils ne sont pas toujours bien vus des autres races, il n'est pas inconcevable que certains se soient adaptés à une civilisation non humaine.</p>
+				<h4>Variété</h4>
 				<p>Nulla facilisi. Proin turpis nibh, congue nec laoreet eget, tempor sit amet ante. Pellentesque eu neque id felis interdum scelerisque et et ligula. Pellentesque eget ligula nisi, quis egestas leo. Quisque dignissim turpis quis tortor sodales sollicitudin. Mauris volutpat, dolor non fringilla faucibus, sapien lectus cursus justo, accumsan condimentum leo libero vitae dolor. Morbi volutpat tortor ut eros volutpat condimentum. Sed ac turpis enim, id accumsan tortor. Sed eleifend dolor a lectus vehicula interdum. Morbi ac mi quis odio mattis bibendum. Nulla lacinia vulputate ante, non iaculis dolor commodo vel. Nullam nec mauris at velit viverra interdum lobortis at erat.</p>
+				<h4>Règles spéciales</h4>
 				<p>Vestibulum molestie arcu id neque pharetra ac bibendum dolor congue. Aenean lacinia est vel eros fringilla mollis. Praesent hendrerit risus orci. Quisque a justo in quam ultricies elementum. Nam cursus hendrerit augue ac venenatis. Nam libero sem, varius at dapibus id, ultrices eget nunc. Donec at augue sodales diam venenatis iaculis vel nec sapien. Ut lacinia odio lobortis erat tincidunt sodales. Quisque at ligula ut metus gravida pulvinar ac at dolor. Maecenas et nisi sed nibh malesuada ornare. Cras tincidunt porta luctus. Curabitur non congue velit. Duis sed nunc metus.</p>
-		</div>
+			</div>
 			<div class="descRace" on="l:race.selected[race=Elfe] then show else hide">
+				<h3>Les Elfes</h3>
+				<img src="images/elfe.jpg" class="right portrait" />
 				Les elfes, c'est mieux.
 			</div>
 			<div class="descRace" on="l:race.selected[race=Orc] then show else hide">
+				<h3>Les Orcs</h3>
+				<img src="images/orc.jpg" class="right portrait" />
 				Les orcs, c'est la classe.
 			</div>
 			<div class="descRace" on="l:race.selected[race=Minotaure] then show else hide">
+				<h3>Les Minotaures</h3>
+				<img src="images/minotaure.jpg" class="right portrait" />
 				Et les minotaures, ça poutre.
 			</div>
 		</div>

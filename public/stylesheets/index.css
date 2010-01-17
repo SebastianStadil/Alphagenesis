@@ -57,6 +57,14 @@ div#character {
 	background-color:#ffc;
 }
 
+.attributs {
+	float:left;
+}
+
+.portrait {
+	width:300px;
+}
+
 /* Properties for all the tables, incl. cells */
 .table {
 	border-width: 0px;

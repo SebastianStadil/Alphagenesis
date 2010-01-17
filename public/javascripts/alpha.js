@@ -6,7 +6,9 @@
 
 // Makes tags.class editable in place
 function a_editable() {
-	var race;
+	var humanAttributes = {'frc':4, 'end':4, 'agi':4, 'dex':4, 'met':4, 'ref':4, 'ent':4, 'inv':4, 'mem':4, 'vol':4, 'per':4, 'cha':4};
+//	var human;
+//	human.attributs = humanAttributes;
 	$('p.editable').editable();
 	$('p#class').editable({type:'select',options:{'warrior':'Guerrier','mage':'Mage','rogue':'Voleur'},submit:'sauver',cancel:'annuler'});
 	$('p#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Autre'},submit:'sauver',cancel:'annuler'});
