@@ -67,13 +67,19 @@
 	</form>
 -->
 	<h3>Table display</h3>
-	<table class="table" control="iterator[property=attr]" on="l:my.iterator then render or l:my.iterator.1 then render">
+	<table control="iterator[property=phys]" on="l:my.iterator then render or l:my.iterator.1 then render" style="float:left;">
 		<tr>
 			<td class="nameCell">#{att_name}: </td>
 			<td class="valueCell"><input on="l:load.1 then value[attr.#{iterator_index}.#{att_value}]" type="text" value="#{att_value}" size="1" /></td>
 		</tr>
 	</table>
-	<p><a href="#" on="click then script[$MQ('l:my.iterator.1', {attr: humanAttributes});]">Render human</a>, <a href="#" on="click then script[$MQ('l:my.iterator.1', {attr: elfAttributes});]">render elfe</a>. <a href="#" on="click then l.load.1[$var]">Listen human</a>, listen elf.</p>
+	<table control="iterator[property=ment]" on="l:my.iterator then render or l:my.iterator.1 then render" style="float:left;">
+		<tr>
+			<td class="nameCell">#{att_name}: </td>
+			<td class="valueCell"><input on="l:load.1 then value[attr.#{iterator_index}.#{att_value}]" type="text" value="#{att_value}" size="1" /></td>
+		</tr>
+	</table>
+	<p style="clear:left;"><a href="#" on="click then script[$MQ('l:my.iterator.1', {attr: humanAttributes});]">Render human</a>, <a href="#" on="click then script[$MQ('l:my.iterator.1', {attr: elfAttributes});]">render elfe</a>. <a href="#" on="click then l.load.1[$var]">Listen human</a>, listen elf.</p>
 	
 	<h3>Iterator (name)</h3>
 	<div control="iterator[property=attr]" on="l:my.iterator then render or l:loadS then value[attr]" style="font-family: monospace;">
@@ -84,8 +90,8 @@
 	<script type="text/javascript" charset="utf-8">
 		//alert(humanAttributes[1].att_value);
 		$MQL("l:app.compiled", function() {
-			$MQ("l:loadS", {attr: humanAttributesS});
-			$MQ('l:my.iterator',{'attr':humanAttributes});
+//			$MQ("l:loadS", {attr: humanAttributesS});
+			$MQ('l:my.iterator',{'attr':humanAttributes, 'phys':human.attribut.phys, 'ment':human.attribut.ment});
 		});
 	</script>
 
