@@ -51,6 +51,7 @@ div#character {
 	background-color:#eee;
 	max-width:800px;
 	margin:auto;
+	display:none;
 }
 
 .editable:hover, .selectable:hover {

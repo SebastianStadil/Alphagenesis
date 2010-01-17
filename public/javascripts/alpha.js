@@ -6,20 +6,21 @@
 
 // Makes tags.class editable in place
 function a_editable() {
-	var humanAttributes = {'frc':4, 'end':4, 'agi':4, 'dex':4, 'met':4, 'ref':4, 'ent':4, 'inv':4, 'mem':4, 'vol':4, 'per':4, 'cha':4};
-//	var human;
-//	human.attributs = humanAttributes;
+	$('#create_character').click(function(){$('#character').toggle('drop',{direction:'up'});});
+	$('#create_character').click(function(){$('#helper').toggle('drop',{direction:'up'});});
 	$('p.editable').editable();
 	$('p#class').editable({type:'select',options:{'warrior':'Guerrier','mage':'Mage','rogue':'Voleur'},submit:'sauver',cancel:'annuler'});
 	$('p#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Autre'},submit:'sauver',cancel:'annuler'});
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
-																//$MQ({
-																//	name:'l:race.selected',
-																//	scope:'appcelerator',
-																//	payload:{
-																//		race:'humansss'//$('#raceDialog')
-																//	}
-																//});
+																$MQ({
+																	name:'l:race.chosen',
+																	scope:'appcelerator',
+																	payload:{
+																		race:$('body').data('race'),
+																		phys:elf.attribut.phys,
+																		ment:elf.attribut.ment
+																	}
+																});
 																$(this).dialog("close");
 															},
 												  "Annuler":function(){$(this).dialog("close");}
