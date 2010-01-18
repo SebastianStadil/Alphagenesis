@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://appcelerator.org">
+<head>
+    <title>Archipel Character Creator</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="appcelerator/images/favicon.ico"/>
+	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" /><!-- Stylesheet for the character creator -->
+    <script src="javascripts/entourage.js" type="text/javascript"></script><!-- Appcelerator JS -->
+	<script src="javascripts/jquery.editable-1.3.3.js" type="text/javascript"></script><!-- Editable JS -->
+	<script src="javascripts/alpha.js" type="text/javascript"></script><!-- Archipel JS, must be after Editable JS -->
+    <script src="javascripts/data.js" type="text/javascript"></script><!-- Data JS -->
+</head>
+
+<!-- When appcelerator finishes compiling the page in the browser, it makes the page visible -->
+<body style="visibility:hidden" on="l:app.compiled then visible and script[a_editable()]">
+
+	<!-- Character generator for Appcelerator 3.0.1 -->
+	<!-- This view allows you to view an existing character,
+	 	 or create a new one -->
+	
+	<!-- Header is the top menu that lets you choose between creating a new character,
+		 and loading one -->
+	<div id="header">
+		
+		<!-- When user clicks on 'Create new character, load empty character template -->
+		<a href="#" on="click then l:character.new.request" id="create_character">Créer un nouveau personnage</a>
+		
+			<small>ou</small>
+		
+		<!-- When user select an existing character, load character from server, update history -->
+		<a href="#" on="click then history[test]">Charger
+			<select>
+				<!-- Placeholder serves to show some functionality without real data -->
+				<option>Glaurung</option>
+				<option>Feanor</option>
+			</select>
+		</a>
+		
+		<!-- When user makes a request, show loading animation until response comes back -->
+		<div id="loading" on="l:~request$ then show or
+							  l:~response$ then hide"><img src="images/indicator_222.gif" /></div>
+	</div>
+	
+	
+	<div id="helper" on="l:character.new.request then show">
+		<div control="jquery_accordion" id="helperAccordion" on="l:step.change then activate[step]">
+			<div id="raceHelper" title="Races">
+				<div behavior="selectable">
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Humain
+					</div>
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Elfe
+					</div>
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Orc
+					</div>
+					<div class="boxRace" 
+						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						Minotaure
+					</div>
+				</div>
+				<div class="tooltip" behavior="tooltip[id=elfe,track=true]">Elfe</div>
+				<input type="text" id="elfe" value="Elfe"/>
+			</div>
+			<div id="_cultures" title="Cultures">
+				Naelis
+			</div>
+			<div id="_attributs" title="Attributs">
+				Force...
+				<div class="variables">
+					<div id="_race" on="l:race.selected then value[race]"></div>
+				</div>
+			</div>
+			<div id="_competences" title="Compétences">
+				Étiquette
+			</div>
+			<div id="_options_de_combat" title="Options de Combat">
+				Hiyaa !
+			</div>
+			<div id="_dons_defauts" title="Dons et Défauts">
+				Deaf
+			</div>
+			<div id="_magie" title="Magie">
+				Choose your magic
+			</div>
+			<div id="_equipement" title="Équipement">
+				Swords
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- Character div is the space in which we load the characters,
+	 	 when user creates new character, or selects existing, the div slides down from
+		 under the header div
+		on="l:character.new.request then show
+							 or l:app.compiled then hide" -->
+	<div id="character">
+
+		<!-- Modal element for Getting Started -->
+<!--		
+		<div class="box" 
+			behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" 
+					on="l:app.compiled then show or l:close then hide">
+			<div>Use the top menu to create a new character, or view an existing one. Your
+				character's name will be used to save the file, and you will be prompted
+				for a password. You will need this password to later edit this character.</div>
+			<div class="right" on="click then l:close">Close</div>
+		</div>
+-->		
+		<!-- Dividers for the different parts of a character;
+		     we use tabs here to separate content -->
+		<div control="jquery_tabs" id="mainTabs">
+			<div id="personnage" title="Personnage">
+				<!-- Click to edit, fields are found in alpha.js -->
+				
+				<span>Nom : </span><span id="name" class="editablePasMod">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Âge : </span><span id="age" class="editablePasMod">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Sexe : </span><span id="sex" class="editablePasMod">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Race : </span><span class=editablePasMod on="click then l:race.select or l:race.chosen.response then value[race] and add[class=editable] and remove[class=editablePasMod]">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Culture : </span><span id="culture" class="editablePasMod">Cliquez pour modifier</span>
+			</div>
+			<div id="attributs" title="Attributs (0pp)" on="click then l:step.change[step=2]"> 
+				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
+					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<div style="clear:left;"></div>
+			</div>
+			<div id="competences" title="Compétences (0pp)">
+				<input type="button" on="click then l:skill.add" value="Rajouter une compétence"/>
+			
+			</div>
+			<div id="oc" title="Options de combat">
+				Les options de combat.
+			</div>
+			<div id="dons" title="Dons et Défauts">
+				Les dons et défauts.
+			</div>
+			<div id="bio" title="Bio">
+				Historique de personnage.
+			</div>
+		</div>
+		
+		<h2>Équipement</h2>
+		<!-- Tabs to separate all the different kinds of equipement -->
+		<div id="equipTabs" control="jquery_tabs">			
+			<div id="liquidity" title="Liquidités (0 po)">
+				No gold.
+			</div>
+			<div id="armes" title="Armes">
+				The Butcher's Cleaver
+			</div>
+			<div id="armures" title="Armures">
+			    Arkaine's Valor
+			</div>
+			<div id="misc" title="Autre">
+			    Une tente et de la corde
+			</div>
+		</div>
+				
+		<h2>Magie</h2>
+		<!-- Tabs to separate all the different kinds of magic -->
+		<div id="magicTabs" control="jquery_tabs">
+			<div id="sorcellerie" title="Sorcellerie">
+				BdF !
+			</div>
+			<div id="elementalisme" title="Élémentalisme">
+			    Colère = feu ]:-)
+			</div>
+			<div id="runes" title="Magie runique">
+			    ¥ †¨√ˆ∫ø ~ !
+			</div>
+			<div id="psionisme" title="Psionisme">
+			    All your mind are belong to us!
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	
+	
+	
+	<!-- Dialog for choosing your race -->
+	<div control="jquery_dialog[title=Choisissez votre peuple, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
+		 on="l:race.select then open" id="raceDialog">
+		<div behavior="selectable" class="rightPanel" id="raceChoose">
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=human] and script[$('body').data('race', 'human')] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Humain
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=elf] and script[$('body').data('race', 'elf')] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Elfe
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=orc] and script[$('body').data('race', 'orc')] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Orc
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:race.selected[race=minotaur] and script[$('body').data('race', 'minotaur')] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Minotaure
+			</div>
+		</div>
+		<div class="mainPanel" id="raceInfo">
+			<div class="hidden" on="l:race.selected[race=human] then show else hide">
+				<h3>Les humains</h3>
+				<img src="images/human.jpg" class="right portrait" />
+				<h4>Caractère</h4>
+				<p>Les humains sont la race la plus représentée sur archipel. Ils se sont vite multipliés en de nombreux endroits, développant de nombreuses civilisations originales, bien souvent au détriment d'autres races. Leurs adaptabilité, ambition et fort sentiment communautaire qui leur permettent de réaliser de grandes choses sans tenir compte de leur intérêt personnel ont permis presque partout la domination humaine. Un joueur choisissant d'interpréter un humain s'intégrera donc facilement dans la plupart des cités et états, bien que la xénophobie puisse aussi prévaloir entre peuples d'une même race... </p>
+				<h4>Morphologie</h4>
+				<p>Les humains présentent une grande variété morphologique : leur peau peut varier d'une teinte claire à un noir ébène en passant part des teintes de rouge et de jaune. Leurs cheveux ont de même des teintes très variées, blonds, noirs, bruns, roux et toutes les couleurs intermédiaires. Leur taille moyenne peut varier de 1m40 a 1m80 selon les peuples et leurs habitudes alimentaires. Tous les humains ont une espérance de vie d'environ 50 ans mais ce chiffre varie selon l'hygiène et le niveau de sophistication médicale à disposition. </p>
+				<h4>Attributs</h4>
+					<table class="table attributs" control="iterator[property=phys]" on="l:app.compiled then l:human.attribute.request
+																					 or  l:human.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<table class="table attributs" control="iterator[property=ment]" on="l:app.compiled then l:human.attribute.request
+																					 or  l:human.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<script type="text/javascript" charset="utf-8">
+						$MQL("l:human.attribute.request", function() {
+							$MQ('l:human.attribute.response',{'phys':human.attribut.phys, 'ment':human.attribut.ment});
+						});
+					</script>
+					<div style="clear:left;"></div>
+				<h4>Géographie</h4>
+				<p>Comme dit ci dessus les humains ont accès à un grand nombre de civilisations différentes et même s'ils ne sont pas toujours bien vus des autres races, il n'est pas inconcevable que certains se soient adaptés à une civilisation non humaine.</p>
+				<h4>Variété</h4>
+				<p>Nulla facilisi. Proin turpis nibh, congue nec laoreet eget, tempor sit amet ante. Pellentesque eu neque id felis interdum scelerisque et et ligula. Pellentesque eget ligula nisi, quis egestas leo. Quisque dignissim turpis quis tortor sodales sollicitudin. Mauris volutpat, dolor non fringilla faucibus, sapien lectus cursus justo, accumsan condimentum leo libero vitae dolor. Morbi volutpat tortor ut eros volutpat condimentum. Sed ac turpis enim, id accumsan tortor. Sed eleifend dolor a lectus vehicula interdum. Morbi ac mi quis odio mattis bibendum. Nulla lacinia vulputate ante, non iaculis dolor commodo vel. Nullam nec mauris at velit viverra interdum lobortis at erat.</p>
+				<h4>Règles spéciales</h4>
+				<p>Vestibulum molestie arcu id neque pharetra ac bibendum dolor congue. Aenean lacinia est vel eros fringilla mollis. Praesent hendrerit risus orci. Quisque a justo in quam ultricies elementum. Nam cursus hendrerit augue ac venenatis. Nam libero sem, varius at dapibus id, ultrices eget nunc. Donec at augue sodales diam venenatis iaculis vel nec sapien. Ut lacinia odio lobortis erat tincidunt sodales. Quisque at ligula ut metus gravida pulvinar ac at dolor. Maecenas et nisi sed nibh malesuada ornare. Cras tincidunt porta luctus. Curabitur non congue velit. Duis sed nunc metus.</p>
+			</div>
+			<div class="hidden" on="l:race.selected[race=elf] then show else hide">
+				<h3>Les Elfes</h3>
+				<img src="images/elfe.jpg" class="right portrait" />
+				Les elfes, c'est mieux.
+				<h4>Attributs</h4>
+					<table class="table attributs" control="iterator[property=phys]" on="l:app.compiled then l:elf.attribute.request
+																					 or  l:elf.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<table class="table attributs" control="iterator[property=ment]" on="l:app.compiled then l:elf.attribute.request
+																					 or  l:elf.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<script type="text/javascript" charset="utf-8">
+						$MQL("l:elf.attribute.request", function() {
+							$MQ('l:elf.attribute.response',{'phys':elf.attribut.phys, 'ment':elf.attribut.ment});
+						});
+					</script>
+					<div style="clear:left;"></div>
+			</div>
+			<div class="hidden" on="l:race.selected[race=orc] then show else hide">
+				<h3>Les Orcs</h3>
+				<img src="images/orc.jpg" class="right portrait" />
+				Les orcs, c'est la classe.
+				<h4>Attributs</h4>
+					<table class="table attributs" control="iterator[property=phys]" on="l:app.compiled then l:orc.attribute.request
+																					 or  l:orc.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<table class="table attributs" control="iterator[property=ment]" on="l:app.compiled then l:orc.attribute.request
+																					 or  l:orc.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<script type="text/javascript" charset="utf-8">
+						$MQL("l:orc.attribute.request", function() {
+							$MQ('l:orc.attribute.response',{'phys':orc.attribut.phys, 'ment':orc.attribut.ment});
+						});
+					</script>
+					<div style="clear:left;"></div>
+			</div>
+			<div class="hidden" on="l:race.selected[race=minotaur] then show else hide">
+				<h3>Les Minotaures</h3>
+				<img src="images/minotaure.jpg" class="right portrait" />
+				Et les minotaures, ça poutre.
+				<h4>Attributs</h4>
+					<table class="table attributs" control="iterator[property=phys]" on="l:app.compiled then l:minotaur.attribute.request
+																					 or  l:minotaur.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<table class="table attributs" control="iterator[property=ment]" on="l:app.compiled then l:minotaur.attribute.request
+																					 or  l:minotaur.attribute.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+						</tr>
+					</table>
+					<script type="text/javascript" charset="utf-8">
+						$MQL("l:minotaur.attribute.request", function() {
+							$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
+						});
+					</script>
+					<div style="clear:left;"></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Dialog for adding a skill -->
+	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
+		 on="l:skill.add then open" id="compDialog">
+		<div behavior="selectable" class="rightPanel" id="compTypeSelectDiv">
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=phys] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Physiques
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=soci] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Sociales
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=savf] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Savoir-faire
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=conn] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Connaissances
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=occu] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Magiques
+			</div>
+		</div>
+		<div class="mainPanel" id="compInfo">
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=phys] then show else hide" id="compPhys"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=soci] then show else hide" id="compSoci"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=savf] then show else hide" id="compSavf"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=conn] then show else hide" id="compConn"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=occu] then show else hide" id="compOccu"> </div>
+			<script type="text/javascript">
+				writeCompArray("compPhys", comp.physiques);
+				writeCompArray("compSoci", comp.sociales);
+				writeCompArray("compSavf", comp.savoirfaire);
+				writeCompArray("compConn", comp.connaissances);
+				writeCompArray("compOccu", comp.magiques);
+			</script>
+		</div>
+	</div>
+	
+</body>
+</html>
