@@ -123,10 +123,11 @@
 				<br /><br />
 				<span>Âge : </span><span id="age" class="editablePasMod">Cliquez pour modifier</span>
 				<br /><br />
-				<span>Sexe : </span><span id="sex" class="editablePasMod">Homme</span>
-				
-				<p on="click then l:race.select or l:race.chosen then value[race]">Race</p>
-				<p on="click then l:step.change[step=1]">Culture</p>
+				<span>Sexe : </span><span id="sex" class="editablePasMod">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Race : </span><span class=editablePasMod on="click then l:race.select or l:race.chosen then value[race] and add[class=editable] and remove[class=editablePasMod]">Cliquez pour modifier</span>
+				<br /><br />
+				<span>Culture : </span><span id="culture" class="editablePasMod">Cliquez pour modifier</span>
 			</div>
 			<div id="attributs" title="Attributs (0pp)" on="click then l:step.change[step=2]"> 
 				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
@@ -145,17 +146,8 @@
 					<div style="clear:left;"></div>
 			</div>
 			<div id="competences" title="Compétences (0pp)">
-				<input type="button" on="click then l:skill.add" value="Add skill"/>
-				<div control="jquery_dialog[title=Compétences, content=Add skill, autoOpen=false]"
-				     on="l:skill.add then open">
-					<div>Sword, Axe, Shield</div>
-				</div>
-				<div class="box" 
-					 behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" 
-					 on="l:skill.add2 then show or l:close then hide">
-					<div>Sword, Axe, Shield</div>
-					<div class="right" on="click then l:close">Close</div>
-				</div>
+				<input type="button" on="click then l:skill.add" value="Rajouter une compétence"/>
+			
 			</div>
 			<div id="oc" title="Options de combat">
 				Les options de combat.
@@ -234,7 +226,7 @@
 			</div>
 		</div>
 		<div class="mainPanel" id="raceInfo">
-			<div class="descRace" on="l:race.selected[race=human] then show else hide">
+			<div class="hidden" on="l:race.selected[race=human] then show else hide">
 				<h3>Les humains</h3>
 				<img src="images/human.jpg" class="right portrait" />
 				<h4>Caractère</h4>
@@ -269,7 +261,7 @@
 				<h4>Règles spéciales</h4>
 				<p>Vestibulum molestie arcu id neque pharetra ac bibendum dolor congue. Aenean lacinia est vel eros fringilla mollis. Praesent hendrerit risus orci. Quisque a justo in quam ultricies elementum. Nam cursus hendrerit augue ac venenatis. Nam libero sem, varius at dapibus id, ultrices eget nunc. Donec at augue sodales diam venenatis iaculis vel nec sapien. Ut lacinia odio lobortis erat tincidunt sodales. Quisque at ligula ut metus gravida pulvinar ac at dolor. Maecenas et nisi sed nibh malesuada ornare. Cras tincidunt porta luctus. Curabitur non congue velit. Duis sed nunc metus.</p>
 			</div>
-			<div class="descRace" on="l:race.selected[race=Elfe] then show else hide">
+			<div class="hidden" on="l:race.selected[race=Elfe] then show else hide">
 				<h3>Les Elfes</h3>
 				<img src="images/elfe.jpg" class="right portrait" />
 				Les elfes, c'est mieux.
@@ -295,7 +287,7 @@
 					</script>
 					<div style="clear:left;"></div>
 			</div>
-			<div class="descRace" on="l:race.selected[race=Orc] then show else hide">
+			<div class="hidden" on="l:race.selected[race=Orc] then show else hide">
 				<h3>Les Orcs</h3>
 				<img src="images/orc.jpg" class="right portrait" />
 				Les orcs, c'est la classe.
@@ -321,7 +313,7 @@
 					</script>
 					<div style="clear:left;"></div>
 			</div>
-			<div class="descRace" on="l:race.selected[race=Minotaure] then show else hide">
+			<div class="hidden" on="l:race.selected[race=Minotaure] then show else hide">
 				<h3>Les Minotaures</h3>
 				<img src="images/minotaure.jpg" class="right portrait" />
 				Et les minotaures, ça poutre.
@@ -349,5 +341,52 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Dialog for adding a skill -->
+	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
+		 on="l:skill.add then open" id="compDialog">
+		<div behavior="selectable" class="rightPanel" id="compTypeSelectDiv">
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=phys] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Physiques
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=soci] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Sociales
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=savf] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Savoir-faire
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=conn] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Connaissances
+			</div>
+			<div class="selectRace" 
+				on="selecting then add[class=resize] and l:comp.selected[compType=occu] or unselecting then remove[class=resize]"
+				behavior="rounded[radius=5]">
+				Magiques
+			</div>
+		</div>
+		<div class="mainPanel" id="compInfo">
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=phys] then show else hide" id="compPhys"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=soci] then show else hide" id="compSoci"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=savf] then show else hide" id="compSavf"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=conn] then show else hide" id="compConn"> </div>
+			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=occu] then show else hide" id="compOccu"> </div>
+			<script type="text/javascript">
+				writeCompArray("compPhys", comp.physiques);
+				writeCompArray("compSoci", comp.sociales);
+				writeCompArray("compSavf", comp.savoirfaire);
+				writeCompArray("compConn", comp.connaissances);
+				writeCompArray("compOccu", comp.magiques);
+			</script>
+		</div>
+	</div>
+	
 </body>
 </html>

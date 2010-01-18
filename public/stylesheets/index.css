@@ -120,7 +120,13 @@ div#character {
 	padding:8px;
 	margin:4px;
 }
-
+.compToChoose {
+	border:1px solid #ccc;
+	width:170px;
+	background-color:#ddd;
+	padding:8px;
+	margin:4px;
+}
 /* Changes to make when a selectable is selected */
 .resize
 {
@@ -137,6 +143,6 @@ div#character {
 	padding:8px;
 }
 
-	.descRace {
+	.hidden {
 		display:none;
 	}

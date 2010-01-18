@@ -103,3 +103,10 @@ minotaur.attribut.ment = [
 	{ att_name:'Per', att_value:4 },
 	{ att_name:'Cha', att_value:4 },
 ];
+
+var comp = {};
+comp.physiques = ['Athlétisme (For/End)', 'Esquive (Agil)', 'Natation (For/End)', 'Vigilance(Ent/Per)', 'Epée(Dex)'];
+comp.sociales = ['Persuasion (Cha)', 'Intimidation (Cha/Vol)', 'Psychologie (Cha/Per)'];
+comp.savoirfaire = ['Serrurerie (Dex/Ent)', 'Forge (End/For)', 'Médecine (Per/Mem)', 'Survie (Per)'];
+comp.connaissances = ['Philosophie (Mem/Ent)', 'Histoire de Litrahos (Mem)', 'Géographie de Litrahos (Mem)'];
+comp.magiques = ['Contrôle du feu (Ent)', 'Passion (Inv)', 'Maîtrise de soi (Vol)'];
