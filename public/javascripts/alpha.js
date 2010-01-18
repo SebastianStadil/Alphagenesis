@@ -12,29 +12,82 @@ function a_editable() {
 	$('span#age').editable({submitterId:'age'});
 	$('span#sex').editable({type:'select',options:{'male':'Mâle','female':'Femelle','other':'Spécial'},submit:'Ok',cancel:'Annuler',
 	submitterId:'sex'});
-	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
-			$MQ({
-				name:'l:race.chosen',
-				scope:'appcelerator',
-				payload:{
-					race:$('body').data('race'),
-					phys:elf.attribut.phys,
-					ment:elf.attribut.ment
-				}
-			});
-			$(this).dialog("close");
-		},
-		"Annuler":function(){$(this).dialog("close");}
-	});
+	
 	$('#compDialog').dialog('option', 'buttons', 
-			{
-				"Ajouter":function()
-				{$(this).dialog("close");},
-				"Annuler":function()
-				{$(this).dialog("close");}
-			}
-		);
-}
+				{
+					"Ajouter":function()
+					{$(this).dialog("close");},
+					"Annuler":function()
+					{$(this).dialog("close");}
+				}
+			);
+	
+	
+	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
+																$MQ({
+																	name:'l:race.chosen.request',
+																	payload:{
+																		race: $('body').data('race')
+																	}
+																});
+																$(this).dialog("close");
+															},
+												  "Annuler":function(){$(this).dialog("close");}
+												  });
+	// Listeners
+	$MQL('l:race.chosen.request', function(message) {
+		var race;
+		var phys;
+		var ment;
+		switch(message.payload.race) {
+			case 'elf':
+				race = 'Elfe';
+				phys = elf.attribut.phys;
+				ment = elf.attribut.ment;
+				break;
+			case 'orc':
+				race = 'Orc';
+				phys = orc.attribut.phys;
+				ment = orc.attribut.ment;
+				break;
+			case 'minotaur':
+				race = 'Minotaure';
+				phys = minotaur.attribut.phys;
+				ment = minotaur.attribut.ment;
+				break;
+			case 'human':
+			default:
+				race = 'Humain';
+				phys = human.attribut.phys;
+				ment = human.attribut.ment;
+				break;
+		};
+		$MQ('l:race.chosen.response', {'race':race,'phys':phys,'ment':ment});
+	});	/*
+			alert('2')
+			race = message.payload.race;
+			switch(races) {
+				case 'elf':
+					return {'race':'Elfe','phys':elf.attribut.phys,'ment':elf.attribut.ment};
+					break;
+				case 'orc':
+					return {'race':'Orc','phys':orc.attribut.phys,'ment':orc.attribut.ment};
+					break;
+				case 'minotaur':
+					return {'race':'Minotaure','phys':minotaur.attribut.phys,'ment':minotaur.attribut.ment};
+					break;
+				case 'human':
+				default:
+					return {'race':'Humain','phys':human.attribut.phys,'ment':human.attribut.ment};
+					break;
+			}*/
+		//}
+	//	);
+	$MQL("l:human.attribute.request", function() {
+		$MQ('l:human.attribute.response',{'phys':human.attribut.phys, 'ment':human.attribut.ment});
+	});
+
+};
 
 
 // Writes a competence array

@@ -125,19 +125,19 @@
 				<br /><br />
 				<span>Sexe : </span><span id="sex" class="editablePasMod">Cliquez pour modifier</span>
 				<br /><br />
-				<span>Race : </span><span class=editablePasMod on="click then l:race.select or l:race.chosen then value[race] and add[class=editable] and remove[class=editablePasMod]">Cliquez pour modifier</span>
+				<span>Race : </span><span class=editablePasMod on="click then l:race.select or l:race.chosen.response then value[race] and add[class=editable] and remove[class=editablePasMod]">Cliquez pour modifier</span>
 				<br /><br />
 				<span>Culture : </span><span id="culture" class="editablePasMod">Cliquez pour modifier</span>
 			</div>
 			<div id="attributs" title="Attributs (0pp)" on="click then l:step.change[step=2]"> 
 				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
-					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen then render">
+					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render">
 						<tr>
 							<td class="nameCell">#{att_name}: </td>
 							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
 						</tr>
 					</table>
-					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen then render">
+					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render">
 						<tr>
 							<td class="nameCell">#{att_name}: </td>
 							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
@@ -205,22 +205,22 @@
 		 on="l:race.select then open" id="raceDialog">
 		<div behavior="selectable" class="rightPanel" id="raceChoose">
 			<div class="selectRace" 
-				on="selecting then add[class=resize] and l:race.selected[race=human] and script[$('body').data('race', 'Humain')] or unselecting then remove[class=resize]"
+				on="selecting then add[class=resize] and l:race.selected[race=human] and script[$('body').data('race', 'human')] or unselecting then remove[class=resize]"
 				behavior="rounded[radius=5]">
 				Humain
 			</div>
 			<div class="selectRace" 
-				on="selecting then add[class=resize] and l:race.selected[race=Elfe] and script[var race='elf'] or unselecting then remove[class=resize]"
+				on="selecting then add[class=resize] and l:race.selected[race=elf] and script[$('body').data('race', 'elf')] or unselecting then remove[class=resize]"
 				behavior="rounded[radius=5]">
 				Elfe
 			</div>
 			<div class="selectRace" 
-				on="selecting then add[class=resize] and l:race.selected[race=Orc] and script[var race='orc'] or unselecting then remove[class=resize]"
+				on="selecting then add[class=resize] and l:race.selected[race=orc] and script[$('body').data('race', 'orc')] or unselecting then remove[class=resize]"
 				behavior="rounded[radius=5]">
 				Orc
 			</div>
 			<div class="selectRace" 
-				on="selecting then add[class=resize] and l:race.selected[race=Minotaure] and script[var race='minotaur'] or unselecting then remove[class=resize]"
+				on="selecting then add[class=resize] and l:race.selected[race=minotaur] and script[$('body').data('race', 'minotaur')] or unselecting then remove[class=resize]"
 				behavior="rounded[radius=5]">
 				Minotaure
 			</div>
@@ -261,7 +261,7 @@
 				<h4>Règles spéciales</h4>
 				<p>Vestibulum molestie arcu id neque pharetra ac bibendum dolor congue. Aenean lacinia est vel eros fringilla mollis. Praesent hendrerit risus orci. Quisque a justo in quam ultricies elementum. Nam cursus hendrerit augue ac venenatis. Nam libero sem, varius at dapibus id, ultrices eget nunc. Donec at augue sodales diam venenatis iaculis vel nec sapien. Ut lacinia odio lobortis erat tincidunt sodales. Quisque at ligula ut metus gravida pulvinar ac at dolor. Maecenas et nisi sed nibh malesuada ornare. Cras tincidunt porta luctus. Curabitur non congue velit. Duis sed nunc metus.</p>
 			</div>
-			<div class="hidden" on="l:race.selected[race=Elfe] then show else hide">
+			<div class="hidden" on="l:race.selected[race=elf] then show else hide">
 				<h3>Les Elfes</h3>
 				<img src="images/elfe.jpg" class="right portrait" />
 				Les elfes, c'est mieux.
@@ -287,7 +287,7 @@
 					</script>
 					<div style="clear:left;"></div>
 			</div>
-			<div class="hidden" on="l:race.selected[race=Orc] then show else hide">
+			<div class="hidden" on="l:race.selected[race=orc] then show else hide">
 				<h3>Les Orcs</h3>
 				<img src="images/orc.jpg" class="right portrait" />
 				Les orcs, c'est la classe.
@@ -313,7 +313,7 @@
 					</script>
 					<div style="clear:left;"></div>
 			</div>
-			<div class="hidden" on="l:race.selected[race=Minotaure] then show else hide">
+			<div class="hidden" on="l:race.selected[race=minotaur] then show else hide">
 				<h3>Les Minotaures</h3>
 				<img src="images/minotaure.jpg" class="right portrait" />
 				Et les minotaures, ça poutre.
