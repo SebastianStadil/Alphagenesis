@@ -12,8 +12,19 @@ function a_load() {
 	$('#create_character').click(function(){$('#helper').toggle('drop',{direction:'up'});});
 	$('span#name').editable({submitterId:'name'});
 	$('span#age').editable({submitterId:'age'});
-	$('span#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Spécial'},submit:'Ok',cancel:'Annuler',
-							submitterId:'sex'});
+	$('span#sex').editable({type:'select',options:{'male':'Mâle','female':'Femelle','other':'Spécial'},submit:'Ok',cancel:'Annuler',
+	submitterId:'sex'});
+	
+	$('#compDialog').dialog('option', 'buttons', 
+				{
+					"Ajouter":function()
+					{$(this).dialog("close");},
+					"Annuler":function()
+					{$(this).dialog("close");}
+				}
+			);
+	
+	
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
 																$MQ({name:'l:race.chosen.request',
 																	 payload:{
@@ -100,10 +111,24 @@ function a_load() {
 	$MQL("l:minotaur.attribute.request", function() {
 		$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
 	});
-		
-};
+}; // End of function a_load
 
 
+// Writes a competence array
+function writeCompArray(fatherDiv,comparray){
+	var i=0;
+	document.getElementById(fatherDiv).innerHTML = "";
+	for (i=0;i<comparray.length;i++)
+	{
+		var divTag = document.createElement("div");
+      divTag.id = fatherDiv + i;
+      divTag.setAttribute("on","selecting then add[class=resize] or unselecting then remove[class=resize]");
+      divTag.setAttribute("behavior","rounded[radius=5]");
+      divTag.className ="compToChoose";
+      divTag.innerHTML = comparray[i];           
+      document.getElementById(fatherDiv).appendChild(divTag);
+	}
+}
 
 // This script establishes the cost of increasing or decreasing an attribute
 function attribut_cost(attr) {

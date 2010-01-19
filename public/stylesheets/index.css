@@ -104,14 +104,22 @@ div#character {
 	clear:left;
 }
 
+.compToChoose {
+	border:1px solid #ccc;
+	width:170px;
+	background-color:#ddd;
+	padding:8px;
+	margin:4px;
+}
+
 .mainPanel {
 	margin-left:210px;
 	position:relative;
 	padding:8px;
 }
 
-	.descBox {
-		display:none;
+.	descBox, .hidden {
+			display:none;
 	}
 
 		.descRace {
