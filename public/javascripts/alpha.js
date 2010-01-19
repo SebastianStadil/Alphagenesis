@@ -15,7 +15,7 @@ function a_load() {
 	$('span#sex').editable({type:'select',options:{'male':'Mâle','female':'Femelle','other':'Spécial'},submit:'Ok',cancel:'Annuler',
 	submitterId:'sex'});
 	
-	$('#compDialog').dialog('option', 'buttons', 
+	$('#skillDialog').dialog('option', 'buttons', 
 				{
 					"Ajouter":function()
 					{$(this).dialog("close");},
@@ -23,8 +23,6 @@ function a_load() {
 					{$(this).dialog("close");}
 				}
 			);
-	
-	
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
 																$MQ({name:'l:race.chosen.request',
 																	 payload:{
@@ -117,9 +115,9 @@ function writeCompArray(fatherDiv,comparray){
 	{
 		var divTag = document.createElement("div");
       divTag.id = fatherDiv + i;
-      divTag.setAttribute("on","selecting then add[class=resize] or unselecting then remove[class=resize]");
+      divTag.setAttribute("on","selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]");
       divTag.setAttribute("behavior","rounded[radius=5]");
-      divTag.className ="compToChoose";
+      divTag.className ="skillToChoose";
       divTag.innerHTML = comparray[i];           
       document.getElementById(fatherDiv).appendChild(divTag);
 	}

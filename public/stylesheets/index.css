@@ -50,7 +50,7 @@ div#character {
 	display:none;
 }
 
-.editablePasMod {
+.editable-unedited {
 	font-style: italic;
 	color: #999999;
 }
@@ -60,7 +60,7 @@ div#character {
 	color: #000000;
 }
 
-.editable:hover, .editablePasMod:hover{
+.editable:hover, .editable-unedited:hover{
 	background-color:#ffc;
 }
 
@@ -104,7 +104,7 @@ div#character {
 	clear:left;
 }
 
-.compToChoose {
+.skillToChoose {
 	border:1px solid #ccc;
 	width:170px;
 	background-color:#ddd;
@@ -118,7 +118,7 @@ div#character {
 	padding:8px;
 }
 
-.	descBox, .hidden {
+.descBox, .hidden {
 			display:none;
 	}
 
@@ -135,7 +135,7 @@ div#character {
 	text-align:center;
 }
 
-	.selectRace {
+	.selectBox {
 		float:left;
 		width:170px;
 		padding:8px;
