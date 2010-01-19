@@ -59,11 +59,6 @@ function a_load() {
 	.mouseup(function(){
 			$(this).removeClass("ui-state-active");
 	});
-	$('#go.shopping').click(function() {
-		$('#dialog').dialog('open');
-	})
-	// Image grid for equipment
-
 	
 	
 

@@ -155,8 +155,7 @@
 					<div style="clear:left;"></div>
 			</div>
 			<div id="competences" title="Compétences (0pp)">
-				<input type="button" on="click then l:skill.add" value="Rajouter une compétence"/>
-			
+				<input type="button" on="click then l:skill.add" value="Rajouter une compétence" class="ui-button ui-state-default ui-corner-all" />
 			</div>
 			<div id="oc" title="Options de combat">
 				Les options de combat.
@@ -173,7 +172,7 @@
 		<!-- Tabs to separate all the different kinds of equipement -->
 		<div id="equipTabs" control="jquery_tabs">			
 			<div id="liquidity" title="Liquidités (100 po)">
-				You have <span>100</span> gold pieces. <input type="button" on="click then l:equipment.select" value="Go shopping!" id="go-shopping" class="ui-button ui-state-default ui-corner-all" />
+				You have <span>100</span> gold pieces. <input type="button" on="click then l:equipment.select" value="Go shopping!" class="ui-button ui-state-default ui-corner-all" />
 			</div>
 			<div id="armes" title="Armes">
 				The Butcher's Cleaver
@@ -211,8 +210,7 @@
 	
 	
 	<!-- Dialog for choosing your race -->
-	<div control="jquery_dialog[title=Choisissez votre peuple, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
-		 on="l:race.select then open" id="raceDialog">
+	<div control="jquery_dialog[title=Choisissez votre peuple, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:race.select then open" id="raceDialog">
 		<div behavior="selectable" class="rightPanel" id="raceChoose">
 			<div class="selectRace ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:race.selected[race=human] or unselecting then remove[class=ui-state-default]"
@@ -333,8 +331,7 @@
 	</div><!-- end of race dialog -->
 	
 	<!-- Dialog for choosing your equipement -->
-	<div control="jquery_dialog[title=Let's go shopping!, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
-		 on="l:equipment.select then open" id="equipmentDialog">
+	<div control="jquery_dialog[title=Let's go shopping!, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
 		<div behavior="selectable" class="topPanel" id="equipmentChoose">
 			<div class="selectTop ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:equipment.selected[obj=money] or unselecting then remove[class=ui-state-default]"
@@ -380,8 +377,7 @@
 	</div><!-- end of equipment dialog -->
 	
 	<!-- Dialog for adding a skill -->
-	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]"
-		 on="l:skill.add then open" id="compDialog">
+	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="compDialog">
 		<div behavior="selectable" class="rightPanel" id="compTypeSelectDiv">
 			<div class="selectRace ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=phys] or unselecting then remove[class=ui-state-default]"
