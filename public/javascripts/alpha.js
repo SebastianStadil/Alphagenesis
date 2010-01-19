@@ -4,8 +4,10 @@
 //
 // All rights reserved. Sorry.
 
+
+
 // Makes tags.class editable in place
-function a_editable() {
+function a_load() {
 	$('#create_character').click(function(){$('#character').toggle('drop',{direction:'up'});});
 	$('#create_character').click(function(){$('#helper').toggle('drop',{direction:'up'});});
 	$('span#name').editable({submitterId:'name'});
@@ -13,16 +15,47 @@ function a_editable() {
 	$('span#sex').editable({type:'select',options:{'male':'Homme','female':'Femme','other':'Spécial'},submit:'Ok',cancel:'Annuler',
 							submitterId:'sex'});
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
-																$MQ({
-																	name:'l:race.chosen.request',
-																	payload:{
+																$MQ({name:'l:race.chosen.request',
+																	 payload:{
 																		race: $('body').data('race')
-																	}
+																	 }
 																});
 																$(this).dialog("close");
 															},
 												  "Annuler":function(){$(this).dialog("close");}
 												  });
+	$('#equipmentDialog').dialog('option', 'buttons', {"Purchase":function(){
+																$MQ({name:'l:equipement.puchase',
+																	 payload:{
+																		race: $('body').data('equipment')
+																	 }
+																});
+																$(this).dialog("close");
+															},
+												  "Leave shop":function(){$(this).dialog("close");}
+												  });
+	
+	$('.ui-button').hover(
+		function(){ 
+			$(this).addClass("ui-state-hover"); 
+		},
+		function(){ 
+			$(this).removeClass("ui-state-hover"); 
+		}
+	).mousedown(function(){
+		$(this).addClass("ui-state-active"); 
+	})
+	.mouseup(function(){
+			$(this).removeClass("ui-state-active");
+	});
+	$('#go.shopping').click(function() {
+		$('#dialog').dialog('open');
+	})
+	// Image grid for equipment
+
+	
+	
+
 	// Listeners
 	$MQL('l:race.chosen.request', function(message) {
 		var race;
@@ -52,29 +85,22 @@ function a_editable() {
 				break;
 		};
 		$MQ('l:race.chosen.response', {'race':race,'phys':phys,'ment':ment});
-	});	/*
-			alert('2')
-			race = message.payload.race;
-			switch(races) {
-				case 'elf':
-					return {'race':'Elfe','phys':elf.attribut.phys,'ment':elf.attribut.ment};
-					break;
-				case 'orc':
-					return {'race':'Orc','phys':orc.attribut.phys,'ment':orc.attribut.ment};
-					break;
-				case 'minotaur':
-					return {'race':'Minotaure','phys':minotaur.attribut.phys,'ment':minotaur.attribut.ment};
-					break;
-				case 'human':
-				default:
-					return {'race':'Humain','phys':human.attribut.phys,'ment':human.attribut.ment};
-					break;
-			}*/
-		//}
-	//	);
+	});
+	$MQL('l:race.selected', function(message) {$('body').data('race', message.payload.race)});
+	
 	$MQL("l:human.attribute.request", function() {
 		$MQ('l:human.attribute.response',{'phys':human.attribut.phys, 'ment':human.attribut.ment});
 	});
+	$MQL("l:elf.attribute.request", function() {
+		$MQ('l:elf.attribute.response',{'phys':elf.attribut.phys, 'ment':elf.attribut.ment});
+	});
+	$MQL("l:orc.attribute.request", function() {
+		$MQ('l:orc.attribute.response',{'phys':orc.attribut.phys, 'ment':orc.attribut.ment});
+	});
+	$MQL("l:minotaur.attribute.request", function() {
+		$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
+	});
+		
 };
 
 

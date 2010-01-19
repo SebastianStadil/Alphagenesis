@@ -7,15 +7,11 @@ body {
 div#header {
 	padding:5px 8px;
 	margin:auto;
-	background-color:#222;
-	border:1px solid;
-	color:white;
 	font: 12px sans-serif;
 }
 
 div#header a {
 	text-decoration:none;
-	color:white;
 }
 
 div#loading {
@@ -93,42 +89,19 @@ div#character {
 	float:right;
 }
 
-/* Fullscreen */
-
-.fullscreen {
-	width:960px;
-	height:768px;
-	margin:auto;
-	position:absolute;
-	background-color:#36393D;
-	
-	border:1px solid #ccc;
-	margin:10px;
-	padding:10px;
-}
+/* Dialog is 970 by 600 (golden ratio) */
 
 .rightPanel {
 	float:left;
 	width:200px;
 }
 
-.selectRace {
-	float:left;
-	border:1px solid #ccc;
-	width:170px;
-	background-color:#ddd;
-	padding:8px;
-	margin:4px;
+.topPanel {
+	display:block;
 }
 
-/* Changes to make when a selectable is selected */
-.resize
-{
-	background-color:#ffffcc !important;
-}
-.resize_border
-{
-	border:1px solid #ff0000;
+.bottomPanel {
+	clear:left;
 }
 
 .mainPanel {
@@ -137,6 +110,28 @@ div#character {
 	padding:8px;
 }
 
-	.descRace {
+	.descBox {
 		display:none;
 	}
+
+		.descRace {
+			display:none;
+		}
+
+/* Clickable boxes size */
+.selectTop {
+	float:left;
+	width:120px;
+	padding:8px;
+	margin:4px;
+	text-align:center;
+}
+
+	.selectRace {
+		float:left;
+		width:170px;
+		padding:8px;
+		margin:4px;
+	}
+
+/* Image grid for equipment */
