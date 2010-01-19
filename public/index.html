@@ -36,7 +36,7 @@
 		</a>
 		
 		<!-- Use this to change themes -->
-		<script type="text/javascript"
+<!-->		<script type="text/javascript"
 			src="http://jqueryui.com/themeroller/themeswitchertool/">
 		</script>
 		<div id="switcher" style="float:right"></div>
@@ -44,7 +44,7 @@
 			$(document).ready(function(){
 				$('#switcher').themeswitcher();
 			});
-		</script>
+		</script></!-->
 
 
 		<!-- When user makes a request, show loading animation until response comes back -->
@@ -357,8 +357,10 @@
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
-				<h4>La cotte de mailles</h4>
-				<img src="images/axe.jpg" class="right portrait" />
+				<h4>L'Armure de Plates</h4>
+				<img src="images/armor/armor-full-plate.jpg" class="right portrait" />
+				<h4>La Robe du Sorcier</h4>
+				<img src="images/armor/clothes-robes-sorceror.jpg" class="right portrait" />
 				<p>Ca protege bien des coups tranchants, mais pas des flèches.</p>
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=other] then effect[fadeIn] else hide">
@@ -371,44 +373,35 @@
 	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="skillDialog">
 		<div behavior="selectable" class="rightPanel" id="skillTypeSelectDiv">
 			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[skillType=phys] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=phys] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Physiques
 			</div>
 			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[skillType=soci] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=soci] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Sociales
 			</div>
 			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[skillType=savf] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=savo] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Savoir-faire
 			</div>
 			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[skillType=conn] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=conn] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Connaissances
 			</div>
 			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[skillType=occu] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=magi] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Magiques
 			</div>
 		</div>
 		<div class="mainPanel" id="compInfo">
-			<div class="hidden" behavior="selectable" on="l:comp.selected[skillType=phys] then show else hide" id="compPhys"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[skillType=soci] then show else hide" id="compSoci"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[skillType=savf] then show else hide" id="compSavf"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[skillType=conn] then show else hide" id="compConn"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[skillType=occu] then show else hide" id="compOccu"> </div>
-			<script type="text/javascript">
-				writeCompArray("compPhys", comp.physiques);
-				writeCompArray("compSoci", comp.sociales);
-				writeCompArray("compSavf", comp.savoirfaire);
-				writeCompArray("compConn", comp.connaissances);
-				writeCompArray("compOccu", comp.magiques);
-			</script>
+			<div on="l:skill.cat.chosen.response then render" control="iterator[property=skills]">
+				<div class="skillToChoose" behavior="rounded[radius=5]" on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">#{name} (#{attr})</div>
+			</div>
 		</div>
 	</div><!-- end of skills dialog -->
 </body>

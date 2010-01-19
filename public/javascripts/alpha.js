@@ -104,24 +104,19 @@ function a_load() {
 	$MQL("l:minotaur.attribute.request", function() {
 		$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
 	});
+	$MQL('l:skill.cat.chosen.request', function(message) {
+		var skills;
+		
+		switch (message.payload.cat) {
+			case 'phys': skills = comp.physiques; break;
+			case 'soci': skills = comp.sociales; break;
+			case 'savo': skills = comp.savoirfaire; break;
+			case 'conn': skills = comp.connaissances; break;
+			case 'mage': default: skills = comp.magiques; break;
+		}
+		$MQ('l:skill.cat.chosen.response', {'skills':skills});
+	});
 }; // End of function a_load
-
-
-// Writes a competence array
-function writeCompArray(fatherDiv,comparray){
-	var i=0;
-	document.getElementById(fatherDiv).innerHTML = "";
-	for (i=0;i<comparray.length;i++)
-	{
-		var divTag = document.createElement("div");
-      divTag.id = fatherDiv + i;
-      divTag.setAttribute("on","selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]");
-      divTag.setAttribute("behavior","rounded[radius=5]");
-      divTag.className ="skillToChoose";
-      divTag.innerHTML = comparray[i];           
-      document.getElementById(fatherDiv).appendChild(divTag);
-	}
-}
 
 // This script establishes the cost of increasing or decreasing an attribute
 function attribut_cost(attr) {
