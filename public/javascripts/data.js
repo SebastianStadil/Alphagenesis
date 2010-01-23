@@ -111,3 +111,12 @@ comp.sociales = ['Persuasion (Cha)', 'Intimidation (Cha/Vol)', 'Psychologie (Cha
 comp.savoirfaire = ['Serrurerie (Dex/Ent)', 'Forge (End/For)', 'Médecine (Per/Mem)', 'Survie (Per)'];
 comp.connaissances = ['Philosophie (Mem/Ent)', 'Histoire de Litrahos (Mem)', 'Géographie de Litrahos (Mem)'];
 comp.magiques = ['Contrôle du feu (Ent)', 'Passion (Inv)', 'Maîtrise de soi (Vol)'];
+comp.niveaux  = [
+	{ name:'Profane', shortname:'P', price:0 },
+	{ name:'Novice', shortname:'N', price:3 },
+	{ name:'Apprenti', shortname:'A', price:12 },
+	{ name:'Compagnon', shortname:'C', price:23 },
+	{ name:'Spécialiste', shortname:'S', price:25 },
+	{ name:'Expert', shortname:'E', price:40 },
+	{ name:'Maître', shortname:'M', price:59 }
+];

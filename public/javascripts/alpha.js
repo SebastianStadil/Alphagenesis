@@ -117,9 +117,9 @@ function writeCompArray(fatherDiv,comparray){
 	{
 		var divTag = document.createElement("div");
       divTag.id = fatherDiv + i;
-      divTag.setAttribute("on","selecting then add[class=resize] or unselecting then remove[class=resize]");
+      divTag.setAttribute("on","selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]");
       divTag.setAttribute("behavior","rounded[radius=5]");
-      divTag.className ="compToChoose";
+      divTag.className ="selectRace ui-widget-content";
       divTag.innerHTML = comparray[i];           
       document.getElementById(fatherDiv).appendChild(divTag);
 	}

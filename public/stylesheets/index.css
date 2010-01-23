@@ -118,13 +118,13 @@ div#character {
 	padding:8px;
 }
 
-.	descBox, .hidden {
-			display:none;
-	}
+.descBox, .hidden {
+	display:none;
+}
 
-		.descRace {
-			display:none;
-		}
+.descRace {
+	display:none;
+}
 
 /* Clickable boxes size */
 .selectTop {

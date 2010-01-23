@@ -377,7 +377,7 @@
 	</div><!-- end of equipment dialog -->
 	
 	<!-- Dialog for adding a skill -->
-	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="compDialog">
+	<div control="jquery_dialog[title=Choix des compétences, height=400, width=650, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="compDialog">
 		<div behavior="selectable" class="rightPanel" id="compTypeSelectDiv">
 			<div class="selectRace ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=phys] or unselecting then remove[class=ui-state-default]"
