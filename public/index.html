@@ -36,7 +36,7 @@
 		</a>
 		
 		<!-- Use this to change themes -->
-<!-->		<script type="text/javascript"
+		<script type="text/javascript"
 			src="http://jqueryui.com/themeroller/themeswitchertool/">
 		</script>
 		<div id="switcher" style="float:right"></div>
@@ -44,7 +44,7 @@
 			$(document).ready(function(){
 				$('#switcher').themeswitcher();
 			});
-		</script></!-->
+		</script>
 
 
 		<!-- When user makes a request, show loading animation until response comes back -->
@@ -129,12 +129,12 @@
 				<p>Peuple : <input id="race" type="button" on="click then l:race.select or l:race.chosen.response then value[race] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
 				<p>Culture : <input id="culture" type="button" on="click then l:culture.select or l:culture.chosen.response then value[culture] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
 			</div>
-			<div id="attributs" title="Attributs (0pp)" on="click then l:step.change[step=2]"> 
+			<div id="attributs" title="Attributs (0pp)"> 
 				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
-					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render">
+					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render" id="a_test">
 						<tr>
 							<td class="nameCell">#{att_name}: </td>
-							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled on="click then script[alert('worked')]" /></td>
 						</tr>
 					</table>
 					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render">
@@ -144,6 +144,7 @@
 						</tr>
 					</table>
 					<div style="clear:left;"></div>
+					<div on="l:race.chosen.response then compile[#a_test]">Compile</div>
 			</div>
 			<div id="competences" title="Compétences (0pp)">
 				<input type="button" on="click then l:skill.add" value="Rajouter une compétence" class="ui-button ui-state-default ui-corner-all" />
@@ -161,7 +162,7 @@
 		
 		<h2>Équipement</h2>
 		<!-- Tabs to separate all the different kinds of equipement -->
-		<div id="equipTabs" control="jquery_tabs">			
+		<div id="equipTabs" control="jquery_tabs">
 			<div id="liquidity" title="Liquidités (100 po)">
 				You have <span>100</span> gold pieces. <input type="button" on="click then l:equipment.select" value="Go shopping!" class="ui-button ui-state-default ui-corner-all" />
 			</div>
@@ -322,7 +323,7 @@
 	</div><!-- end of race dialog -->
 	
 	<!-- Dialog for choosing your equipement -->
-	<div control="jquery_dialog[title=Let's go shopping!, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
+	<div control="jquery_dialog[title=Choisissez votre équipement, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
 		<div behavior="selectable" class="topPanel" id="equipmentChoose">
 			<div class="selectTop ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:equipment.selected[obj=money] or unselecting then remove[class=ui-state-default]"
@@ -352,15 +353,28 @@
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=weapons] then effect[fadeIn] else hide">
 				<h3>Les Armes</h3>
-				
-
+				<p on="l:equipment.selected[obj=weapons] then l:render.request">Click to render</p>
+				<div on="l:render.response then render" control="iterator[property=items]" class="">
+					<img src="#{image_path}" style="height:100px;" style="float:left;" />
+					<p>#{name}
+					<br />Damage: #{damage}
+					<br />Cost: #{cost}
+					<br />Weight: #{weight}
+					<input type="button" class="ui-button ui-state-default ui-corner-all">Purchase</input></p>
+				</div>
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
-				<h4>L'Armure de Plates</h4>
-				<img src="images/armor/armor-full-plate.jpg" class="right portrait" />
-				<h4>La Robe du Sorcier</h4>
-				<img src="images/armor/clothes-robes-sorceror.jpg" class="right portrait" />
+				<h4 style="clear:both;">L'Armure de Plates</h4>
+				<img src="images/armor/armor-full-plate.jpg" class="" style="width:100px; float:left;" on="click then l:purchase[item=fullplate]"/>
+				<p>L'armure de plates c'est un truc qui protege bien mais qui est lourd et encombrant.</p>
+				<p>Coût: 40po<br />Poids: 30kg<br />Disponibilité: Rare (3 mois)<br />Protection: Forte (4D)</p>
+				<p>Acheter</p>
+				<div>
+					<p class="hidden" style="position:relative; position:absolute; top:0px; left:0px;" on="l:purchase then value[item]"></p>
+				</div>
+				<h4 style="clear:both;">La Robe du Sorcier</h4>
+				<img src="images/armor/clothes-robes-sorcerer.jpg" class="right portrait" style="width:100px" />
 				<p>Ca protege bien des coups tranchants, mais pas des flèches.</p>
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=other] then effect[fadeIn] else hide">

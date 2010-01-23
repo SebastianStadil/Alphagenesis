@@ -15,8 +15,27 @@
 
 <!-- When appcelerator finishes compiling the page in the browser, it makes the page visible -->
 <body style="visibility:hidden" on="l:app.compiled then visible and script[a_load()]">
+	<!-- Use this to change themes -->
+	<script type="text/javascript"
+		src="http://jqueryui.com/themeroller/themeswitchertool/">
+	</script>
+	<div id="switcher" style="float:right"></div>
+	<script>
+		$(document).ready(function(){
+			$('#switcher').themeswitcher();
+		});
+	</script>
 
-	<table cellpadding="0" cellspacing="0" border="0" class="display" id="weaponsTable">
+<ul>
+	<li>Need to show all item stats for quick reference and search</li>
+	<li>Need to show image, non-scaled</li>
+	<li>Need quick browsing</li>
+	<li>Need to be able to select and purchase</li>
+</ul>
+
+<p on="click then l:render.request">Click to render</p>
+
+	<table cellpadding="0" cellspacing="0" border="0" class="display" style="width:800px;" id="weaponsTable">
 		<thead>
 			<tr>
 				<th>Image</th>
@@ -24,69 +43,20 @@
 				<th>Damage</th>
 				<th>Cost (gold)</th>
 				<th>Weight (kg)</th>
+				<th>Purchase</th>
 			</tr>
-
 		</thead>
-		<tbody>
-			<tr class="gradeX">
-				<td><img src="images/weapons/katana.jpg" style="height:100px;" /></td>
-				<td>Katana</td>
-				<td>3M</td>
-				<td class="center">4</td>
-				<td class="center">2</td>
-			</tr>		
-			<tr class="gradeX">
-				<td><img src="images/weapons/axe.jpg" style="height:100px;" /></td>
-				<td>Axe</td>
-				<td>3M</td>
-				<td class="center">4</td>
-				<td class="center">2</td>
-			</tr>
-			<tr class="gradeX">
-				<td><img src="images/weapons/dagger-1.jpg" style="height:100px;" /></td>
-				<td>Dagger</td>
-				<td>3L</td>
-				<td class="center">2</td>
-				<td class="center">1</td>
-			</tr>
-			<tr class="gradeX">
-				<td><img src="images/weapons/scimitar-magical.jpg" style="height:100px;" /></td>
-				<td>Scimitar</td>
-				<td>4M</td>
-				<td class="center">5</td>
-				<td class="center">2</td>
-			</tr>
-			<tr class="gradeX">
-				<td><img src="images/weapons/hammer-kord.jpg" style="height:100px;" /></td>
-				<td>Hammer</td>
-				<td>2G</td>
-				<td class="center">2</td>
-				<td class="center">4</td>
+		<tbody on="l:render.response then render" control="iterator[property=items]" class="tbody">
+			<tr>
+				<td><img src="#{image_path}" style="height:100px;" /></td>
+				<td>#{name}</td>
+				<td>#{damage}</td>
+				<td class="center">#{cost}</td>
+				<td class="center">#{weight}</td>
+				<td>Purchase</td>
 			</tr>
 		</tbody>
 	</table>
-
-	<script type="text/javascript" charset="utf-8">
-		$(document).ready(function() {
-			$('#weaponsTable').dataTable();
-		} );
-	</script>
-	<!-- 
-		<tr><td><a href="#"><img src="images/weapons/katana.jpg" alt="" />katana</a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/axe.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/axe-battle.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/axe-evil.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/axe-frost.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/axe-labrys-labyrinth.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/axe-polearm.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/dagger-1.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/dagger-evil.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/dagger-flaming.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/dagger-magic.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/hammer-kord.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/hammer-thunderbird.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/scimitar-magical.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/sword-great-angel.jpg" alt="" /></a></td></tr>
-		<tr><td><a href="#"><img src="images/weapons/sword-greatsword-hieroneous.jpg" alt="" /></a></td></tr> -->
+	
 </body>
 </html>

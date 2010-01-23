@@ -111,3 +111,12 @@ comp.sociales = [{name:'Persuasion', attr:'Cha'}, {name:'Intimidation', attr:'Ch
 comp.savoirfaire = [{name:'Serrurerie', attr:'Dex/Ent'}, {name:'Survie', attr:'Per'}, {name:'Médecine', attr:'Per/Mem'}, {name:'Forge', attr:'End/For'}];
 comp.connaissances = [{name:'Philosophie', attr:'Mem/Ent'}, {name:'Histoire de Litrahos', attr:'Mem'}, {name:'Géographie de Litrahos', attr:'Mem'}];
 comp.magiques = [{name:'Contrôle du feu', attr:'Ent'}, {name:'Passion', attr:'Inv'}, {name:'Maîtrise de soi', attr:'Vol'}];
+
+var items = {};
+items.weapons = [
+	{image_path:'images/weapons/katana.jpg', name:'Katana', damage:'2M', cost:'40', weight:'3'},
+	{image_path:'images/weapons/dagger-1.jpg', name:'Dagger', damage:'2L', cost:'23', weight:'1'},
+	{image_path:'images/weapons/axe.jpg', name:'Axe', damage:'2G', cost:'31', weight:'5'},
+	{image_path:'images/weapons/hammer-kord.jpg', name:'Hammer', damage:'2M', cost:'62', weight:'7'},
+	{image_path:'images/weapons/scimitar-magical.jpg', name:'Scimitar', damage:'1M', cost:'12', weight:'3'}
+];

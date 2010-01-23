@@ -119,12 +119,12 @@ div#character {
 }
 
 .descBox, .hidden {
-			display:none;
-	}
+	display:none;
+}
 
-		.descRace {
-			display:none;
-		}
+	.descRace {
+		display:none;
+	}
 
 /* Clickable boxes size */
 .selectTop {
@@ -142,4 +142,18 @@ div#character {
 		margin:4px;
 	}
 
-/* Image grid for equipment */
+/* Items */
+
+.item {
+	position: absolute;
+}
+
+.sct {
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+/* Fixes an issue in datatable */
+th span {
+	float:left;
+}
