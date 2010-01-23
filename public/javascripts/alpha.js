@@ -135,6 +135,22 @@ function a_load() {
 	});
 }; // End of function a_load
 
+// Writes a competence array
+function writeCompArray(fatherDiv,comparray){
+	var i=0;
+	document.getElementById(fatherDiv).innerHTML = "";
+	for (i=0;i<comparray.length;i++)
+	{
+		var divTag = document.createElement("div");
+      divTag.id = fatherDiv + i;
+      divTag.setAttribute("on","selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]");
+      divTag.setAttribute("behavior","rounded[radius=5]");
+      divTag.className ="selectRace ui-widget-content";
+      divTag.innerHTML = comparray[i];           
+      document.getElementById(fatherDiv).appendChild(divTag);
+	}
+}
+
 // This script establishes the cost of increasing or decreasing an attribute
 function attribut_cost(attr) {
 	switch(attr) {

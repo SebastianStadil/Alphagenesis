@@ -122,9 +122,9 @@ div#character {
 	display:none;
 }
 
-	.descRace {
-		display:none;
-	}
+.descRace {
+	display:none;
+}
 
 /* Clickable boxes size */
 .selectTop {
@@ -135,12 +135,12 @@ div#character {
 	text-align:center;
 }
 
-	.selectBox {
+.selectBox {
 		float:left;
 		width:170px;
 		padding:8px;
 		margin:4px;
-	}
+}
 
 /* Items */
 

@@ -111,7 +111,15 @@ comp.sociales = [{name:'Persuasion', attr:'Cha'}, {name:'Intimidation', attr:'Ch
 comp.savoirfaire = [{name:'Serrurerie', attr:'Dex/Ent'}, {name:'Survie', attr:'Per'}, {name:'Médecine', attr:'Per/Mem'}, {name:'Forge', attr:'End/For'}];
 comp.connaissances = [{name:'Philosophie', attr:'Mem/Ent'}, {name:'Histoire de Litrahos', attr:'Mem'}, {name:'Géographie de Litrahos', attr:'Mem'}];
 comp.magiques = [{name:'Contrôle du feu', attr:'Ent'}, {name:'Passion', attr:'Inv'}, {name:'Maîtrise de soi', attr:'Vol'}];
-
+comp.niveaux  = [
+	{ name:'Profane', shortname:'P', price:0 },
+	{ name:'Novice', shortname:'N', price:3 },
+	{ name:'Apprenti', shortname:'A', price:12 },
+	{ name:'Compagnon', shortname:'C', price:23 },
+	{ name:'Spécialiste', shortname:'S', price:25 },
+	{ name:'Expert', shortname:'E', price:40 },
+	{ name:'Maître', shortname:'M', price:59 }
+]
 var items = {};
 items.weapons = [
 	{image_path:'images/weapons/katana_s.jpg', name:'Katana', damage:'2M', cost:'40', weight:'3'},
