@@ -16,11 +16,9 @@
 <body style="visibility:hidden" on="l:app.compiled then visible and script[a_load()]">
 
 	<!-- Character generator for Appcelerator 3.0.1 -->
-	<!-- This view allows you to view an existing character,
-	 	 or create a new one -->
+	<!-- This view allows you to view an existing character, or create a new one -->
 	
-	<!-- Header is the top menu that lets you choose between creating a new character,
-		 and loading one -->
+	<!-- Header is the top menu that lets you choose between creating a new character, and loading one -->
 	<div id="header" class="ui-widget-header">
 		
 		<!-- When user clicks on 'Create new character, load empty character template -->
@@ -54,25 +52,25 @@
 							  l:~response$ then hide"><img src="images/indicator_222.gif" /></div>
 	</div>
 	
-	
+	<!-- We don't have any use for the helper yet, but having it present might inspire us -->
 	<div id="helper" on="l:character.new.request then show">
 		<div control="jquery_accordion" id="helperAccordion" on="l:step.change then activate[step]">
 			<div id="raceHelper" title="Races">
 				<div behavior="selectable">
 					<div class="boxRace" 
-						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">
 						Humain
 					</div>
 					<div class="boxRace" 
-						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">
 						Elfe
 					</div>
 					<div class="boxRace" 
-						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">
 						Orc
 					</div>
 					<div class="boxRace" 
-						on="selecting then add[class=resize] or unselecting then remove[class=resize]">
+						on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">
 						Minotaure
 					</div>
 				</div>
@@ -107,43 +105,36 @@
 	</div>
 
 	
-	<!-- Character div is the space in which we load the characters,
-	 	 when user creates new character, or selects existing, the div slides down from
-		 under the header div
-		on="l:character.new.request then show
-							 or l:app.compiled then hide" -->
+	<!-- Character div is the space in which we load the characters, when user creates new character, or selects existing, the div slides down from under the header div -->
 	<div id="character">
 
 		<!-- Modal element for Getting Started -->
 <!--		
-		<div class="box" 
-			behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" 
-					on="l:app.compiled then show or l:close then hide">
-			<div>Use the top menu to create a new character, or view an existing one. Your
+		<div class="box" behavior="modal[background-color=#ddd,showEffect=fadeIn,hideEffect=explode]" on="l:app.compiled then show or l:close then hide">
+			<div><h1>Welcome to Archipel</h1>
+				<h3>Character Creator</h2>
+				Use the top menu to create a new character, or view an existing one. Your
 				character's name will be used to save the file, and you will be prompted
 				for a password. You will need this password to later edit this character.</div>
 			<div class="right" on="click then l:close">Close</div>
 		</div>
 -->		
-		<!-- Dividers for the different parts of a character;
-		     we use tabs here to separate content -->
+		<!-- Dividers for the different parts of a character; we use tabs here to separate content -->
 		<div control="jquery_tabs" id="mainTabs">
 			<div id="personnage" title="Personnage">
 				<!-- Click to edit, fields are found in alpha.js -->
-				<p>Nom : <span id="name" class="editablePasMod">Cliquez pour modifier</span></p>
-				<p>Âge : <span id="age" class="editablePasMod">Cliquez pour modifier</span></p>
-				<p>Sexe : <span id="sex" class="editablePasMod">Homme</span></p>
-				<p>Peuple : <input id="race" type="button" on="click then l:race.select or l:race.chosen.response then value[race] and add[class=editable] and remove[class=editablePasMod]"
-										  value="Choisir" class="ui-button ui-state-default ui-corner-all editablePasMod" /></p>
-				<p>Culture : <input id="culture" type="button" on="click then l:culture.select or l:culture.chosen.response then value[culture] and add[class=editable] and remove[class=editablePasMod]"
-										  value="Choisir" class="ui-button ui-state-default ui-corner-all editablePasMod" /></p>
+				<p>Nom : <span id="name" class="editable-unedited">Cliquez pour modifier</span></p>
+				<p>Âge : <span id="age" class="editable-unedited">Cliquez pour modifier</span></p>
+				<p>Sexe : <span id="sex" class="editable-unedited">Homme</span></p>
+				<p>Peuple : <input id="race" type="button" on="click then l:race.select or l:race.chosen.response then value[race] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
+				<p>Culture : <input id="culture" type="button" on="click then l:culture.select or l:culture.chosen.response then value[culture] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
 			</div>
-			<div id="attributs" title="Attributs (0pp)" on="click then l:step.change[step=2]"> 
+			<div id="attributs" title="Attributs (0pp)"> 
 				<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
-					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render">
+					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render" id="a_test">
 						<tr>
 							<td class="nameCell">#{att_name}: </td>
-							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled /></td>
+							<td class="valueCell"><input type="text" value="#{att_value}" size="1" disabled on="click then script[alert('worked')]" /></td>
 						</tr>
 					</table>
 					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render">
@@ -153,6 +144,7 @@
 						</tr>
 					</table>
 					<div style="clear:left;"></div>
+					<div on="l:race.chosen.response then compile[#a_test]">Compile</div>
 			</div>
 			<div id="competences" title="Compétences (0pp)">
 				<input type="button" on="click then l:skill.add" value="Rajouter une compétence" class="ui-button ui-state-default ui-corner-all" />
@@ -170,7 +162,7 @@
 		
 		<h2>Équipement</h2>
 		<!-- Tabs to separate all the different kinds of equipement -->
-		<div id="equipTabs" control="jquery_tabs">			
+		<div id="equipTabs" control="jquery_tabs">
 			<div id="liquidity" title="Liquidités (100 po)">
 				You have <span>100</span> gold pieces. <input type="button" on="click then l:equipment.select" value="Go shopping!" class="ui-button ui-state-default ui-corner-all" />
 			</div>
@@ -212,22 +204,22 @@
 	<!-- Dialog for choosing your race -->
 	<div control="jquery_dialog[title=Choisissez votre peuple, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:race.select then open" id="raceDialog">
 		<div behavior="selectable" class="rightPanel" id="raceChoose">
-			<div class="selectRace ui-widget-content" 
+			<div class="selectBox ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:race.selected[race=human] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Humain
 			</div>
-			<div class="selectRace ui-widget-content" 
+			<div class="selectBox ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:race.selected[race=elf] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Elfe
 			</div>
-			<div class="selectRace ui-widget-content" 
+			<div class="selectBox ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:race.selected[race=orc] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Orc
 			</div>
-			<div class="selectRace ui-widget-content" 
+			<div class="selectBox ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:race.selected[race=minotaur] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Minotaure
@@ -331,7 +323,7 @@
 	</div><!-- end of race dialog -->
 	
 	<!-- Dialog for choosing your equipement -->
-	<div control="jquery_dialog[title=Let's go shopping!, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
+	<div control="jquery_dialog[title=Choisissez votre équipement, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
 		<div behavior="selectable" class="topPanel" id="equipmentChoose">
 			<div class="selectTop ui-widget-content" 
 				on="selecting then add[class=ui-state-default] and l:equipment.selected[obj=money] or unselecting then remove[class=ui-state-default]"
@@ -361,13 +353,28 @@
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=weapons] then effect[fadeIn] else hide">
 				<h3>Les Armes</h3>
-				
-
+				<p on="l:equipment.selected[obj=weapons] then l:render.request">Click to render</p>
+				<div on="l:render.response then render" control="iterator[property=items]" class="">
+					<img src="#{image_path}" style="height:100px;" style="float:left;" />
+					<p>#{name}
+					<br />Damage: #{damage}
+					<br />Cost: #{cost}
+					<br />Weight: #{weight}
+					<input type="button" class="ui-button ui-state-default ui-corner-all">Purchase</input></p>
+				</div>
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
-				<h4>La cotte de mailles</h4>
-				<img src="images/axe.jpg" class="right portrait" />
+				<h4 style="clear:both;">L'Armure de Plates</h4>
+				<img src="images/armor/armor-full-plate.jpg" class="" style="width:100px; float:left;" on="click then l:purchase[item=fullplate]"/>
+				<p>L'armure de plates c'est un truc qui protege bien mais qui est lourd et encombrant.</p>
+				<p>Coût: 40po<br />Poids: 30kg<br />Disponibilité: Rare (3 mois)<br />Protection: Forte (4D)</p>
+				<p>Acheter</p>
+				<div>
+					<p class="hidden" style="position:relative; position:absolute; top:0px; left:0px;" on="l:purchase then value[item]"></p>
+				</div>
+				<h4 style="clear:both;">La Robe du Sorcier</h4>
+				<img src="images/armor/clothes-robes-sorcerer.jpg" class="right portrait" style="width:100px" />
 				<p>Ca protege bien des coups tranchants, mais pas des flèches.</p>
 			</div>
 			<div class="descBox" on="l:equipment.selected[obj=other] then effect[fadeIn] else hide">
@@ -377,47 +384,38 @@
 	</div><!-- end of equipment dialog -->
 	
 	<!-- Dialog for adding a skill -->
-	<div control="jquery_dialog[title=Choix des compétences, height=400, width=650, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="compDialog">
-		<div behavior="selectable" class="rightPanel" id="compTypeSelectDiv">
-			<div class="selectRace ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=phys] or unselecting then remove[class=ui-state-default]"
+	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="skillDialog">
+		<div behavior="selectable" class="rightPanel" id="skillTypeSelectDiv">
+			<div class="selectBox ui-widget-content" 
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=phys] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Physiques
 			</div>
-			<div class="selectRace ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=soci] or unselecting then remove[class=ui-state-default]"
+			<div class="selectBox ui-widget-content" 
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=soci] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Sociales
 			</div>
-			<div class="selectRace ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=savf] or unselecting then remove[class=ui-state-default]"
+			<div class="selectBox ui-widget-content" 
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=savo] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Savoir-faire
 			</div>
-			<div class="selectRace ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=conn] or unselecting then remove[class=ui-state-default]"
+			<div class="selectBox ui-widget-content" 
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=conn] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Connaissances
 			</div>
-			<div class="selectRace ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:comp.selected[compType=occu] or unselecting then remove[class=ui-state-default]"
+			<div class="selectBox ui-widget-content" 
+				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=magi] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Magiques
 			</div>
 		</div>
 		<div class="mainPanel" id="compInfo">
-			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=phys] then show else hide" id="compPhys"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=soci] then show else hide" id="compSoci"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=savf] then show else hide" id="compSavf"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=conn] then show else hide" id="compConn"> </div>
-			<div class="hidden" behavior="selectable" on="l:comp.selected[compType=occu] then show else hide" id="compOccu"> </div>
-			<script type="text/javascript">
-				writeCompArray("compPhys", comp.physiques);
-				writeCompArray("compSoci", comp.sociales);
-				writeCompArray("compSavf", comp.savoirfaire);
-				writeCompArray("compConn", comp.connaissances);
-				writeCompArray("compOccu", comp.magiques);
-			</script>
+			<div on="l:skill.cat.chosen.response then render" control="iterator[property=skills]">
+				<div class="skillToChoose" behavior="rounded[radius=5]" on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">#{name} (#{attr})</div>
+			</div>
 		</div>
 	</div><!-- end of skills dialog -->
 </body>

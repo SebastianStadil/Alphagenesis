@@ -14,8 +14,10 @@ function a_load() {
 	$('span#age').editable({submitterId:'age'});
 	$('span#sex').editable({type:'select',options:{'male':'Mâle','female':'Femelle','other':'Spécial'},submit:'Ok',cancel:'Annuler',
 	submitterId:'sex'});
+	// When user clicks on element with 'item' class, show elements of class sct scrolling up
+	$('.item').click(function(){$('.sct').hide("drop", { direction: "up" }, 800)});
 	
-	$('#compDialog').dialog('option', 'buttons', 
+	$('#skillDialog').dialog('option', 'buttons', 
 				{
 					"Ajouter":function()
 					{$(this).dialog("close");},
@@ -23,8 +25,6 @@ function a_load() {
 					{$(this).dialog("close");}
 				}
 			);
-	
-	
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
 																$MQ({name:'l:race.chosen.request',
 																	 payload:{
@@ -62,7 +62,7 @@ function a_load() {
 	
 	
 
-	// Listeners
+	// Listeners (races)
 	$MQL('l:race.chosen.request', function(message) {
 		var race;
 		var phys;
@@ -106,8 +106,27 @@ function a_load() {
 	$MQL("l:minotaur.attribute.request", function() {
 		$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
 	});
+	// Listeners (skills)
+	$MQL('l:skill.cat.chosen.request', function(message) {
+		var skills;
+		switch (message.payload.cat) {
+			case 'phys': skills = comp.physiques; break;
+			case 'soci': skills = comp.sociales; break;
+			case 'savo': skills = comp.savoirfaire; break;
+			case 'conn': skills = comp.connaissances; break;
+			case 'mage': default: skills = comp.magiques; break;
+		}
+		$MQ('l:skill.cat.chosen.response', {'skills':skills});
+	});
+	// Listeners (items)
+	$MQL("l:equipment.selected", function() {
+		$MQ('l:render.response',{'items':items.weapons});
+		// Code for adding a datatable (not currently used though)
+		//$('#weaponsTable').dataTable({'bJQueryUI': true,'sPaginationType': 'full_numbers'});
+		// Must wait 1ms before removing attribute, otherwise Iterator (in entourage) hasn't processed yet
+		//setTimeout("$('.tbody').removeAttr('style')", 1);
+	});
 }; // End of function a_load
-
 
 // Writes a competence array
 function writeCompArray(fatherDiv,comparray){

@@ -106,11 +106,11 @@ minotaur.attribut.ment = [
 ];
 
 var comp = {};
-comp.physiques = ['Athlétisme (For/End)', 'Esquive (Agil)', 'Natation (For/End)', 'Vigilance(Ent/Per)', 'Epée(Dex)'];
-comp.sociales = ['Persuasion (Cha)', 'Intimidation (Cha/Vol)', 'Psychologie (Cha/Per)'];
-comp.savoirfaire = ['Serrurerie (Dex/Ent)', 'Forge (End/For)', 'Médecine (Per/Mem)', 'Survie (Per)'];
-comp.connaissances = ['Philosophie (Mem/Ent)', 'Histoire de Litrahos (Mem)', 'Géographie de Litrahos (Mem)'];
-comp.magiques = ['Contrôle du feu (Ent)', 'Passion (Inv)', 'Maîtrise de soi (Vol)'];
+comp.physiques = [{name:'Athlétisme', attr:'For/End'}, {name:'Esquive', attr:'Agi'}, {name:'Natation', attr:'For/End'}, {name:'Vigilance', attr:'Ent/Per'}, {name:'Epée', attr:'Dex'}];
+comp.sociales = [{name:'Persuasion', attr:'Cha'}, {name:'Intimidation', attr:'Cha/Vol'}, {name:'Psychologie', attr:'Cha/Per'}];
+comp.savoirfaire = [{name:'Serrurerie', attr:'Dex/Ent'}, {name:'Survie', attr:'Per'}, {name:'Médecine', attr:'Per/Mem'}, {name:'Forge', attr:'End/For'}];
+comp.connaissances = [{name:'Philosophie', attr:'Mem/Ent'}, {name:'Histoire de Litrahos', attr:'Mem'}, {name:'Géographie de Litrahos', attr:'Mem'}];
+comp.magiques = [{name:'Contrôle du feu', attr:'Ent'}, {name:'Passion', attr:'Inv'}, {name:'Maîtrise de soi', attr:'Vol'}];
 comp.niveaux  = [
 	{ name:'Profane', shortname:'P', price:0 },
 	{ name:'Novice', shortname:'N', price:3 },
@@ -119,4 +119,12 @@ comp.niveaux  = [
 	{ name:'Spécialiste', shortname:'S', price:25 },
 	{ name:'Expert', shortname:'E', price:40 },
 	{ name:'Maître', shortname:'M', price:59 }
+]
+var items = {};
+items.weapons = [
+	{image_path:'images/weapons/katana.jpg', name:'Katana', damage:'2M', cost:'40', weight:'3'},
+	{image_path:'images/weapons/dagger-1.jpg', name:'Dagger', damage:'2L', cost:'23', weight:'1'},
+	{image_path:'images/weapons/axe.jpg', name:'Axe', damage:'2G', cost:'31', weight:'5'},
+	{image_path:'images/weapons/hammer-kord.jpg', name:'Hammer', damage:'2M', cost:'62', weight:'7'},
+	{image_path:'images/weapons/scimitar-magical.jpg', name:'Scimitar', damage:'1M', cost:'12', weight:'3'}
 ];

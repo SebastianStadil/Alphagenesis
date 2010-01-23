@@ -2,13 +2,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:app="http://appcelerator.org">
 <head>
-    <title></title>
+    <title>Archipel Character Creator</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="appcelerator/images/favicon.ico"/>
-    <script src="javascripts/entourage.js" type="text/javascript"></script>
+	<link href="stylesheets/index.css" rel="stylesheet" type="text/css" /><!-- Stylesheet for the character creator -->
+    <script src="javascripts/entourage.js" type="text/javascript"></script><!-- Appcelerator JS -->
+	<script src="javascripts/jquery.editable-1.3.3.js" type="text/javascript"></script><!-- jQuery plugin: Editable fields -->
+	<script src="javascripts/alpha.js" type="text/javascript"></script><!-- Archipel JS, must be after Editable JS -->
+    <script src="javascripts/data.js" type="text/javascript"></script><!-- Data JS -->
 </head>
 
-<body style="visibility:hidden" on="l:app.compiled then visible">
+<!-- When appcelerator finishes compiling the page in the browser, it makes the page visible -->
+<body style="visibility:hidden" on="l:app.compiled then visible and script[a_load()]">
 
 	<!-- This file serves as a blank template when creating new files -->
 	<!-- Update me here! -->

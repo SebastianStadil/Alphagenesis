@@ -1,0 +1,805 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="en-gb" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<title>  Coda Popup Bubbles | jQuery for Designers - Tutorials and screencasts</title>
+	<link rel="stylesheet" type="text/css" href="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/css/base.css" />
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://jqueryfordesigners.com/feed/" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="http://jqueryfordesigners.com/feed/rss/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="http://jqueryfordesigners.com/feed/atom/" />
+
+	<link rel="pingback" href="http://jqueryfordesigners.com/xmlrpc.php" />
+		<link rel='archives' title='January 2010' href='http://jqueryfordesigners.com/2010/01/' />
+	<link rel='archives' title='October 2009' href='http://jqueryfordesigners.com/2009/10/' />
+	<link rel='archives' title='September 2009' href='http://jqueryfordesigners.com/2009/09/' />
+	<link rel='archives' title='August 2009' href='http://jqueryfordesigners.com/2009/08/' />
+	<link rel='archives' title='July 2009' href='http://jqueryfordesigners.com/2009/07/' />
+	<link rel='archives' title='June 2009' href='http://jqueryfordesigners.com/2009/06/' />
+	<link rel='archives' title='April 2009' href='http://jqueryfordesigners.com/2009/04/' />
+	<link rel='archives' title='March 2009' href='http://jqueryfordesigners.com/2009/03/' />
+	<link rel='archives' title='February 2009' href='http://jqueryfordesigners.com/2009/02/' />
+	<link rel='archives' title='January 2009' href='http://jqueryfordesigners.com/2009/01/' />
+	<link rel='archives' title='December 2008' href='http://jqueryfordesigners.com/2008/12/' />
+	<link rel='archives' title='October 2008' href='http://jqueryfordesigners.com/2008/10/' />
+	<link rel='archives' title='August 2008' href='http://jqueryfordesigners.com/2008/08/' />
+	<link rel='archives' title='July 2008' href='http://jqueryfordesigners.com/2008/07/' />
+	<link rel='archives' title='June 2008' href='http://jqueryfordesigners.com/2008/06/' />
+	<link rel='archives' title='May 2008' href='http://jqueryfordesigners.com/2008/05/' />
+	<link rel='archives' title='April 2008' href='http://jqueryfordesigners.com/2008/04/' />
+	<link rel='archives' title='March 2008' href='http://jqueryfordesigners.com/2008/03/' />
+	<link rel='archives' title='February 2008' href='http://jqueryfordesigners.com/2008/02/' />
+	<link rel='archives' title='January 2008' href='http://jqueryfordesigners.com/2008/01/' />
+	<link rel='archives' title='December 2007' href='http://jqueryfordesigners.com/2007/12/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://jqueryfordesigners.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://jqueryfordesigners.com/wp-includes/wlwmanifest.xml" /> 
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=2.7.1'></script>
+<script type='text/javascript' src='http://jqueryfordesigners.com/wp-content/plugins/wp-ajax-edit-comments/js-includes/wp-ajax-edit-comments.js.php?ver=1.1'></script>
+<meta name="generator" content="WordPress 2.7.1" />
+
+<link type="text/css" rel="stylesheet" href="http://jqueryfordesigners.com/wp-content/plugins/wp-ajax-edit-comments/css/editComments.css" />
+</head>
+<body id="articlePage">
+
+	<!-- BEGIN header -->
+	<div id="topstrap">
+		<ul>
+      <!-- <li class="new"><strong>New!</strong> <a href="http://full-frontal.org">Full Frontal - the JavaScript conference</a></li> -->
+			<li class="subscribe">Subscribe to our <a class="feed" href="http://jqueryfordesigners.com/feed/">Articles</a> <a class="podcast" href="http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=281057468">Podcast</a></li>
+		</ul>
+	</div>
+	
+	<div id="header" class="clearFix">
+	
+		<div class="minWidth">	
+			<h1><a href="http://jqueryfordesigners.com"><span>jQuery for Designers</span></a></h1>
+			
+			<ul id="filter">
+				<li>Filter by</li>
+				<!-- <li><a href="/">All</a></li> -->
+				<li><a href="/tag/easy/">Easy</a></li>
+				<li><a href="/tag/medium/">Medium</a></li>
+				<li><a href="/tag/hard/">Hard</a></li>
+				<li id="searchLink"><a href="#searchForm">Search</a></li>
+			</ul>
+			
+		</div>	
+	</div>
+	<!-- END header -->
+	
+	<!-- BEGIN titleHolder -->
+	<div id="titleHolder" class="clearFix">
+		<div class="titleHolderInner">
+		<div id="scrollButtons">
+			<div class="minWidth clearFix">
+	
+        <ul class="clearFix" id="articleStrip">
+      <li class="selected"><a title="Coda Popup Bubbles" href="http://jqueryfordesigners.com/coda-popup-bubbles/"><img alt="Coda Popup Bubbles" src="http://jqueryfordesigners.com/images/video/coda-bubbles-thumb.gif" /></a><em class="selected">Selected</em></li>
+<li><a title="Slider Gallery" href="http://jqueryfordesigners.com/slider-gallery/"><img alt="Slider Gallery" src="http://jqueryfordesigners.com/images/video/slider-gallery-thumb.gif" /></a></li>
+<li><a title="Image Loading" href="http://jqueryfordesigners.com/image-loading/"><img alt="Image Loading" src="http://jqueryfordesigners.com/images/video/image-loading-thumb.gif" /></a></li>
+<li><a title="jQuery Tabs" href="http://jqueryfordesigners.com/jquery-tabs/"><img alt="jQuery Tabs" src="http://jqueryfordesigners.com/images/video/tabs-thumb.gif" /></a></li>
+<li><a title="Slide out and drawer effect" href="http://jqueryfordesigners.com/slide-out-and-drawer-effect/"><img alt="Slide out and drawer effect" src="http://jqueryfordesigners.com/images/video/slide-draw-thumb.gif" /></a></li>
+<li><a title="Using Ajax to Validate Forms" href="http://jqueryfordesigners.com/using-ajax-to-validate-forms/"><img alt="Using Ajax to Validate Forms" src="http://jqueryfordesigners.com/images/video/validate-thumb.gif" /></a></li>
+<li><a title="It&#8217;s all about CSS" href="http://jqueryfordesigners.com/its-all-about-css/"><img alt="It&#8217;s all about CSS" src="http://jqueryfordesigners.com/images/video/css-thumb.gif" /></a></li><li class="new"><a title="Adding Keyboard Navigation" href="http://jqueryfordesigners.com/adding-keyboard-navigation/"><img alt="Adding Keyboard Navigation" src="http://static.jqueryfordesigners.com/images/video/keyboard-nav-thumb.jpg" /><em>New</em></a></li>
+<li><a title="Fixed Floating Elements" href="http://jqueryfordesigners.com/fixed-floating-elements/"><img alt="Fixed Floating Elements" src="http://static.jqueryfordesigners.com/images/video/fixedfloat-thumb.gif" /></a></li>
+<li><a title="Want to learn more about JavaScript? Go Full Frontal!" href="http://jqueryfordesigners.com/want-to-learn-more-about-javascript-go-full-frontal/"><img alt="Want to learn more about JavaScript? Go Full Frontal!" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="iPhone-like Sliding Headers" href="http://jqueryfordesigners.com/iphone-like-sliding-headers/"><img alt="iPhone-like Sliding Headers" src="http://jqueryfordesigners.com/images/video/header-slide-thumb.jpg" /></a></li>
+<li><a title="Automatic Infinite Carousel" href="http://jqueryfordesigners.com/automatic-infinite-carousel/"><img alt="Automatic Infinite Carousel" src="http://jqueryfordesigners.com/images/video/infinite-auto-thumb.jpg" /></a></li>
+<li><a title="Play School: Broken Repeating Animations" href="http://jqueryfordesigners.com/broken-repeating-animations/"><img alt="Play School: Broken Repeating Animations" src="http://jqueryfordesigners.com/images/video/repeat-effect-thumb.png" /></a></li>
+<li><a title="API: queue &#038; dequeue" href="http://jqueryfordesigners.com/api-queue-dequeue/"><img alt="API: queue &#038; dequeue" src="http://jqueryfordesigners.com/images/video/queue-thumb.gif" /></a></li>
+<li><a title="jQuery Infinite Carousel" href="http://jqueryfordesigners.com/jquery-infinite-carousel/"><img alt="jQuery Infinite Carousel" src="http://jqueryfordesigners.com/images/video/infinite-thumb.jpg" /></a></li>
+<li><a title="jQuery for Designers: In Live Action" href="http://jqueryfordesigners.com/jquery-for-designers-in-live-action/"><img alt="jQuery for Designers: In Live Action" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="Return to normal scheduling" href="http://jqueryfordesigners.com/return-to-normal-scheduling/"><img alt="Return to normal scheduling" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="SlideDown Animation Jump Revisited" href="http://jqueryfordesigners.com/slidedown-animation-jump-revisited/"><img alt="SlideDown Animation Jump Revisited" src="http://jqueryfordesigners.com/images/video/animation-jump2-thumb.gif" /></a></li>
+<li><a title="BBC Radio 1 Zoom Tabs" href="http://jqueryfordesigners.com/bbc-radio-1-zoom-tabs/"><img alt="BBC Radio 1 Zoom Tabs" src="http://jqueryfordesigners.com/images/video/radio1-thumb.gif" /></a></li>
+<li><a title="API: map &#038; grep" href="http://jqueryfordesigners.com/api-map-grep/"><img alt="API: map &#038; grep" src="http://jqueryfordesigners.com/images/video/mapgrep-thumb.gif" /></a></li>
+<li><a title="SXSW, Server Issues and Redesign" href="http://jqueryfordesigners.com/sxsw-server-issues-and-redesign/"><img alt="SXSW, Server Issues and Redesign" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="jQuery look: Tim Van Damme" href="http://jqueryfordesigners.com/jquery-look-tim-van-damme/"><img alt="jQuery look: Tim Van Damme" src="/images/video/tvd-thumb.jpg" /></a></li>
+<li><a title="How to tell if an element exists" href="http://jqueryfordesigners.com/element-exists/"><img alt="How to tell if an element exists" src="/images/video/element-exists-thumb.jpg" /></a></li>
+<li><a title="The Book and The Redesign" href="http://jqueryfordesigners.com/the-book-and-the-redesign/"><img alt="The Book and The Redesign" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="Ajax Spy" href="http://jqueryfordesigners.com/ajax-spy/"><img alt="Ajax Spy" src="/images/video/ajax-spy-thumb.jpg" /></a></li>
+<li><a title="Play School: Easy Ajax - load" href="http://jqueryfordesigners.com/play-school-easy-ajax-load/"><img alt="Play School: Easy Ajax - load" src="/images/video/api-load-thumb.jpg" /></a></li>
+<li><a title="API: Filter &#038; Find" href="http://jqueryfordesigners.com/api-filter-find/"><img alt="API: Filter &#038; Find" src="/images/video/api-filter-find-thumb.jpg" /></a></li>
+<li><a title="Simple jQuery Spy Effect" href="http://jqueryfordesigners.com/simple-jquery-spy-effect/"><img alt="Simple jQuery Spy Effect" src="/images/video/simple-spy-thumb.jpg" /></a></li>
+<li><a title="Fun with Overflows" href="http://jqueryfordesigners.com/fun-with-overflows/"><img alt="Fun with Overflows" src="/images/video/overflows-thumb.jpg" /></a></li>
+<li><a title="Two New Series" href="http://jqueryfordesigners.com/two-new-series/"><img alt="Two New Series" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="Animation Jump - quick tip" href="http://jqueryfordesigners.com/animation-jump-quick-tip/"><img alt="Animation Jump - quick tip" src="http://jqueryfordesigners.com/images/video/animation-jump-thumb.gif" /></a></li>
+<li><a title="Image Fade Revisited" href="http://jqueryfordesigners.com/image-fade-revisited/"><img alt="Image Fade Revisited" src="http://jqueryfordesigners.com/images/video/image-fade-revisited-thumb.gif" /></a></li>
+<li><a title="Coda Slider Effect" href="http://jqueryfordesigners.com/coda-slider-effect/"><img alt="Coda Slider Effect" src="http://jqueryfordesigners.com/images/video/coda-slider-thumb.gif" /></a></li>
+<li><a title="Help make jQuery for Designers better" href="http://jqueryfordesigners.com/help-make-jquery-for-designers-better/"><img alt="Help make jQuery for Designers better" src="http://static.jqueryfordesigners.com/wp-content/themes/j4d/static/images/titleholder_placeholder.gif" /></a></li>
+<li><a title="Image Cross Fade Transition" href="http://jqueryfordesigners.com/image-cross-fade-transition/"><img alt="Image Cross Fade Transition" src="http://jqueryfordesigners.com/images/video/image-fade-thumb.gif" /></a></li>        </ul>
+      </div>
+		
+		</div>
+
+
+		<form id="searchForm" action="/">
+
+			<fieldset>
+		
+				<legend>Search</legend>
+				
+				<label for="search">Search for</label>
+				<input type="text" id="search" placeholder="screencasts &amp; tutorials" name="s" value="" /><input class="button" type="submit" value="Find articles" />
+				
+			</fieldset>
+	
+		</form>
+
+		</div>
+	</div>
+	<!-- END titleHolder -->
+	
+  <!-- content -->
+	<div id="content" class="clearFix">
+
+		<h1><a href="http://jqueryfordesigners.com/coda-popup-bubbles/" rel="bookmark">Coda Popup Bubbles</a></h1>
+
+		<p><span>Posted on 3rd March 2008 &mdash;</span> <a href="http://panic.com/coda">Coda</a> is one of the new web development tools for the Mac - and it&#8217;s popular amongst designers and developers I know.  Panic (the developers of Coda) are also known for their sharp design.
+</p>
+    <ul id="articleNav">
+      <li class="prev"><a href="http://jqueryfordesigners.com/slider-gallery/">Earlier: <em>Slider Gallery</em></a></li>
+      <li class="next"><a href="http://jqueryfordesigners.com/image-cross-fade-transition/">Next: <em>Image Cross Fade Transition</em></a></li>
+    </ul>
+		<ul class="articleNav clearFix">
+			<li class="tabTutorial"><a class="tutorial selected" href="http://jqueryfordesigners.com/coda-popup-bubbles/"><span>Tutorial</span></a></li>
+						<li class="tabDemo"><a class="demo" href="http://jqueryfordesigners.com/demo/coda-bubble.html"><span>Try Demo</span></a></li>			<li class="tabCode"><a class="code" href=""><span>View Code</span></a></li>
+			<li class="tabComments"><a class="comments" href="#allcomments"><em>189</em> <span>Comments</span></a></li>
+		</ul>
+		
+        <div id="article" class="clearFix">
+		
+			<div class="copy">
+            
+		    <div id="viewport" class="tutorial">
+                <div id="tutorial" class="tab">
+    				    				  <div id="videoPreview">
+      					<ul>
+      						<li><a class="quicktime_video" href="http://jqueryfordesigners.com/media/coda-bubble.mov"><img alt="QuickTime version" src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/images/video_quicktime.png"/>Play QuickTime version <span class="download">Right click to download</span></a></li>
+      						<li><a class="flash_video" href="http://jqueryfordesigners.com/media/coda-bubble.flv"><img alt="Flash version" src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/images/video_flash.png"/>Play Flash version <span class="download">Right click to download</span></a></li>
+      					</ul>
+      					<img src="http://jqueryfordesigners.com/images/video/coda-bubbles.jpg" alt="Coda Popup Bubbles" />
+      				</div>
+    				
+    				            
+                <p><span id="more-11"></span>
+In particular, Jorge Mesa <a href="/request">writes</a> to ask how to re-create their &#8216;puff&#8217; popup bubble shown when you mouse over the download image.</p>
+
+<p>In essence the effect is just a simple combination of effect, but there&#8217;s a few nuances to be wary of.</p>
+
+<p><img src="http://jqueryfordesigners.com/images/coda-bubble.jpg" alt="Coda Bubble" /></p>
+
+<h2>How to Solve the Problem</h2>
+
+<p>To create the puff popup bubble effect, we need the following:</p>
+
+<ol>
+<li>Markup that assumes that JavaScript is disabled.  It would be fair to say that the popup would be hidden from the CSS.</li>
+<li>The hidden popup, correctly styled for when we make it appear.</li>
+<li>jQuery to animate the puff effect on <code>mouseover</code> and <code>mouseout</code>.</li>
+</ol>
+
+<p>The biggest trick to be wary of is: when you move the mouse over the popup, this triggers a <code>mouseout</code> on the image used to trigger the popup being shown.  I&#8217;ll explain (carefully) how to make sure the effect doesn&#8217;t fail in this situation.</p>
+
+<p>I’ve provided a screencast to walk through how create this functionality. Details on how and what I used can be found below.</p>
+
+<p><a href="http://jqueryfordesigners.com/media/coda-bubble.mov">Watch the coda bubble screencast</a> (<a href="http://jqueryfordesigners.com/video.php?f=coda-bubble.flv">alternative flash version</a>)</p>
+
+<p>(QuickTime version is approx. 23Mb, flash version is streaming)</p>
+
+<p><a href="/demo/coda-bubble.html">View the demo and source code used in the screencast</a></p>
+
+<h2>HTML Markup</h2>
+
+<p>For the purpose of reusability, I&#8217;ve wrapped my &#8216;target&#8217; and &#8216;popup&#8217; in a <code>div</code>.  The target is the element which the user must <code>mouseover</code> to show the popup.</p>
+
+<pre><code>&lt;div class=&quot;bubbleInfo&quot;&gt;
+  &lt;img class=&quot;trigger&quot; src=&quot;http://mysite.com/path/to/image.png&quot; /&gt;
+  &lt;div class=&quot;popup&quot;&gt;
+    &lt;!-- your information content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>CSS</h2>
+
+<p>There&#8217;s very little to the minimum required CSS.  Of course, how you markup your bubble will change this, and the screencast uses the version from the Coda web site, so there&#8217;s a considerable amount of CSS to style the bubble.</p>
+
+<p>The minimum I recommend for the example is:</p>
+
+<pre><code>.bubbleInfo {
+    position: relative;
+}
+
+.popup {
+    position: absolute;
+    display: none; /* keeps the popup hidden if no JS available */
+}
+</code></pre>
+
+<p>This way we can absolutely position the popup against the trigger.</p>
+
+<h2>jQuery</h2>
+
+<p>To create the effect, we need to run the following animation on the popup element:</p>
+
+<h3>Mouse Over</h3>
+
+<ol>
+<li>On <code>mouseover</code>: reset the position of the popup (required because we&#8217;re floating upwards as we puff away).</li>
+<li>Animate the popup&#8217;s opacity from 0 to 1 and move it&#8217;s CSS top position by negative 10px (to move upwards).</li>
+<li>If the <code>mouseover</code> is fired again, and we&#8217;re still animating - ignore.</li>
+<li>If the <code>mouseover</code> is fired again, and the popup is already visible - ignore.</li>
+</ol>
+
+<h3>Mouse Out</h3>
+
+<ol>
+<li>Set a timer to trigger the popup hide function (this prevents accidentally moving out of the &#8216;active&#8217; area).</li>
+<li>If a timer is set (to hide), reset the timer (thus only allowing one hide function to fire).</li>
+<li>Once timed out, animiate the popup&#8217;s opacity from 1 to 0 and move it&#8217;s CSS top position by negative 10px (to float upwards away).</li>
+<li>Set the appropriate flags to indicate the popup is now hidden.</li>
+</ol>
+
+<h3>The &#8216;Trick&#8217;</h3>
+
+<p>There was one piece of tricky logic that initially I couldn&#8217;t work out.  Each time I moved the mouse over the popup, it would fire a <code>mouseout</code> on the trigger element - which would hide the popup.  This is an undesirable bug.</p>
+
+<p>There may be a another way around this, and from what I can tell, the Coda site developers didn&#8217;t solve it this way - but here&#8217;s the solution:</p>
+
+<p>You need to clear the timer set in the <code>mouseout</code> (point 1 above) in the <code>mouseover</code>.  This completely solves the problem.</p>
+
+<h3>Complete Source Code</h3>
+
+<p>Here&#8217;s the complete source code for the effect, including comments throughout the code to explain what each block is doing.  </p>
+
+<pre><code>$(function () {
+  $('.bubbleInfo').each(function () {
+    // options
+    var distance = 10;
+    var time = 250;
+    var hideDelay = 500;
+
+    var hideDelayTimer = null;
+
+    // tracker
+    var beingShown = false;
+    var shown = false;
+    
+    var trigger = $('.trigger', this);
+    var popup = $('.popup', this).css('opacity', 0);
+
+    // set the mouseover and mouseout on both element
+    $([trigger.get(0), popup.get(0)]).mouseover(function () {
+      // stops the hide event if we move from the trigger to the popup element
+      if (hideDelayTimer) clearTimeout(hideDelayTimer);
+
+      // don't trigger the animation again if we're being shown, or already visible
+      if (beingShown || shown) {
+        return;
+      } else {
+        beingShown = true;
+
+        // reset position of popup box
+        popup.css({
+          top: -100,
+          left: -33,
+          display: 'block' // brings the popup back in to view
+        })
+
+        // (we're using chaining on the popup) now animate it's opacity and position
+        .animate({
+          top: '-=' + distance + 'px',
+          opacity: 1
+        }, time, 'swing', function() {
+          // once the animation is complete, set the tracker variables
+          beingShown = false;
+          shown = true;
+        });
+      }
+    }).mouseout(function () {
+      // reset the timer if we get fired again - avoids double animations
+      if (hideDelayTimer) clearTimeout(hideDelayTimer);
+      
+      // store the timer so that it can be cleared in the mouseover if required
+      hideDelayTimer = setTimeout(function () {
+        hideDelayTimer = null;
+        popup.animate({
+          top: '-=' + distance + 'px',
+          opacity: 0
+        }, time, 'swing', function () {
+          // once the animate is complete, set the tracker variables
+          shown = false;
+          // hide the popup entirely after the effect (opacity alone doesn't do the job)
+          popup.css('display', 'none');
+        });
+      }, hideDelay);
+    });
+  });
+});</code></pre>
+
+<h2>Taking it Further</h2>
+
+<p>This effect could be perfected by changing the initial reset (<code>popup.css()</code>) code to read from the trigger element and approximate it&#8217;s position.  In my example, I&#8217;ve hardcoded it because I only have one on the page - but you may want to use this effect several times across your page.</p>
+                
+                <p class="follow">You should follow me on Twitter <a href="http://twitter.com/rem">here</a> <span class="note">I tweet about jQuery amongst usual the tweet-splurges!</span></p>
+                
+                <h2>Related posts</h2><ol class="relatedposts"><li><a href='http://jqueryfordesigners.com/automatic-infinite-carousel/' rel='bookmark' title='Permanent Link: Automatic Infinite Carousel'>Automatic Infinite Carousel</a> <small>Following on from the infinite carousel, there have been a...</small></li><li><a href='http://jqueryfordesigners.com/coda-slider-effect/' rel='bookmark' title='Permanent Link: Coda Slider Effect'>Coda Slider Effect</a> <small>Although Panic didn&#8217;t really invent the effect, the sliding panels...</small></li><li><a href='http://jqueryfordesigners.com/image-cross-fade-transition/' rel='bookmark' title='Permanent Link: Image Cross Fade Transition'>Image Cross Fade Transition</a> <small>A frequent query and request I receive (and have myself)...</small></li><li><a href='http://jqueryfordesigners.com/jquery-look-tim-van-damme/' rel='bookmark' title='Permanent Link: jQuery look: Tim Van Damme'>jQuery look: Tim Van Damme</a> <small>Jonathan Diba writes to ask how the effects are achieve...</small></li><li><a href='http://jqueryfordesigners.com/bbc-radio-1-zoom-tabs/' rel='bookmark' title='Permanent Link: BBC Radio 1 Zoom Tabs'>BBC Radio 1 Zoom Tabs</a> <small>Gareth Edward asked how to achieve the effect on the...</small></li></ol>                
+                </div>
+                <div id="demo" class="tab">
+                    <h2>Demo</h2>
+                    <p>If you find this demo doesn't work as expected, it's possibly due to the demo running from within an iframe. Try <a href="http://jqueryfordesigners.com/demo/coda-bubble.html" target="_blank">running the demo</a> in it's own window.</p>
+                    <iframe src="http://jqueryfordesigners.com/demo/coda-bubble.html"></iframe>
+                </div>
+                <div id="code" class="tab">
+                    <h2>Source Code</h2>
+                    <pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;
+  &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+    &lt;title&gt;Coda Bubble Example&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot; media=&quot;screen&quot;&gt;
+    &lt;!--
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            padding: 10px;
+        }
+        
+        h1 {
+            margin: 14px 0;
+            font-family: 'Trebuchet MS', Helvetica;
+        }
+        
+        p {
+            margin: 14px 0;
+            font-family: 'Trebuchet MS', Helvetica;
+        }
+        
+        .bubbleInfo {
+            position: relative;
+            top: 150px;
+            left: 100px;
+            width: 500px;
+        }
+        .trigger {
+            position: absolute;
+        }
+     
+        /* Bubble pop-up */
+
+        .popup {
+        	position: absolute;
+        	display: none;
+        	z-index: 50;
+        	border-collapse: collapse;
+        }
+
+        .popup td.corner {
+        	height: 15px;
+        	width: 19px;
+        }
+
+        .popup td#topleft { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-1.png); }
+        .popup td.top { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-2.png); }
+        .popup td#topright { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-3.png); }
+        .popup td.left { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-4.png); }
+        .popup td.right { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-5.png); }
+        .popup td#bottomleft { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-6.png); }
+        .popup td.bottom { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-7.png); text-align: center;}
+        .popup td.bottom img { display: block; margin: 0 auto; }
+        .popup td#bottomright { background-image: url(http://static.jqueryfordesigners.com/demo/images/coda/bubble-8.png); }
+
+        .popup table.popup-contents {
+        	font-size: 12px;
+        	line-height: 1.2em;
+        	background-color: #fff;
+        	color: #666;
+        	font-family: &quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, &quot;Lucida Sans&quot;, sans-serif;
+        	}
+
+        table.popup-contents th {
+        	text-align: right;
+        	text-transform: lowercase;
+        	}
+
+        table.popup-contents td {
+        	text-align: left;
+        	}
+
+        tr#release-notes th {
+        	text-align: left;
+        	text-indent: -9999px;
+        	background: url(http://jqueryfordesigners.com/demo/images/coda/starburst.gif) no-repeat top right;
+        	height: 17px;
+        	}
+
+        tr#release-notes td a {
+        	color: #333;
+        }
+        
+    --&gt;
+    &lt;/style&gt;
+
+    &lt;script src=&quot;jquery.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    &lt;!--
+
+    $(function () {
+        $('.bubbleInfo').each(function () {
+            var distance = 10;
+            var time = 250;
+            var hideDelay = 500;
+
+            var hideDelayTimer = null;
+
+            var beingShown = false;
+            var shown = false;
+            var trigger = $('.trigger', this);
+            var info = $('.popup', this).css('opacity', 0);
+
+
+            $([trigger.get(0), info.get(0)]).mouseover(function () {
+                if (hideDelayTimer) clearTimeout(hideDelayTimer);
+                if (beingShown || shown) {
+                    // don't trigger the animation again
+                    return;
+                } else {
+                    // reset position of info box
+                    beingShown = true;
+
+                    info.css({
+                        top: -90,
+                        left: -33,
+                        display: 'block'
+                    }).animate({
+                        top: '-=' + distance + 'px',
+                        opacity: 1
+                    }, time, 'swing', function() {
+                        beingShown = false;
+                        shown = true;
+                    });
+                }
+
+                return false;
+            }).mouseout(function () {
+                if (hideDelayTimer) clearTimeout(hideDelayTimer);
+                hideDelayTimer = setTimeout(function () {
+                    hideDelayTimer = null;
+                    info.animate({
+                        top: '-=' + distance + 'px',
+                        opacity: 0
+                    }, time, 'swing', function () {
+                        shown = false;
+                        info.css('display', 'none');
+                    });
+
+                }, hideDelay);
+
+                return false;
+            });
+        });
+    });
+    
+    //--&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body id=&quot;page&quot;&gt;
+    &lt;h1&gt;Coda Bubble Example&lt;/h1&gt;
+    &lt;p&gt;This shows a demonstration of the 'puff' popup bubble effect as seen over the download link on the &lt;a href=&quot;http://www.panic.com/coda/&quot;&gt;Coda web site&lt;/a&gt;.&lt;/p&gt;
+    &lt;p&gt;Roll the mouse over and out from the download image to see the popup fade in and out of view, while gently gliding upwards.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://jqueryfordesigners.com/coda-popup-bubbles&quot;&gt;Read the article, and see the screencast this demonstration relates to&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;small&gt;Note that the transparency doesn't work in IE - this is the same on the Coda web site where the images were sourced.&lt;/small&gt;&lt;/p&gt;
+
+    
+    &lt;div class=&quot;bubbleInfo&quot;&gt;
+        &lt;div&gt;
+            &lt;img class=&quot;trigger&quot; src=&quot;http://jqueryfordesigners.com/demo/images/coda/nav-download.png&quot; id=&quot;download&quot; /&gt;
+        &lt;/div&gt;
+        &lt;table id=&quot;dpop&quot; class=&quot;popup&quot;&gt;
+        	&lt;tbody&gt;&lt;tr&gt;
+        		&lt;td id=&quot;topleft&quot; class=&quot;corner&quot;&gt;&lt;/td&gt;
+        		&lt;td class=&quot;top&quot;&gt;&lt;/td&gt;
+        		&lt;td id=&quot;topright&quot; class=&quot;corner&quot;&gt;&lt;/td&gt;
+        	&lt;/tr&gt;
+
+        	&lt;tr&gt;
+        		&lt;td class=&quot;left&quot;&gt;&lt;/td&gt;
+        		&lt;td&gt;&lt;table class=&quot;popup-contents&quot;&gt;
+        			&lt;tbody&gt;&lt;tr&gt;
+        				&lt;th&gt;File:&lt;/th&gt;
+        				&lt;td&gt;coda 1.1.zip&lt;/td&gt;
+        			&lt;/tr&gt;
+        			&lt;tr&gt;
+        				&lt;th&gt;Date:&lt;/th&gt;
+        				&lt;td&gt;11/30/07&lt;/td&gt;
+        			&lt;/tr&gt;
+        			&lt;tr&gt;
+        				&lt;th&gt;Size:&lt;/th&gt;
+        				&lt;td&gt;17 MB&lt;/td&gt;
+        			&lt;/tr&gt;
+        			&lt;tr&gt;
+        				&lt;th&gt;Req:&lt;/th&gt;
+        				&lt;td&gt;Mac OS X 10.4+&lt;/td&gt;
+        			&lt;/tr&gt;						
+        			&lt;tr id=&quot;release-notes&quot;&gt;
+        				&lt;th&gt;Read the release notes:&lt;/th&gt;
+        				&lt;td&gt;&lt;a title=&quot;Read the release notes&quot; href=&quot;./releasenotes.html&quot;&gt;release notes&lt;/a&gt;&lt;/td&gt;
+        			&lt;/tr&gt;
+        		&lt;/tbody&gt;&lt;/table&gt;
+
+        		&lt;/td&gt;
+        		&lt;td class=&quot;right&quot;&gt;&lt;/td&gt;    
+        	&lt;/tr&gt;
+
+        	&lt;tr&gt;
+        		&lt;td class=&quot;corner&quot; id=&quot;bottomleft&quot;&gt;&lt;/td&gt;
+        		&lt;td class=&quot;bottom&quot;&gt;&lt;img width=&quot;30&quot; height=&quot;29&quot; alt=&quot;popup tail&quot; src=&quot;http://static.jqueryfordesigners.com/demo/images/coda/bubble-tail2.png&quot;/&gt;&lt;/td&gt;
+        		&lt;td id=&quot;bottomright&quot; class=&quot;corner&quot;&gt;&lt;/td&gt;
+        	&lt;/tr&gt;
+        &lt;/tbody&gt;&lt;/table&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div id="allcomments" class="tab">
+                    <h2>Comments</h2>
+                      
+  <div class="navigation">
+  <a class='prev page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-7/#allcomments'>&laquo; Previous</a>
+<a class='page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-1/#allcomments'>1</a>
+<span class='page-numbers dots'>...</span>
+<a class='page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-6/#allcomments'>6</a>
+<a class='page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-7/#allcomments'>7</a>
+<span class='page-numbers current'>8</span> 
+  </div>
+  
+    <ol id="comments">
+    <li id="comment-6634" class="comment">
+	  <h4><cite>karthik</cite> <span>On <a href="#comment-6634">8th October 2009 at 09:10</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/b4a167295bfea16b00c06bec29391f62?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Thanks a lot for the post. It was very useful. My I know how do you  approximate it’s position of the trigger element.</p></li>
+  <li id="comment-6736" class="comment">
+	  <h4><cite>FloiT</cite> <span>On <a href="#comment-6736">11th October 2009 at 23:10</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/02046d96ec330e7d2daba36142159265?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>great tutorial! 
+But&#8230; what about doing a WordPress plugin of it? :D
+It would be great if you could use this effect in every link&#8230;</p>
+
+<p>Anyway, thanks a lot</p></li>
+  <li id="comment-6804" class="comment">
+	  <h4><cite>Chrispy</cite> <span>On <a href="#comment-6804">23rd October 2009 at 18:10</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/ae5625b30bd09a28d3ecc9433f1efc64?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Hi, was wondering if anyone had an idea to fix this. I understand the instructions to switch the animation from up to down (top: &#8216;- to top: &#8216;+) but unfortunately it just moved the bubble down and did not flip it like I had hoped. But my real questions is..is it possible to do both up and down? For instance, I have two rows of images of two each. I want the top row to animate up and the bottom row to animate down (so the bubbles don&#8217;t block the above images). I tried adding the changes and making two vars (triggerUp and triggerDown) and two functions calling these, but no luck.</p>
+
+<p>Is there a straightforward way of doing this? TIA!</p></li>
+  <li id="comment-6852" class="comment">
+	  <h4><cite>Vin</cite> <span>On <a href="#comment-6852">28th October 2009 at 02:10</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/188cdb014513891a980cf6c1c526ee48?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Do you think its possible to include form elements (such as text fields, check boxes, and submit buttons) inside a coda bubble itself?</p></li>
+  <li id="comment-6909" class="comment">
+	  <h4><cite><a href='http://benalman.com' rel='external nofollow' class='url'>"Cowboy" Ben Alman</a></cite> <span>On <a href="#comment-6909">5th November 2009 at 03:11</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/978a1a2a80394217a0e39c84f07a7c16?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Remy, just a heads&#8217; up.. I&#8217;ve created a plugin called jQuery doTimeout that makes handling the timers for this kind of thing very easy (I know they&#8217;re already pretty easy, but I think it&#8217;s even easier). Just take a look at the &#8220;hover intent&#8221; example(s).</p>
+
+<p><a href="http://benalman.com/projects/jquery-dotimeout-plugin/" rel="nofollow">http://benalman.com/projects/jquery-dotimeout-plugin/</a></p>
+
+<ul>
+<li>Ben</li>
+</ul></li>
+  <li id="comment-6962" class="comment">
+	  <h4><cite><a href='http://www.uhleeka.com' rel='external nofollow' class='url'>uhleeka</a></cite> <span>On <a href="#comment-6962">12th November 2009 at 03:11</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/4a2df62d6413bc1578db54643f128384?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Thanks for the tutorial!  After implementing your code and being frustrated by IE&#8217;s inability to handle png&#8217;s with opacity, I wrote a jQuery plugin that includes a few more features.  </p>
+
+<p><a href="http://www.uhleeka.com/blog/2009/11/bubbletip/" rel="nofollow">http://www.uhleeka.com/blog/2009/11/bubbletip/</a></p></li>
+  <li id="comment-7031" class="comment">
+	  <h4><cite><a href='http://i.nt.ro' rel='external nofollow' class='url'>Joseph Le Brech</a></cite> <span>On <a href="#comment-7031">24th November 2009 at 11:11</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/6623b3045e95611491404026bd823a7a?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Hey, I have been trying to use coda bubble within a dynamic webpage where the items are loaded at runtime.</p>
+
+<p>So I have wrapped it as a jQuery plugin.</p>
+
+<p>Like this;</p>
+
+<p><pre><code><br />
+$(function () {
+    jQuery.fn.bubbleInfo = function(){
+        this.each(function(){
+                       var distance = 10;
+            var time = 250;
+            var hideDelay = 500;</code></pre></p>
+
+<p>...</p>
+
+<pre><code>                    return false;
+
+        });
+
+});
+
+}
+</code></pre>
+
+<p>});
+</p></li>
+  <li id="comment-7032" class="comment">
+	  <h4><cite>vimal</cite> <span>On <a href="#comment-7032">25th November 2009 at 09:11</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/555a8b549f0437aca4095f33b8cfc3f3?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>hi any one help, how to popup it when onClick it not in mouseover</p></li>
+  <li id="comment-7043" class="comment">
+	  <h4><cite><a href='http://nathanmckinleynash.com' rel='external nofollow' class='url'>Nathan</a></cite> <span>On <a href="#comment-7043">26th November 2009 at 09:11</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/07d95f70b08b34d1ddb066c8918d2974?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Thanks for this tutorial! I&#8217;ve always wanted to learn how to make tooltips that you can click on or mouse over.</p></li>
+  <li id="comment-7050" class="comment">
+	  <h4><cite><a href='http://www.yourlara.com' rel='external nofollow' class='url'>lara</a></cite> <span>On <a href="#comment-7050">27th November 2009 at 11:11</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/8330378012b6d77ea977bb377ae7f0e3?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Hi,</p>
+
+<p>Its an excellent coding, but I have a trouble could you help me resolve it. 
+Check this page <a href="http://www.auditiongigs.com" rel="nofollow">http://www.auditiongigs.com</a> You see a featured talent section in the right menu. If you hover over the images you will see a popup. The last popup comes up fine. The other two popups hide behind the image.  I am not sure how to make it work</p></li>
+  <li id="comment-7129" class="comment">
+	  <h4><cite>Carl</cite> <span>On <a href="#comment-7129">22nd December 2009 at 16:12</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/75a83a25200585251d286234bfa1db04?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>I having a problem with the display:none on the .popup class, when removed the content displays fine (div layout content). However when I put it back in the popup displays, but the content in is missing any ideas?</p></li>
+  <li id="comment-7133" class="comment">
+	  <h4><cite>naresh</cite> <span>On <a href="#comment-7133">23rd December 2009 at 13:12</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/a3c188c566ac54df0342f108958a02de?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Thanks great Tutorial.
+A question, How can we do it for multiple tutorial. I willl appreciate any help from your side</p>
+
+<p>Thanks U</p></li>
+  <li id="comment-7148" class="comment">
+	  <h4><cite>emma</cite> <span>On <a href="#comment-7148">29th December 2009 at 16:12</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/47811123285173352deb706785c365b4?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Thanks for the tutorial, such a beautiful effect! 
+However I have one question. I made my bubble pop up on top of my link instead of above (<a href="http://www2.canapeum.com/">as seen here</a>), it looks great but the link is no longer clickable as the bubble completely covers it. How can I keep my link useable but still display the bubble on top?</p></li>
+  <li id="comment-7176" class="comment">
+	  <h4><cite>Geoff</cite> <span>On <a href="#comment-7176">10th January 2010 at 00:01</a></span></h4>
+	  <p class="avatar"><img alt='' src='http://www.gravatar.com/avatar/eabcb10ba5bebb18542700e0d104f526?s=36&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D36&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' /></p>
+	  <p>Purely out of interest, i took what you have here and developed a jQuery plugin. I am having major issues with regards to multiple instances on the same page. Often, if 2 elements are right next to each other, the mouseenter event on the second element can trigger before or too close in time to the mouseout event on the previous element. This causes problems with the show and beingshown variables and leads to the tooltip not showing at all.</p></li>
+  </ol>
+
+  <div class="navigation">
+  <a class='prev page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-7/#allcomments'>&laquo; Previous</a>
+<a class='page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-1/#allcomments'>1</a>
+<span class='page-numbers dots'>...</span>
+<a class='page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-6/#allcomments'>6</a>
+<a class='page-numbers' href='http://jqueryfordesigners.com/coda-popup-bubbles/comment-page-7/#allcomments'>7</a>
+<span class='page-numbers current'>8</span> 
+  </div>
+  
+
+
+
+
+                </div>
+		    </div>
+		    
+            <form action="http://jqueryfordesigners.com/wp-comments-post.php" method="post" id="commentform">
+    			<fieldset>
+    				<legend>Leave your own comment</legend>
+    				<ul>
+                        
+    					<li><input type="text" tabindex="1" id="author" name="author" value="" /><label for="author">Name</label></li>
+    					<li><input type="text" tabindex="2" id="email" name="email" value="" /><label for="email">Email</label></li>
+    					<li>http:// <input type="text" tabindex="3" id="url" name="url" value="" /><label for="url">Website (Optional)</label></li>
+
+                        
+        				<li><textarea tabindex="4" rows="10" cols="40" id="comment" name="comment"></textarea></li>
+        				<li><input type="submit" value="Add Comment" tabindex="6" id="submit" name="submit" /></li>
+    		        </ul>
+                
+            		<input type="hidden" name="comment_post_ID" value="11" />
+                                    </fieldset>
+            </form>
+      </div>
+			
+    </div>
+  </div>
+		<!-- BEGIN footer -->
+	<div id="footer" class="clearFix">
+	
+		<div id="aboutJ4D">
+		  <h2>About J4D</h2>
+<div class="menu"><ul><li class="page_item page-item-2"><a href="http://jqueryfordesigners.com/about/" title="About J4D">About J4D</a></li><li class="page_item page-item-3"><a href="http://jqueryfordesigners.com/request/" title="Request a tutorial">Request a tutorial</a></li><li class="page_item page-item-5"><a href="http://jqueryfordesigners.com/tools/" title="Tools we use">Tools we use</a></li></ul></div>
+      
+		</div>
+		
+		<div id="feeds">
+			<h2>Feeds</h2>
+			<ul>
+				<li class="podcast"><a href="http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=281057468">iTunes Podcast</a></li>
+				<li><a href="http://jqueryfordesigners.com/feed/">Just the articles</a></li>
+				<li><a href="http://jqueryfordesigners.com/comments/feed/">Just the comments</a></li>
+			</ul>
+		</div>
+		
+		<div id="resources">
+		  
+<h2>Resources</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://twitter.com/rem">@rem on Twitter</a></li>
+<li><a href="http://groups.google.com/group/jquery-en">Discussions</a></li>
+<li><a href="http://jquery.com">jQuery</a></li>
+<li><a href="http://docs.jquery.com/Api">jQuery API</a></li>
+<li><a href="http://jsbin.com">JS Bin</a></li>
+<li><a href="http://learningjquery.com">Learning jQuery</a></li>
+<li><a href="http://jquery.com/plugins/">Plugins</a></li>
+
+	</ul>
+
+		</div>
+		
+		<div id="popularTags">
+			<h2>What's Popular?</h2>
+			<p>
+        <a href='http://jqueryfordesigners.com/tag/ajax/' class='tag-link-9' title='3 topics' rel="tag" style='font-size: 9.1666666666667pt;'>ajax</a>
+<a href='http://jqueryfordesigners.com/tag/api/' class='tag-link-29' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>API</a>
+<a href='http://jqueryfordesigners.com/tag/book/' class='tag-link-35' title='1 topic' rel="tag" style='font-size: 8pt;'>book</a>
+<a href='http://jqueryfordesigners.com/tag/carousel/' class='tag-link-39' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>carousel</a>
+<a href='http://jqueryfordesigners.com/tag/coda/' class='tag-link-20' title='1 topic' rel="tag" style='font-size: 8pt;'>coda</a>
+<a href='http://jqueryfordesigners.com/tag/conference/' class='tag-link-38' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>conference</a>
+<a href='http://jqueryfordesigners.com/tag/css/' class='tag-link-5' title='3 topics' rel="tag" style='font-size: 9.1666666666667pt;'>css</a>
+<a href='http://jqueryfordesigners.com/tag/easy/' class='tag-link-33' title='11 topics' rel="tag" style='font-size: 13.833333333333pt;'>easy</a>
+<a href='http://jqueryfordesigners.com/tag/effect/' class='tag-link-24' title='10 topics' rel="tag" style='font-size: 13.25pt;'>effect</a>
+<a href='http://jqueryfordesigners.com/tag/effects/' class='tag-link-11' title='13 topics' rel="tag" style='font-size: 15pt;'>effects</a>
+<a href='http://jqueryfordesigners.com/tag/enhancements/' class='tag-link-22' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>enhancements</a>
+<a href='http://jqueryfordesigners.com/tag/events/' class='tag-link-25' title='1 topic' rel="tag" style='font-size: 8pt;'>events</a>
+<a href='http://jqueryfordesigners.com/tag/filter/' class='tag-link-32' title='1 topic' rel="tag" style='font-size: 8pt;'>filter</a>
+<a href='http://jqueryfordesigners.com/tag/find/' class='tag-link-31' title='1 topic' rel="tag" style='font-size: 8pt;'>find</a>
+<a href='http://jqueryfordesigners.com/tag/form/' class='tag-link-8' title='1 topic' rel="tag" style='font-size: 8pt;'>form</a>
+<a href='http://jqueryfordesigners.com/tag/fullfrontal09/' class='tag-link-42' title='1 topic' rel="tag" style='font-size: 8pt;'>fullfrontal09</a>
+<a href='http://jqueryfordesigners.com/tag/grep/' class='tag-link-37' title='1 topic' rel="tag" style='font-size: 8pt;'>grep</a>
+<a href='http://jqueryfordesigners.com/tag/hard/' class='tag-link-19' title='5 topics' rel="tag" style='font-size: 10.333333333333pt;'>hard</a>
+<a href='http://jqueryfordesigners.com/tag/image/' class='tag-link-21' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>image</a>
+<a href='http://jqueryfordesigners.com/tag/images/' class='tag-link-15' title='1 topic' rel="tag" style='font-size: 8pt;'>images</a>
+<a href='http://jqueryfordesigners.com/tag/iphone/' class='tag-link-41' title='1 topic' rel="tag" style='font-size: 8pt;'>iphone</a>
+<a href='http://jqueryfordesigners.com/tag/jui/' class='tag-link-16' title='1 topic' rel="tag" style='font-size: 8pt;'>jui</a>
+<a href='http://jqueryfordesigners.com/tag/keyboard/' class='tag-link-43' title='1 topic' rel="tag" style='font-size: 8pt;'>keyboard</a>
+<a href='http://jqueryfordesigners.com/tag/map/' class='tag-link-36' title='1 topic' rel="tag" style='font-size: 8pt;'>map</a>
+<a href='http://jqueryfordesigners.com/tag/medium/' class='tag-link-10' title='9 topics' rel="tag" style='font-size: 12.666666666667pt;'>medium</a>
+<a href='http://jqueryfordesigners.com/tag/overflow/' class='tag-link-27' title='4 topics' rel="tag" style='font-size: 9.75pt;'>overflow</a>
+<a href='http://jqueryfordesigners.com/tag/playschool/' class='tag-link-40' title='1 topic' rel="tag" style='font-size: 8pt;'>playschool</a>
+<a href='http://jqueryfordesigners.com/tag/plugins/' class='tag-link-12' title='3 topics' rel="tag" style='font-size: 9.1666666666667pt;'>Plugins</a>
+<a href='http://jqueryfordesigners.com/tag/redesign/' class='tag-link-34' title='3 topics' rel="tag" style='font-size: 9.1666666666667pt;'>redesign</a>
+<a href='http://jqueryfordesigners.com/tag/screencast/' class='tag-link-14' title='25 topics' rel="tag" style='font-size: 22pt;'>screencast</a>
+<a href='http://jqueryfordesigners.com/tag/slider/' class='tag-link-18' title='5 topics' rel="tag" style='font-size: 10.333333333333pt;'>slider</a>
+<a href='http://jqueryfordesigners.com/tag/spy/' class='tag-link-28' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>spy</a>
+<a href='http://jqueryfordesigners.com/tag/tabs/' class='tag-link-13' title='2 topics' rel="tag" style='font-size: 8.5833333333333pt;'>tabs</a>
+<a href='http://jqueryfordesigners.com/tag/ui/' class='tag-link-17' title='1 topic' rel="tag" style='font-size: 8pt;'>ui</a>			</p>
+
+		</div>
+	
+		<img src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/images/divider.png" alt="" />
+	
+	</div>
+		
+<!-- Google analytics JS disabled plugin -->
+<noscript>
+<img src="http://www.google-analytics.com/__utm.gif?utmwv=1&amp;utmn=5793349176&amp;utmsr=-&amp;utmsc=-&amp;utmul=-&amp;utmje=0&amp;utmfl=-&amp;utmdt=-&amp;utmhn=http://jqueryfordesigners.com&amp;utmr=http://jqueryfordesigners.com/slider-gallery/&amp;utmp=/noscript&amp;utmac=UA-1656750-8&amp;utmcc=__utma%3D46362970.1713977766.1264054062.1264054062.1264054062.2%3B%2B__utmb%3D46362970%3B%2B__utmc%3D46362970%3B%2B__utmz%3D46362970.1264054062.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D46362970.-%3B" style="display: none;" />
+</noscript>
+	<!-- END footer -->
+  <!-- <script src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/js/jquery.js" type="text/javascript"></script> -->
+  <script src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/js/carousel.js" type="text/javascript"></script>
+  <script src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/js/j4d.js" type="text/javascript"></script>
+  <script src="http://jqueryfordesigners.com/wp-content/themes/j4d/static/js/prettify.js" type="text/javascript"></script>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-1656750-8";
+  urchinTracker();
+  </script>
+</body>
+</html>
+
+<!-- Dynamic Page Served (once) in 0.809 seconds -->
+<!-- Cached page served by WP-Cache -->
