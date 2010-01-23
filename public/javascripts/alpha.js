@@ -119,15 +119,8 @@ function a_load() {
 		$MQ('l:skill.cat.chosen.response', {'skills':skills});
 	});
 	// Listeners (items)
-	$MQL("l:equipment.selected", function(message) {
-		var response;
-		switch (message.payload.items) {
-			case 'money': response = items.weapons; break;
-			case 'weapons': response = items.weapons; break;
-			case 'armor': response = items.armor; break;
-			case 'other': default: response = items.weapons; break;
-		}
-		$MQ('l:equipment.render',{'items':response});
+	$MQL("l:equipment.select", function() {
+		$MQ('l:equipment.render',{'money':items.money, 'weapons':items.weapons, 'armor':items.armor, 'other':items.other});
 		// Code for adding a datatable (not currently used though)
 		//$('#weaponsTable').dataTable({'bJQueryUI': true,'sPaginationType': 'full_numbers'});
 		// Must wait 1ms before removing attribute, otherwise Iterator (in entourage) hasn't processed yet

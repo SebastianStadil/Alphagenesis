@@ -328,36 +328,36 @@
 	<div control="jquery_dialog[title=Choisissez votre équipement, height=600, width=970, draggable=false, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
 		<div behavior="selectable" class="topPanel" id="equipmentChoose">
 			<div class="selectTop ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:equipment.selected[items=money] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:equipment.selected[cat=money] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Actifs financiers
 			</div>
 			<div class="selectTop ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:equipment.selected[items=weapons] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:equipment.selected[cat=weapons] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Armes
 			</div>
 			<div class="selectTop ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:equipment.selected[items=armor] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:equipment.selected[cat=armor] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Armures
 			</div>
 			<div class="selectTop ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:equipment.selected[items=other] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:equipment.selected[cat=other] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Autres
 			</div>
 		</div>
 		<div class="bottomPanel" id="equipInfo">
-			<div class="descBox" on="l:equipment.selected[items=money] then effect[fadeIn] else hide">
+			<div class="descBox" on="l:equipment.selected[cat=money] then effect[fadeIn] else hide">
 				<h3>Actifs financiers</h3>
 				<p>Vous avez <span>100</span>po et <span>3</span> boutons de chemise.</p>
 			</div>
-			<div class="descBox" on="l:equipment.selected[items=weapons] then effect[fadeIn] else hide">
+			<div class="descBox" on="l:equipment.selected[cat=weapons] then effect[fadeIn] else hide">
 				<h3>Les Armes</h3>
-				<div on="l:equipment.render then render" control="iterator[property=items]" class="">
+				<div on="l:equipment.render then render" control="iterator[property=weapons]" class="">
 					<div style="height:200px;width:220px;float:left;">
-						<img src="#{image_path}" style="height:180px; float:left;" />
+						<img src="#{image_path}" style="max-height:180px; max-width:120px; float:left;" />
 						<div style="float:left; padding:5px;" >
 							<b>#{name}</b>
 							<br />Damage: #{damage}
@@ -368,11 +368,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="descBox" on="l:equipment.selected[items=armor] then effect[fadeIn] else hide">
+			<div class="descBox" on="l:equipment.selected[cat=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
-				<div on="l:equipment.render then render" control="iterator[property=items]" class="">
+				<div on="l:equipment.render then render" control="iterator[property=armor]" class="">
 					<div style="height:200px;width:220px;float:left;">
-						<img src="#{image_path}" style="width:120px; float:left;" />
+						<img src="#{image_path}" style="max-height:180px; max-width:120px; float:left;" />
 						<div style="float:left; padding:5px;" >
 							<b>#{name}</b>
 							<br />Armor: #{armor}
@@ -383,7 +383,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="descBox" on="l:equipment.selected[items=other] then effect[fadeIn] else hide">
+			<div class="descBox" on="l:equipment.selected[cat=other] then effect[fadeIn] else hide">
 				<h3>Autres</h3>
 			</div>
 		</div>
