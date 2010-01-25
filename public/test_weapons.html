@@ -20,34 +20,18 @@
 	<div class="descBox" on="l:equipment.selected[obj=weapons] then effect[fadeIn] else hide">
 		<h3>Les Armes</h3>
 		<div on="l:render.response then render" control="iterator[property=items]" class="">
-			<img src="#{image_path}" style="height:100px;"/>
-			<div style="float:left;" ><h4>#{name}</h4>
-				<br />Damage: #{damage}
-				<br />Cost: #{cost}
-				<br />Weight: #{weight}
-				<br /><input type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
+			<div style="clear:both;" >
+				<img src="#{image_path}" style="height:200px; float:left;" />
+				<div style="float:left;" >
+					<b>#{name}</b>
+					<br />Damage: #{damage}
+					<br />Cost: #{cost}
+					<br />Weight: #{weight}
+					<br /><input type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
+				</div>
 			</div>
 		</div>
 	</div>
-	
-	
-		<div style="display:block;" >
-			<img src="images/weapons/katana.jpg" style="height:100px;" style="float:left;" />test
-			<h4>Katana</h4>
-			<br />Damage: #{damage}
-			<br />Cost: #{cost}
-			<br />Weight: #{weight}
-			<br /><input type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
-		</div>
-	
-
-		<img src="images/weapons/katana.jpg" style="height:100px;"/>
-		<div style="float:left;" ><h4>#{name}</h4>
-			<br />Damage: #{damage}
-			<br />Cost: #{cost}
-			<br />Weight: #{weight}
-			<br /><input type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
-		</div>
 
 </body>
 </html>
