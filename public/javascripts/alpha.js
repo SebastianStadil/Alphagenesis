@@ -24,7 +24,28 @@ function a_load() {
 					"Annuler":function()
 					{$(this).dialog("close");}
 				}
-			);
+	);
+	//for tabs in dialogs
+   $("#skillDialog").bind('dialogopen', function() { 
+       /* init tabs, when dialog is opened */ 
+       $("#compTabs").tabs(); 
+   }); 
+	$('#compTabs').bind('tabsshow', function(event, ui) {
+		var skills;
+		switch (ui.index) {
+			case 0: skills = comp.physiques; break;
+			case 1: skills = comp.sociales; break;
+			case 2: skills = comp.savoirfaire; break;
+			case 3: skills = comp.connaissances; break;
+			case 4: skills = comp.magiques; break;
+			default:  skills = comp.magiques; break;
+		}
+		$MQ('l:skill.cat.chosen.response', {'skills':skills});
+	});
+	$('#compTabs').bind('tabsselect', function(event, ui) {
+		$MQ('l:skill.unchosen');
+	});
+	
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
 																$MQ({name:'l:race.chosen.request',
 																	 payload:{
@@ -114,10 +135,24 @@ function a_load() {
 			case 'soci': skills = comp.sociales; break;
 			case 'savo': skills = comp.savoirfaire; break;
 			case 'conn': skills = comp.connaissances; break;
-			case 'mage': default: skills = comp.magiques; break;
+			case 'magi': default: skills = comp.magiques; break;
 		}
 		$MQ('l:skill.cat.chosen.response', {'skills':skills});
 	});
+	$MQL("l:skill.description.update", function(message) {
+		var compDesc ="";
+		var id = message.payload.skillId;
+		
+		switch (id.substring(0,1)) {
+			case 'p': compDesc = comp.physiques[id.substring(1)]; break;
+			case 's': compDesc = comp.sociales[id.substring(1)]; break;
+			case 'f': compDesc = comp.savoirfaire[id.substring(1)]; break;
+			case 'c': compDesc = comp.connaissances[id.substring(1)]; break;
+			case 'o': compDesc = comp.magiques[id.substring(1)]; break;
+		}
+		$('#compDesc').html(compDesc.desc);
+	});
+	
 	// Listeners (items)
 	$MQL("l:equipment.selected", function() {
 		$MQ('l:render.response',{'items':items.weapons});
@@ -125,60 +160,9 @@ function a_load() {
 		//$('#weaponsTable').dataTable({'bJQueryUI': true,'sPaginationType': 'full_numbers'});
 		// Must wait 1ms before removing attribute, otherwise Iterator (in entourage) hasn't processed yet
 		//setTimeout("$('.tbody').removeAttr('style')", 1);
-	});
+	});   
+		
 }; // End of function a_load
-
-// Writes a competence array
-function writeCompArray(fatherDiv,comparray){
-	var i=0;
-	document.getElementById(fatherDiv).innerHTML = "";
-	for (i=0;i<comparray.length;i++)
-	{
-		var divTag = document.createElement("div");
-      divTag.id = fatherDiv + i;
-      divTag.setAttribute("on","selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]");
-      divTag.setAttribute("behavior","rounded[radius=5]");
-      divTag.className ="selectRace ui-widget-content";
-      divTag.innerHTML = comparray[i];           
-      document.getElementById(fatherDiv).appendChild(divTag);
-	}
-}
-
-// This script establishes the cost of increasing or decreasing an attribute
-function attribut_cost(attr) {
-	switch(attr) {
-		case '0':
-			return -40;
-			break;
-		case '1':
-			return -25;
-			break;
-		case '2':
-			return -12;
-			break;
-		case '3':
-			return -5;
-			break;
-		case '4':
-			return 0;
-			break;
-		case '5':
-			return 8;
-			break;
-		case '6':
-			return 16;
-			break;
-		case '7':
-			return 30;
-			break;
-		case '8':
-			return 45;
-			break;
-		default:
-			return 0;
-			break;
-	}
-}
 
 // This script calculates and updates the cost of all the attribute modifications
 //on="l:attributs.changed then execute"
