@@ -5,6 +5,7 @@
 // All rights reserved. Sorry.
 
 var weapons = [];
+var armor = [];
 
 // Makes tags.class editable in place
 function a_load() {
@@ -59,7 +60,8 @@ function a_load() {
 	$('#equipmentDialog').dialog('option', 'buttons', {"Sortir":function(){
 																$MQ({name:'l:equipment.populate',
 																	 payload:{
-																		weapons:weapons
+																		weapons:weapons,
+																		armor:armor
 																	 }
 																});
 																$(this).dialog("close");
@@ -142,8 +144,11 @@ function a_load() {
 	$MQL("l:shop.enter", function() {
 		$MQ('l:shop.populate',{'money':items.money, 'weapons':items.weapons, 'armor':items.armor, 'other':items.other});
 	});
-	$MQL("l:purchase", function(message) {
+	$MQL("l:purchase.weapon", function(message) {
 		weapons.push(message.payload);
+	});
+	$MQL("l:purchase.armor", function(message) {
+		armor.push(message.payload);
 	});
 }; // End of function a_load
 

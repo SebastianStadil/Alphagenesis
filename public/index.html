@@ -182,7 +182,17 @@
 				</div>
 			</div>
 			<div id="armures" title="Armures">
-			    Arkaine's Valor
+				<div on="l:equipment.populate then render" control="iterator[property=armor]" class="">
+					<div style="height:100px;float:left;">
+						<div class="item-image-container" style="height:90px; width:60px;"><img class="item-image-container" src="#{image_path}" style="max-height:90px; max-width:60px;" /></div>
+						<div style="float:left; padding:5px;" >
+							<b>#{name}</b>
+							<br />armor: #{armor}
+							<br />Cost: #{cost}
+							<br />Weight: #{weight}
+						</div>
+					</div>
+				</div>
 			</div>
 			<div id="misc" title="Autre">
 			    Une tente et de la corde
@@ -373,14 +383,14 @@
 							<br />Damage: #{damage}
 							<br />Cost: #{cost}
 							<br />Weight: #{weight}
-							<br /><input on="click then l:purchase[image_path=#{image_path},name=#{name},damage=#{damage},cost=#{cost},weight=#{weight}]" type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
+							<br /><input on="click then l:purchase.weapon[image_path=#{image_path}, name=#{name}, damage=#{damage}, cost=#{cost}, weight=#{weight}]" type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="descBox" on="l:item.cat.selected[cat=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
-				<div on="l:shop.populate then render" control="iterator[property=armor]">
+				<div on="l:shop.populate then render and script[buttonify()]" control="iterator[property=armor]">
 					<div style="height:200px;float:left;">
 						<div class="item-image-container"><img src="#{image_path}" class="item-image" /></div>
 						<div style="float:left; padding:5px;" >
@@ -388,7 +398,7 @@
 							<br />Armor: #{armor}
 							<br />Cost: #{cost}
 							<br />Weight: #{weight}
-							<br /><input type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
+							<br /><input on="click then l:purchase.armor[image_path=#{image_path}, name=#{name}, armor=#{armor}, cost=#{cost}, weight=#{weight}]" type="button" class="ui-button ui-state-default ui-corner-all" value="Purchase" />
 						</div>
 					</div>
 				</div>
