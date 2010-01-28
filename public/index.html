@@ -128,7 +128,7 @@
 				<!-- Click to edit, fields are found in alpha.js -->
 				<p>Nom : <span id="name" class="editable-unedited">Cliquez pour modifier</span></p>
 				<p>Âge : <span id="age" class="editable-unedited">Cliquez pour modifier</span></p>
-				<p>Sexe : <span id="sex" class="editable-unedited">Homme</span></p>
+				<p>Sexe : <span id="sex" class="editable-unedited">Cliquez pour modifier</span></p>
 				<p>Peuple : <input id="race" type="button" on="click then l:race.select or l:race.chosen.response then value[race] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
 				<p>Culture : <input id="culture" type="button" on="click then l:culture.select or l:culture.chosen.response then value[culture] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
 			</div>
@@ -399,40 +399,37 @@
 		</div>
 	</div><!-- end of equipment dialog -->
 	
+	
+	
 	<!-- Dialog for adding a skill -->
-	<div control="jquery_dialog[title=Choix des compétences, height=400, width=500, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="skillDialog">
-		<div behavior="selectable" class="rightPanel" id="skillTypeSelectDiv">
-			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=phys] or unselecting then remove[class=ui-state-default]"
-				behavior="rounded[radius=5]">
-				Physiques
+	<div control="jquery_dialog[title=Choix des compétences, height=550, width=620, draggable=true, autoOpen=false, resizable=false, hide=drop, show=drop, modal=true]" on="l:skill.add then open" id="skillDialog">
+		<div id="compTabs"> 
+	        <ul> 
+	            <li><a href="#compList">Physiques</a></li> 
+	            <li><a href="#compList">Sociales</a></li> 
+	            <li><a href="#compList">Savoir-faire</a></li> 
+	            <li><a href="#compList">Connaissances</a></li> 
+	            <li><a href="#compList">Occultes</a></li> 
+	        </ul> 
+			<div behavior="selectable" id="compList">
+				<div on="l:skill.cat.chosen.response then render" control="iterator[property=skills]" style="margin:auto">
+					<div class="selectBox ui-widget-content" 
+						behavior="rounded[radius=5]"
+					 	on="selecting then add[class=ui-state-default] and l:skill.description.update[skillId=#{id}] or unselecting then remove[class=ui-state-default] and l:skill.unchosen"
+						id="comp_#{iterator_index}">
+						<div class="insideSelectBox">
+							<span >#{name} (#{attr})</span>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=soci] or unselecting then remove[class=ui-state-default]"
-				behavior="rounded[radius=5]">
-				Sociales
-			</div>
-			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=savo] or unselecting then remove[class=ui-state-default]"
-				behavior="rounded[radius=5]">
-				Savoir-faire
-			</div>
-			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=conn] or unselecting then remove[class=ui-state-default]"
-				behavior="rounded[radius=5]">
-				Connaissances
-			</div>
-			<div class="selectBox ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:skill.cat.chosen.request[cat=magi] or unselecting then remove[class=ui-state-default]"
-				behavior="rounded[radius=5]">
-				Magiques
-			</div>
+	
+	    </div> 
+	    <div class="bottomPanel ui-widget-content" id="compDesc" on="l:skill.unchosen then clear">
+
 		</div>
-		<div class="mainPanel" id="compInfo">
-			<div on="l:skill.cat.chosen.response then render" control="iterator[property=skills]">
-				<div class="skillToChoose" behavior="rounded[radius=5]" on="selecting then add[class=ui-state-default] or unselecting then remove[class=ui-state-default]">#{name} (#{attr})</div>
-			</div>
-		</div>
+		
+		
 	</div><!-- end of skills dialog -->
 </body>
 </html>

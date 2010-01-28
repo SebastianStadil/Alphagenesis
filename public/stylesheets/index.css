@@ -56,8 +56,6 @@ div#character {
 }
 
 .editable {
-	font-style: normal;
-	color: #000000;
 }
 
 .editable:hover, .editable-unedited:hover{
@@ -104,20 +102,21 @@ div#character {
 	clear:left;
 }
 
-.skillToChoose {
-	border:1px solid #ccc;
-	width:170px;
-	background-color:#ddd;
-	padding:8px;
-	margin:4px;
-}
-
 .mainPanel {
 	margin-left:210px;
 	position:relative;
 	padding:8px;
 }
-
+#compDesc {
+	height:200px;
+	padding:6px;
+	margin: 12px 2px 0px 2px;
+	overflow:auto;
+}
+#compList {
+	height:180px;
+	overflow:auto;
+}
 .descBox, .hidden {
 	display:none;
 }
@@ -136,10 +135,19 @@ div#character {
 }
 
 .selectBox {
-		float:left;
-		width:170px;
-		padding:8px;
-		margin:4px;
+	float:left;
+	width:170px;
+	padding:4px 6px;
+	margin:6px;
+	text-align: center;
+	height:36px;
+	display:table;
+}
+.insideSelectBox {
+	cursor:pointer;
+	width:100%;
+	display:table-cell;
+	vertical-align:middle;
 }
 
 /* Items */
@@ -176,4 +184,64 @@ th span {
 
 .equipment-tabs {
 	min-height:400px;
+}
+
+/* Bubble pop-up */
+.popup {
+	position: absolute;
+	display: none;
+	z-index: 50;
+	border-collapse: collapse;
+}
+
+.popup td.corner {
+	height: 15px;
+	width: 19px;
+}
+
+.popup td#topleft {
+	background-image: url(images/popup/bubble-1.png);
+}
+.popup td.top {
+	background-image: url(images/popup/bubble-2.png);
+}
+.popup td#topright {
+	background-image: url(images/popup/bubble-3.png);
+}
+.popup td.left {
+	background-image: url(images/popup/bubble-4.png);
+}
+.popup td.right {
+	background-image: url(images/popup/bubble-5.png);
+}
+.popup td#bottomleft {
+	background-image: url(images/popup/bubble-6.png);
+}
+.popup td.bottom {
+	background-image: url(images/popup/bubble-7.png);
+	text-align: center;
+}
+.popup td.bottom img {
+	display: block;
+	margin: 0 auto;
+}
+.popup td#bottomright {
+	background-image: url(images/popup/bubble-8.png);
+}
+
+.popup table.popup-contents {
+	font-size: 12px;
+	line-height: 1.2em;
+	background-color: #fff;
+	color: #666;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+
+table.popup-contents th {
+	text-align: right;
+	text-transform: lowercase;
+}
+
+table.popup-contents td {
+	text-align: left;
 }
