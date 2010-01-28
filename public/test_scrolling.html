@@ -17,25 +17,25 @@
 
 	
 	<!-- Dialog for choosing your equipement -->
-	<div control="jquery_dialog[title=Choisissez votre équipement, height=600, width=970, draggable=false, autoOpen=true, resizable=false, hide=drop, show=drop, modal=true]" on="l:equipment.select then open" id="equipmentDialog">
+	<div control="jquery_dialog[title=Choisissez votre équipement, height=600, width=970, draggable=false, autoOpen=true, resizable=false, hide=drop, show=drop, modal=true]" on="l:shop.enter then open" id="equipmentDialog">
 		<div behavior="selectable" class="topPanel" id="equipmentChoose">
 			<div class="selectTop ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:equipment.selected[obj=money] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:item.cat.selected[obj=money] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Actifs financiers
 			</div>
 			<div class="selectTop ui-widget-content" 
-				on="selecting then add[class=ui-state-default] and l:equipment.selected[obj=armor] or unselecting then remove[class=ui-state-default]"
+				on="selecting then add[class=ui-state-default] and l:item.cat.selected[obj=armor] or unselecting then remove[class=ui-state-default]"
 				behavior="rounded[radius=5]">
 				Armures
 			</div>
 		</div>
 		<div class="bottomPanel" id="raceInfo">
-			<div class="descBox" on="l:equipment.selected[obj=money] then effect[fadeIn] else hide">
+			<div class="descBox" on="l:item.cat.selected[obj=money] then effect[fadeIn] else hide">
 				<h3>Actifs financiers</h3>
 				<p>Vous avez <span>100</span>po et <span>3</span> boutons de chemise.</p>
 			</div>
-			<div class="descBox" on="l:equipment.selected[obj=armor] then effect[fadeIn] else hide">
+			<div class="descBox" on="l:item.cat.selected[obj=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
 				<h4>L'Armure de Plates</h4>
 				<img src="images/armor/armor-full-plate.jpg" class="item" style="width:100px" on="click then l:purchase[item=fullplate]"/>

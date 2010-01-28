@@ -4,7 +4,7 @@
 //
 // All rights reserved. Sorry.
 
-
+var weapons = [];
 
 // Makes tags.class editable in place
 function a_load() {
@@ -35,32 +35,17 @@ function a_load() {
 															},
 												  "Annuler":function(){$(this).dialog("close");}
 												  });
-	$('#equipmentDialog').dialog('option', 'buttons', {"Purchase":function(){
-																$MQ({name:'l:equipement.puchase',
+	$('#equipmentDialog').dialog('option', 'buttons', {"Sortir":function(){
+																$MQ({name:'l:equipment.populate',
 																	 payload:{
-																		race: $('body').data('equipment')
+																		weapons:weapons
 																	 }
 																});
 																$(this).dialog("close");
-															},
-												  "Leave shop":function(){$(this).dialog("close");}
+															}
 												  });
 	
-	$('.ui-button').hover(
-		function(){ 
-			$(this).addClass("ui-state-hover"); 
-		},
-		function(){ 
-			$(this).removeClass("ui-state-hover"); 
-		}
-	).mousedown(function(){
-		$(this).addClass("ui-state-active"); 
-	})
-	.mouseup(function(){
-			$(this).removeClass("ui-state-active");
-	});
-	
-	
+	buttonify();
 
 	// Listeners (races)
 	$MQL('l:race.chosen.request', function(message) {
@@ -119,12 +104,11 @@ function a_load() {
 		$MQ('l:skill.cat.chosen.response', {'skills':skills});
 	});
 	// Listeners (items)
-	$MQL("l:equipment.select", function() {
-		$MQ('l:equipment.render',{'money':items.money, 'weapons':items.weapons, 'armor':items.armor, 'other':items.other});
-		// Code for adding a datatable (not currently used though)
-		//$('#weaponsTable').dataTable({'bJQueryUI': true,'sPaginationType': 'full_numbers'});
-		// Must wait 1ms before removing attribute, otherwise Iterator (in entourage) hasn't processed yet
-		//setTimeout("$('.tbody').removeAttr('style')", 1);
+	$MQL("l:shop.enter", function() {
+		$MQ('l:shop.populate',{'money':items.money, 'weapons':items.weapons, 'armor':items.armor, 'other':items.other});
+	});
+	$MQL("l:purchase", function(message) {
+		weapons.push(message.payload);
 	});
 }; // End of function a_load
 
@@ -179,6 +163,22 @@ function attribut_cost(attr) {
 			break;
 	}
 }
+function buttonify() {
+	$('.ui-button').hover(
+		function(){ 
+			$(this).addClass("ui-state-hover"); 
+		},
+		function(){ 
+			$(this).removeClass("ui-state-hover"); 
+		}
+	).mousedown(function(){
+		$(this).addClass("ui-state-active"); 
+	})
+	.mouseup(function(){
+			$(this).removeClass("ui-state-active");
+	});
+}
+
 
 // This script calculates and updates the cost of all the attribute modifications
 //on="l:attributs.changed then execute"
