@@ -15,9 +15,9 @@
 <!-- When appcelerator finishes compiling the page in the browser, it makes the page visible -->
 <body style="visibility:hidden" on="l:app.compiled then visible and script[a_load()]">
 	
-	<p on="click then l:equipment.selected[obj=weapons]">Select weapons</p>
+	<p on="click then l:item.cat.selected[obj=weapons]">Select weapons</p>
 
-	<div class="descBox" on="l:equipment.selected[obj=weapons] then effect[fadeIn] else hide">
+	<div class="descBox" on="l:item.cat.selected[obj=weapons] then effect[fadeIn] else hide">
 		<h3>Les Armes</h3>
 		<div on="l:render.response then render" control="iterator[property=items]" class="">
 			<div style="clear:both;" >

@@ -166,6 +166,25 @@ th span {
 	float:left;
 }
 
+/* Items */
+.item-image-container {
+	height:180px;
+	width:120px;
+	float:left;
+	border:thin solid black;
+	background-color:white;
+}
+
+.item-image {
+	max-height:180px;
+	max-width:120px;
+	margin:auto;
+	display:block;
+}
+
+.equipment-tabs {
+	min-height:400px;
+}
 
 /* Bubble pop-up */
 .popup {
