@@ -149,6 +149,51 @@
 					<div style="clear:left;"></div>
 			</div>
 			<div id="competences" title="Compétences (0pp)">
+				<h3>Physiques</h3>
+				<div on="l:skills.populate then render" control="iterator[property=skills.physiques]" >
+					<div style="padding:5px;" id=#{id} >
+						<span style="padding:2px;"><b>#{name}</b></span>
+						<span>Niveau : #{level}</span>
+						<span>Coût (PP) : #{cost}</span>
+						<img src="images/cross.png" id="delete_#{id}" onclick="" >
+					</div>
+				</div>
+				<h3>Sociales</h3>
+				<div on="l:skills.populate then render" control="iterator[property=skills.sociales]" >
+					<div style="padding:5px;" id=#{id} >
+						<span style="padding:2px;"><b>#{name}</b></span>
+						<span>Niveau : #{level}</span>
+						<span>Coût (PP) : #{cost}</span>
+					</div>
+				</div>
+				
+				<h3>Savoir-Faire</h3>
+				<div on="l:skills.populate then render" control="iterator[property=skills.savoirfaire]" >
+					<div style="padding:5px;" id=#{id} >
+						<span style="padding:2px;"><b>#{name}</b></span>
+						<span>Niveau : #{level}</span>
+						<span>Coût (PP) : #{cost}</span>
+					</div>
+				</div>
+				
+				<h3>Connaissances</h3>
+				<div on="l:skills.populate then render" control="iterator[property=skills.connaissances]" >
+					<div style="padding:5px;" id=#{id} >
+						<span style="padding:2px;"><b>#{name}</b></span>
+						<span>Niveau : #{level}</span>
+						<span>Coût (PP) : #{cost}</span>
+					</div>
+				</div>
+				
+				<h3>Occultes</h3>
+				<div on="l:skills.populate then render" control="iterator[property=skills.magiques]" >
+					<div style="padding:5px;" id=#{id} >
+						<span style="padding:2px;"><b>#{name}</b></span>
+						<span>Niveau : #{level}</span>
+						<span>Coût (PP) : #{cost}</span>
+					</div>
+				</div>
+				
 				<input type="button" on="click then l:skill.add" value="Rajouter une compétence" class="ui-button ui-state-default ui-corner-all" />
 			</div>
 			<div id="oc" title="Options de combat">
@@ -422,22 +467,22 @@
 	            <li><a href="#compList">Occultes</a></li> 
 	        </ul> 
 			<div behavior="selectable" id="compList">
-				<div on="l:skill.cat.chosen.response then render" control="iterator[property=skills]" style="margin:auto">
-					<div class="selectBox ui-widget-content" 
+				<div on="l:skill.cat.chosen.response then render" control="iterator[property=skills]" id="compIterator">
+					<div class="skillBox selectBox ui-widget-content" 
 						behavior="rounded[radius=5]"
-					 	on="selecting then add[class=ui-state-default] and l:skill.description.update[skillId=#{id}] or unselecting then remove[class=ui-state-default] and l:skill.unchosen"
-						id="comp_#{iterator_index}">
-						<div class="insideSelectBox">
-							<span >#{name} (#{attr})</span>
+					 	on="selecting then add[class=ui-state-default] and l:skill.selected[skillId=#{id}] or unselecting then remove[class=ui-state-default] and l:skill.unselected[skillId=#{id}]"
+						id="#{id}">
+						<div class="insideSelectBox" id="_#{id}">
+							<span id ="__#{id}">#{name} (#{attr})</span>
 						</div>
 					</div>
 				</div>
 			</div>
+		    <div class="ui-widget-content" id="compDesc" on="l:skill.unselected then clear">
+
+			</div>
 	
 	    </div> 
-	    <div class="bottomPanel ui-widget-content" id="compDesc" on="l:skill.unchosen then clear">
-
-		</div>
 		
 		
 	</div><!-- end of skills dialog -->

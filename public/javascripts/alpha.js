@@ -18,33 +18,74 @@ function a_load() {
 	// When user clicks on element with 'item' class, show elements of class sct scrolling up
 	$('.item').click(function(){$('.sct').hide("drop", { direction: "up" }, 800)});
 	
-	$('#skillDialog').dialog('option', 'buttons', 
+	$('#skillDialog').dialog('option', 'buttons',
+		{
+			"Ajouter":function()
+			{
+				$('.ui-selected').each(function()
 				{
-					"Ajouter":function()
-					{$(this).dialog("close");},
-					"Annuler":function()
-					{$(this).dialog("close");}
-				}
+					var id = this.id;
+					if (id != "compIterator")
+					{
+						if (id.substring(0, 2) == '__')
+						{
+							id = id.substring(2);
+						}
+						if (id.substring(0, 1) == '_')
+						{
+							id = id.substring(1);
+						}
+						var skill = getSkillById(id);
+						skill.level = 'Profane';
+						skill.cost = 0;
+						if (skill.id != "crap" && !isInCharSkills(skill.id))
+						{
+							switch (skill.id.substring(0,1)) 
+							{
+								case 'p': character.skills.physiques.push(skill); break;
+								case 's': character.skills.sociales.push(skill); break;
+								case 'f': character.skills.savoirfaire.push(skill); break;
+								case 'c': character.skills.connaissances.push(skill); break;
+								case 'o': character.skills.magiques.push(skill); break;
+							}
+						}		
+					}		
+				});
+			
+				$MQ('l:skills.populate', {'skills':character.skills});
+				$(this).dialog("close");
+			},
+			"Annuler":function()	{$(this).dialog("close");}
+		}
 	);
 	//for tabs in dialogs
    $("#skillDialog").bind('dialogopen', function() { 
-       /* init tabs, when dialog is opened */ 
-       $("#compTabs").tabs(); 
+      /* init tabs, when dialog is opened */ 
+      $("#compTabs").tabs();
    }); 
 	$('#compTabs').bind('tabsshow', function(event, ui) {
-		var skills;
+		var skills, showedSkills;
 		switch (ui.index) {
 			case 0: skills = comp.physiques; break;
 			case 1: skills = comp.sociales; break;
 			case 2: skills = comp.savoirfaire; break;
 			case 3: skills = comp.connaissances; break;
 			case 4: skills = comp.magiques; break;
-			default:  skills = comp.magiques; break;
 		}
-		$MQ('l:skill.cat.chosen.response', {'skills':skills});
+		showedSkills= [];
+		var i;
+		for (i=0; i<skills.length ; i++)
+		{
+				if (!isInCharSkills(skills[i].id))
+				{
+					showedSkills.push(skills[i]);
+				}
+		}
+		
+		$MQ('l:skill.cat.chosen.response', {'skills':showedSkills});
 	});
 	$('#compTabs').bind('tabsselect', function(event, ui) {
-		$MQ('l:skill.unchosen');
+		$MQ('l:skill.unselected');
 	});
 	
 	$('#raceDialog').dialog('option', 'buttons', {"Choisir":function(){
@@ -56,7 +97,7 @@ function a_load() {
 																$(this).dialog("close");
 															},
 												  "Annuler":function(){$(this).dialog("close");}
-												  });
+	});
 	$('#equipmentDialog').dialog('option', 'buttons', {"Sortir":function(){
 																$MQ({name:'l:equipment.populate',
 																	 payload:{
@@ -66,7 +107,7 @@ function a_load() {
 																});
 																$(this).dialog("close");
 															}
-												  });
+	});
 	
 	buttonify();
 
@@ -115,29 +156,10 @@ function a_load() {
 		$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
 	});
 	// Listeners (skills)
-	$MQL('l:skill.cat.chosen.request', function(message) {
-		var skills;
-		switch (message.payload.cat) {
-			case 'phys': skills = comp.physiques; break;
-			case 'soci': skills = comp.sociales; break;
-			case 'savo': skills = comp.savoirfaire; break;
-			case 'conn': skills = comp.connaissances; break;
-			case 'magi': default: skills = comp.magiques; break;
-		}
-		$MQ('l:skill.cat.chosen.response', {'skills':skills});
-	});
-	$MQL("l:skill.description.update", function(message) {
-		var compDesc ="";
+	$MQL("l:skill.selected", function(message)
+	{
 		var id = message.payload.skillId;
-		
-		switch (id.substring(0,1)) {
-			case 'p': compDesc = comp.physiques[id.substring(1)]; break;
-			case 's': compDesc = comp.sociales[id.substring(1)]; break;
-			case 'f': compDesc = comp.savoirfaire[id.substring(1)]; break;
-			case 'c': compDesc = comp.connaissances[id.substring(1)]; break;
-			case 'o': compDesc = comp.magiques[id.substring(1)]; break;
-		}
-		$('#compDesc').html(compDesc.desc);
+		$('#compDesc').html(getSkillById(id).desc);
 	});
 	
 	// Listeners (items)
@@ -152,6 +174,62 @@ function a_load() {
 	});
 }; // End of function a_load
 
+function isInCharSkills(skillId)
+{
+	var result = false;
+	for (j=0; j<=character.skills.physiques.length-1 ; j++)
+	{
+		if (skillId == character.skills.physiques[j].id)
+		{
+			result=true;
+		}
+	}
+	for (j=0; j<=character.skills.sociales.length-1 ; j++)
+	{
+		if (skillId == character.skills.sociales[j].id)
+		{
+			result=true;
+		}
+	}
+	for (j=0; j<=character.skills.savoirfaire.length-1 ; j++)
+	{
+		if (skillId == character.skills.savoirfaire[j].id)
+		{
+			result=true;
+		}
+	}
+	for (j=0; j<=character.skills.connaissances.length-1 ; j++)
+	{
+		if (skillId == character.skills.connaissances[j].id)
+		{
+			result=true;
+		}
+	}
+	for (j=0; j<=character.skills.magiques.length-1 ; j++)
+	{
+		if (skillId == character.skills.magiques[j].id)
+		{
+			result=true;
+		}
+	}
+	return result;
+}
+
+function getSkillById(id)
+{
+	var result= {} ;
+	switch (id.substring(0,1)) 
+	{
+		case 'compiterator': result.id = "crap"; break;
+		case 'p': result = comp.physiques[id.substring(1)]; break;
+		case 's': result = comp.sociales[id.substring(1)]; break;
+		case 'f': result = comp.savoirfaire[id.substring(1)]; break;
+		case 'c': result = comp.connaissances[id.substring(1)]; break;
+		case 'o': result = comp.magiques[id.substring(1)]; break;
+		default: result.id = "crap";
+	}
+	return result;
+}
 
 function buttonify() {
 	$('.ui-button').hover(
