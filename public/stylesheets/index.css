@@ -44,9 +44,8 @@ div#helperAccordion {
 /* Fiche de personnage */
 div#character {
 	padding:5px 20px;
-	background-color:#eee;
-	max-width:800px;
-	margin:auto;
+	width:680px;
+	margin-left:220px;
 	display:none;
 }
 
@@ -199,6 +198,26 @@ th span {
 
 .equipment-tabs {
 	min-height:400px;
+}
+
+.my-button { 
+   text-decoration:none !important; 
+   cursor:pointer; 
+   position: relative; 
+}
+
+.comp-table {
+		border-collapse:collapse;
+		text-align:left;
+		padding:0px;
+		margin:auto ;
+}
+.comp-table td {
+	padding-left:5px;
+}
+.comp-table th {
+	text-align:left;
+	padding:4px;
 }
 
 /* Bubble pop-up */

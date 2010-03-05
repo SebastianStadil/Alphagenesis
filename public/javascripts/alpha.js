@@ -9,6 +9,8 @@ var armor = [];
 
 // Makes tags.class editable in place
 function a_load() {
+	
+	
 	$('#create_character').click(function(){$('#character').toggle('drop',{direction:'up'});});
 	$('#create_character').click(function(){$('#helper').toggle('drop',{direction:'up'});});
 	$('span#name').editable({submitterId:'name'});
@@ -38,6 +40,7 @@ function a_load() {
 						var skill = getSkillById(id);
 						skill.level = 'Profane';
 						skill.cost = 0;
+						skill.slidervalue = 0;
 						if (skill.id != "crap" && !isInCharSkills(skill.id))
 						{
 							switch (skill.id.substring(0,1)) 
@@ -51,9 +54,16 @@ function a_load() {
 						}		
 					}		
 				});
-			
+				
+				displaySkills();
+				
 				$MQ('l:skills.populate', {'skills':character.skills});
+				
 				$(this).dialog("close");
+				setTimeout("buttonify()", 500); 
+				setTimeout("sliderify()", 500); 
+
+				
 			},
 			"Annuler":function()	{$(this).dialog("close");}
 		}
@@ -61,7 +71,27 @@ function a_load() {
 	//for tabs in dialogs
    $("#skillDialog").bind('dialogopen', function() { 
       /* init tabs, when dialog is opened */ 
-      $("#compTabs").tabs();
+		var $tabs = $('#compTabs').tabs();
+		var skills, showedSkills;
+		switch ($tabs.tabs('option', 'selected')) {
+			case 0: skills = comp.physiques; break;
+			case 1: skills = comp.sociales; break;
+			case 2: skills = comp.savoirfaire; break;
+			case 3: skills = comp.connaissances; break;
+			case 4: skills = comp.magiques; break;
+		}
+		showedSkills= [];
+		var i;
+		for (i=0; i<skills.length ; i++)
+		{
+				if (!isInCharSkills(skills[i].id))
+				{
+					showedSkills.push(skills[i]);
+				}
+		}
+		
+		$MQ('l:skill.cat.chosen.response', {'skills':showedSkills});
+
    }); 
 	$('#compTabs').bind('tabsshow', function(event, ui) {
 		var skills, showedSkills;
@@ -108,9 +138,10 @@ function a_load() {
 																$(this).dialog("close");
 															}
 	});
-	
+		
 	buttonify();
-
+	sliderify();
+	
 	// Listeners (races)
 	$MQL('l:race.chosen.request', function(message) {
 		var race;
@@ -155,12 +186,38 @@ function a_load() {
 	$MQL("l:minotaur.attribute.request", function() {
 		$MQ('l:minotaur.attribute.response',{'phys':minotaur.attribut.phys, 'ment':minotaur.attribut.ment});
 	});
+
 	// Listeners (skills)
 	$MQL("l:skill.selected", function(message)
 	{
 		var id = message.payload.skillId;
 		$('#compDesc').html(getSkillById(id).desc);
 	});
+	$MQL('l:char.skills.remove', function(message) {
+		var skillId = message.payload.skillId;
+		var skillArray;
+		switch (skillId.substring(0,1)) 
+		{
+			case 'p': skillArray = character.skills.physiques; break;
+			case 's': skillArray = character.skills.sociales; break;
+			case 'f': skillArray = character.skills.savoirfaire; break;
+			case 'c': skillArray = character.skills.connaissances; break;
+			case 'o': skillArray = character.skills.magiques; break;
+		}
+		for (j=0; j<=skillArray.length-1 ; j++)
+		{
+			if (skillId == skillArray[j].id)
+			{
+				skillArray.splice(j,1);
+				break;
+			}
+		}
+		displaySkills();
+		$MQ('l:skills.populate', {'skills':character.skills});
+		setTimeout("buttonify()", 500); 
+		setTimeout("sliderify()", 500); 
+		updatePP();
+	});		
 	
 	// Listeners (items)
 	$MQL("l:shop.enter", function() {
@@ -231,18 +288,105 @@ function getSkillById(id)
 	return result;
 }
 
+function displaySkills()
+{
+	if (character.skills.physiques.length > 0){
+		$MQ('l:skills.physiques.show');
+	} else
+	{
+		$MQ('l:skills.physiques.hide');
+	}
+	if (character.skills.sociales.length > 0){
+		$MQ('l:skills.sociales.show');
+	} else
+	{
+		$MQ('l:skills.sociales.hide');
+	}
+	if (character.skills.savoirfaire.length > 0){
+		$MQ('l:skills.savoirfaire.show');
+	} else
+	{
+		$MQ('l:skills.savoirfaire.hide');
+	}
+	if (character.skills.connaissances.length > 0){
+		$MQ('l:skills.connaissances.show');
+	} else
+	{
+		$MQ('l:skills.connaissances.hide');
+	}
+	if (character.skills.magiques.length > 0){
+		$MQ('l:skills.magiques.show');
+	} else
+	{
+		$MQ('l:skills.magiques.hide');
+	}
+	
+}
+
+function updatePP()
+{
+	var totalPP;
+	var compPP;
+	var attrPP;
+	
+	//Compétences
+	compPP=0;
+	for (j=0; j<=character.skills.physiques.length-1 ; j++)
+	{
+		compPP += character.skills.physiques[j].cost;
+	}
+	for (j=0; j<=character.skills.sociales.length-1 ; j++)
+	{
+		compPP += character.skills.sociales[j].cost;
+	}
+	for (j=0; j<=character.skills.savoirfaire.length-1 ; j++)
+	{
+		compPP += character.skills.savoirfaire[j].cost;
+	}
+	for (j=0; j<=character.skills.connaissances.length-1 ; j++)
+	{
+		compPP += character.skills.connaissances[j].cost;
+	}
+	for (j=0; j<=character.skills.magiques.length-1 ; j++)
+	{
+		compPP += character.skills.magiques[j].cost;
+	}
+	$('#mainTabs li:eq(2) a').html("Compétences : " + compPP + " PP");
+	//Le reste
+	
+	
+	totalPP = compPP + attrPP;
+	
+}
+
 function buttonify() {
-	$('.ui-button').hover(
+ 	$('.ui-button').hover(
 		function(){ 
 			$(this).addClass("ui-state-hover"); 
 		},
 		function(){ 
 			$(this).removeClass("ui-state-hover"); 
+			$(this).removeClass("ui-state-active");
 		}
-	).mousedown(function(){
+	)
+	.mousedown(function(){
 		$(this).addClass("ui-state-active"); 
 	})
 	.mouseup(function(){
 			$(this).removeClass("ui-state-active");
+	})
+}
+
+function sliderify()
+{
+	$('.ui-slider').bind('slide',  function(event, ui) {
+		var skillId = this.id.substring(17)
+		var skill = getSkillById(this.id.substring(17))
+		skill.level = comp.niveaux[ui.value].name;
+		skill.cost = comp.niveaux[ui.value].price;
+		skill.slidervalue = ui.value;
+		$('#char_comp_level_' + skillId).html(skill.level);
+		$('#char_comp_cost_' + skillId).html(skill.cost + " PP");
+		updatePP();
 	});
 }
