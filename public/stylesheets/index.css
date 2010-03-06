@@ -3,7 +3,7 @@ body {
 	padding:0;
 }
 
-/* Menu tout en haut */
+/* Top menu */
 div#header {
 	padding:5px 8px;
 	margin:auto;
@@ -183,7 +183,7 @@ th span {
 }
 
 .equipment-tabs {
-	min-height:400px;
+	min-height:200px;
 }
 
 /* Bubble pop-up */

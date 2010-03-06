@@ -69,7 +69,20 @@ function a_load() {
 												  });
 	
 	buttonify();
-
+	
+	// Listeners (attributes)
+	$MQL('l:attr.update.request', function(message) {
+		name = message.payload.att_name;
+		value = message.payload.att_value;
+		op = message.payload.op;
+		if (op == 'add') {
+			value++;
+		} else {
+			value--;
+		}
+		$MQ('l:attr.update.response', {'att_name':name,'att_value':value});
+	});
+	
 	// Listeners (races)
 	$MQL('l:race.chosen.request', function(message) {
 		var race;
