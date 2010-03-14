@@ -116,31 +116,30 @@
 					<p>Culture : <input id="culture" type="button" on="click then l:culture.select or l:culture.chosen.response then value[culture] and add[class=editable] and remove[class=editable-unedited]" value="Choisir" class="ui-button ui-state-default ui-corner-all editable-unedited" /></p>
 				</div>
 				<div id="attributs" title="Attributs (0pp)"> 
-					<div id="attributs" title="Attributs (0pp)"> 
-						<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
-							<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render" id="a_test">
-								<tr>
-									<td class="nameCell" id="an_#{att_name}">
-										<span fieldset="field_#{att_name}" name="att_name">#{att_name}</span>: 
-									</td>
-									<td class="valueCell" id="av_#{att_name}">
-										<span on="click then l:attr.update.request[op=add]" id="ava_#{att_name}" fieldset="field_#{att_name}">+</span>&nbsp;
-										<input fieldset="field_#{att_name}" type="text" value="#{att_value}" size="1" disabled
-											on="l:attr.update.response[att_name=#{att_name}] then value[att_value]" id="avi_#{att_name}" name="att_value" />&nbsp;
-										<span on="click then l:attr.update.request[op=sub]" id="avs_#{att_name}" fieldset="field_#{att_name}">-</span>
-									</td>
-								</tr>
-							</table>
-							<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render">
-								<tr>
-									<td class="nameCell">#{att_name}: </td>
-									<td class="valueCell">(<span>#{att_value+10}</span>) <span></span></td>
-								</tr>
-							</table>
-							<div style="clear:left;"></div>
-							For: 4 +3 = 7<br>
-							Agi: 7 (<span style="color:grey;">4</span>+3<sup>+<sub>-</sub></sup>)<br>
-					</div>
+					<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
+					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render" id="a_test">
+						<tr>
+							<td class="nameCell" id="an_#{att_name}">
+								<span fieldset="field_#{att_name}" name="att_name">#{att_name}</span>: 
+							</td>
+							<td class="valueCell" id="av_#{att_name}">
+								<span on="click then l:attr.update.request[op=add]" id="ava_#{att_name}" fieldset="field_#{att_name}">+</span>&nbsp;
+								<input fieldset="field_#{att_name}" type="text" value="#{att_value}" size="1" disabled
+									on="l:attr.update.response[att_name=#{att_name}] then value[att_value]" id="avi_#{att_name}" name="att_value" />&nbsp;
+								<span on="click then l:attr.update.request[op=sub]" id="avs_#{att_name}" fieldset="field_#{att_name}">-</span>
+							</td>
+						</tr>
+					</table>
+					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render">
+						<tr>
+							<td class="nameCell">#{att_name}: </td>
+							<td class="valueCell">(<span>#{att_value+10}</span>) <span></span></td>
+						</tr>
+					</table>
+					<div style="clear:left;"></div>
+					For: 4 +3 = 7<br>
+					Agi: 7 (<span style="color:grey;">4</span>+3<sup>+<sub>-</sub></sup>)<br>
+				</div>
 				<div id="competences" title="Compétences (0pp)">
 					<div id="div_comp_p" on="l:skills.physiques.show then remove[class=hidden] or l:skills.physiques.hide then add[class=hidden]" class="hidden">
 						<h3>Physiques</h3>
