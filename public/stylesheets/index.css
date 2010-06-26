@@ -76,9 +76,13 @@ div#character {
 
 .nameCell {
 	width:auto;
+	padding-right:5px;
+	margin-right:5px;
 }
 
 .valueCell {
+	padding-right:25px;
+	margin-right:25px;
 	width:auto;
 }
 
@@ -166,12 +170,12 @@ div#character {
 
 /* Items */
 
-.item {
-	position: absolute;
+.sct_trigger {
 }
 
 .sct {
 	position: relative;
+	float :left;
 	top: 0px;
 	left: 0px;
 }

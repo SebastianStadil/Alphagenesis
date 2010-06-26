@@ -16,7 +16,12 @@ function a_load() {
 	$('span#sex').editable({type:'select',options:{'male':'Mâle','female':'Femelle','other':'Spécial'},submit:'Ok',cancel:'Annuler',
 	submitterId:'sex'});
 	// When user clicks on element with 'item' class, show elements of class sct scrolling up
-	$('.item').click(function(){$('.sct').hide("drop", { direction: "up" }, 800)});
+	$('.sct_trigger').click(function(){
+		sctObject = $('#' + this.id + '_sct');
+		sctObject.html("");
+		sctObject.css("color", "red");
+		sctObject.hide("drop", { direction: "up" }, 500);
+		});
 	
 	$('#skillDialog').dialog('option', 'buttons',
 		{

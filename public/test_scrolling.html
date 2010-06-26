@@ -38,12 +38,15 @@
 			<div class="descBox" on="l:item.cat.selected[obj=armor] then effect[fadeIn] else hide">
 				<h3>Les Armures</h3>
 				<h4>L'Armure de Plates</h4>
-				<img src="images/armor/armor-full-plate.jpg" class="item" style="width:100px" on="click then l:purchase[item=fullplate]"/>
-				<div>
-					<p class="hidden sct" style="position:relative; position:absolute; top:0px; left:0px;" on="l:purchase then value[item]"></p>
-				</div>
+				<img id="plate"  src="images/armor/armor-full-plate.jpg" class="sct_trigger" style="width:100px" on="click then l:purchase[item=fullplate]"/>
+				<span id="plate_sct" class="hidden sct" on="l:purchase then value[item]"></span>
+				<div style="clear:both;">
+					<br />
 				<h4>La Robe du Sorcier</h4>
-				<img src="images/armor/clothes-robes-sorcerer.jpg" class="right portrait" style="width:100px" />
+				<img id="robe" src="images/armor/clothes-robes-sorcerer.jpg" class="sct_trigger right portrait" style="width:100px" on="click then l:purchase[item=robes]" />
+				<div>
+					<p id ="robe_sct" class="hidden sct" on="l:purchase then value[item]"></p>
+				</div>
 				<p>Ca protege bien des coups tranchants, mais pas des flèches.</p>
 			</div>
 		</div>
