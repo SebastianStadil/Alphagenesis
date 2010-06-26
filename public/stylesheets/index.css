@@ -75,11 +75,11 @@ div#character {
 }
 
 .nameCell {
-	width:8em;
+	width:auto;
 }
 
 .valueCell {
-	width:4em;
+	width:auto;
 }
 
 .right {

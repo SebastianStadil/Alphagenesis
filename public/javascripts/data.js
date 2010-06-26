@@ -32,6 +32,33 @@ var elfAttributes = [
 	{ att_name:'Cha', att_value:4 },
 ];
 */
+
+var character = {};
+character.skills = [];
+character.skills.physiques = [];
+character.skills.sociales = [];
+character.skills.savoirfaire = [];
+character.skills.connaissances = [];
+character.skills.magiques = [];
+
+var attribut = {};
+attribut.phys =  [
+	{ att_short:'For', att_name:"Force" },
+	{ att_short:'End', att_name:"Endurance" },
+	{ att_short:'Agi', att_name:"Agilité" },
+	{ att_short:'Dex', att_name:"Dextérité" },
+	{ att_short:'Met', att_name:"Métabolisme" },
+	{ att_short:'Ref', att_name:"Réflexes" }
+];
+attribut.ment = [
+	{ att_short:'Ent', att_name:"Entendement" },
+	{ att_short:'Inv', att_name:"Inventivité" },
+	{ att_short:'Mem', att_name:"Mémoire" },
+	{ att_short:'Vol', att_name:"Volonté" },
+	{ att_short:'Per', att_name:"Perception" },
+	{ att_short:'Cha', att_name:"Charisme" }
+];
+
 var human = {};
 human.attribut = {};
 human.attribut.phys = [
@@ -40,7 +67,7 @@ human.attribut.phys = [
 	{ att_name:'Agi', att_value:4 },
 	{ att_name:'Dex', att_value:4 },
 	{ att_name:'Met', att_value:4 },
-	{ att_name:'Ref', att_value:4 },
+	{ att_name:'Ref', att_value:4 }
 ];
 human.attribut.ment = [
 	{ att_name:'Ent', att_value:4 },
@@ -48,7 +75,7 @@ human.attribut.ment = [
 	{ att_name:'Mem', att_value:4 },
 	{ att_name:'Vol', att_value:4 },
 	{ att_name:'Per', att_value:4 },
-	{ att_name:'Cha', att_value:4 },
+	{ att_name:'Cha', att_value:4 }
 ];
 var elf = {};
 elf.attribut = {};
@@ -58,7 +85,7 @@ elf.attribut.phys = [
 	{ att_name:'Agi', att_value:5 },
 	{ att_name:'Dex', att_value:5 },
 	{ att_name:'Met', att_value:4 },
-	{ att_name:'Ref', att_value:5 },
+	{ att_name:'Ref', att_value:5 }
 ];
 elf.attribut.ment = [
 	{ att_name:'Ent', att_value:4 },
@@ -66,7 +93,7 @@ elf.attribut.ment = [
 	{ att_name:'Mem', att_value:4 },
 	{ att_name:'Vol', att_value:4 },
 	{ att_name:'Per', att_value:4 },
-	{ att_name:'Cha', att_value:4 },
+	{ att_name:'Cha', att_value:4 }
 ];
 var orc = {};
 orc.attribut = {};
@@ -76,7 +103,7 @@ orc.attribut.phys = [
 	{ att_name:'Agi', att_value:4 },
 	{ att_name:'Dex', att_value:3 },
 	{ att_name:'Met', att_value:4 },
-	{ att_name:'Ref', att_value:4 },
+	{ att_name:'Ref', att_value:4 }
 ];
 orc.attribut.ment = [
 	{ att_name:'Ent', att_value:4 },
@@ -84,7 +111,7 @@ orc.attribut.ment = [
 	{ att_name:'Mem', att_value:4 },
 	{ att_name:'Vol', att_value:4 },
 	{ att_name:'Per', att_value:4 },
-	{ att_name:'Cha', att_value:4 },
+	{ att_name:'Cha', att_value:4 }
 ];
 var minotaur = {};
 minotaur.attribut = {};
@@ -94,7 +121,7 @@ minotaur.attribut.phys = [
 	{ att_name:'Agi', att_value:3 },
 	{ att_name:'Dex', att_value:4 },
 	{ att_name:'Met', att_value:5 },
-	{ att_name:'Ref', att_value:3 },
+	{ att_name:'Ref', att_value:3 }
 ];
 minotaur.attribut.ment = [
 	{ att_name:'Ent', att_value:4 },
@@ -102,7 +129,7 @@ minotaur.attribut.ment = [
 	{ att_name:'Mem', att_value:4 },
 	{ att_name:'Vol', att_value:4 },
 	{ att_name:'Per', att_value:4 },
-	{ att_name:'Cha', att_value:4 },
+	{ att_name:'Cha', att_value:4 }
 ];
 
 var comp = {};
@@ -130,7 +157,7 @@ comp.physiques = [
 	{id:'p20',name:'16', attr:'For/End', desc:'Permet de courir'},
 	{id:'p21',name:'17', attr:'Agi', desc:'En combat permet d esquiver'},
 	{id:'p22',name:'18', attr:'For/End', desc:'Pour pas couler.'},
-	{id:'p23',name:'19', attr:'Ent/Per', desc:'Regarde avec tes yeux'},
+	{id:'p23',name:'19', attr:'Ent/Per', desc:'Regarde avec tes yeux'}
 ];
 comp.sociales = [
 	{id:'s0',name:'Persuasion', attr:'Cha', desc:'Donne moi ta montre'},
@@ -186,11 +213,3 @@ items.armor = [
 	{image_path:'images/armor/clothes-robes-sorcerer.jpg', name:'Mage armor', armor:'100', cost:'12', weight:'3'}
 ];
 items.other = [];
-
-var character = {};
-character.skills = [];
-character.skills.physiques = [];
-character.skills.sociales = [];
-character.skills.savoirfaire = [];
-character.skills.connaissances = [];
-character.skills.magiques = [];

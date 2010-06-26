@@ -9,8 +9,6 @@ var armor = [];
 
 // Makes tags.class editable in place
 function a_load() {
-	
-	
 	$('#create_character').click(function(){$('#character').toggle('drop',{direction:'up'});});
 	$('#create_character').click(function(){$('#helper').toggle('drop',{direction:'up'});});
 	$('span#name').editable({submitterId:'name'});
@@ -402,4 +400,33 @@ function sliderify()
 		$('#char_comp_cost_' + skillId).html(skill.cost + " PP");
 		updatePP();
 	});
+}
+
+function findAttributeLongName(shortname)
+{
+	for (j=0; j<=attribut.phys.length-1 ; j++)
+	{
+		if (attribut.phys[j].att_short == shortname)
+		{
+			return attribut.phys[j].att_name;
+		}
+	}	
+	for (j=0; j<=attribut.ment.length-1 ; j++)
+	{
+		if (attribut.ment[j].att_short == shortname)
+		{
+			return attribut.ment[j].att_name;
+		}
+	}	
+	return shortname;
+}
+
+function scanObject(obj, nom)
+{ 	
+  var str = ""; 	
+  for(i in obj)  	
+  {
+       str = str + nom + "." + i + " = " + obj[i] + "         "; 
+  }
+  return str; 
 }
