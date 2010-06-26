@@ -120,7 +120,7 @@
 					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render and javascript[buttonify()]" id="a_test">
 						<tr>
 							<td class="nameCell" id="an_#{att_name}">
-								<span id = "attspan_#{att_name}" fieldset="field_#{att_name}" name="att_name">#{att_name}</span>
+								<span id = "attspan_#{att_name}" fieldset="field_#{att_name}" name="att_name">#{att_name}</span>:
 								<script type="text/javascript">
 								      jQuery("#attspan_#{att_name}").html(findAttributeLongName('#{att_name}'));
 								</script>
@@ -142,7 +142,7 @@
 					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render and javascript[buttonify()]">
 						<tr>
 							<td class="nameCell" id="an_#{att_name}">
-								<span fieldset="field_#{att_name}" name="att_name">#{att_name}</span>: 
+								<span id = "attspan_#{att_name}" fieldset="field_#{att_name}" name="att_name">#{att_name}</span>: 
 							</td>
 							<script type="text/javascript">
 							      jQuery("#attspan_#{att_name}").html(findAttributeLongName('#{att_name}'));
