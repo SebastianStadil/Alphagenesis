@@ -44,7 +44,7 @@ div#helperAccordion {
 /* Fiche de personnage */
 div#character {
 	padding:5px 20px;
-	width:680px;
+	width:800px;
 	margin-left:220px;
 	display:none;
 }
@@ -63,6 +63,7 @@ div#character {
 
 .attributs {
 	float:left;
+	margin-left:40px;
 }
 
 .portrait {
@@ -76,14 +77,11 @@ div#character {
 
 .nameCell {
 	width:auto;
-	padding-right:5px;
-	margin-right:5px;
+	padding-right:15px;
 }
 
 .valueCell {
-	padding-right:25px;
-	margin-right:25px;
-	width:auto;
+	width:20px;
 }
 
 .right {
@@ -168,16 +166,29 @@ div#character {
 	vertical-align:middle;
 }
 
-/* Items */
-
+/* Scrolling text CSS */
 .sct_trigger {
 }
 
+.valSpan {
+	height:12px;
+	width:24px;
+	text-align:center;
+}
+.valSpanSCT {
+	height:12px;
+	width:24px;
+	text-align:center;
+	margin-top:-12px;
+	color:blue;
+	font-weight:bold;
+	float:left;
+	opacity:0;
+}
+
 .sct {
-	position: relative;
-	float :left;
-	top: 0px;
-	left: 0px;
+	position:relative;
+	z-index:1000;
 }
 /* Fixes an issue in datatable */
 th span {
@@ -203,6 +214,20 @@ th span {
 .equipment-tabs {
 	min-height:200px;
 }
+
+/* Icons */
+.icon-container {
+	width:16px;
+	height:16px;
+} 
+.small-icon-container {
+	width:14px;
+	height:14px;
+} 
+.small-icon-position {
+	margin-top:-1px;
+	margin-left:-1px;
+} 
 
 .my-button { 
    text-decoration:none !important; 

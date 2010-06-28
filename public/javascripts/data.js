@@ -33,15 +33,38 @@ var elfAttributes = [
 ];
 */
 
+
+//Current character variables
 var character = {};
+character.pp = {};
+character.pp.total = 100;
+character.pp.spent = 0;
 character.skills = [];
 character.skills.physiques = [];
 character.skills.sociales = [];
 character.skills.savoirfaire = [];
 character.skills.connaissances = [];
 character.skills.magiques = [];
+character.nom =  "";
+character.race =  {};
+character.modifattribut =  {};
+character.modifattribut.For = 0;
+character.modifattribut.End = 0;
+character.modifattribut.Agi = 0;
+character.modifattribut.Dex = 0;
+character.modifattribut.Met = 0;
+character.modifattribut.Ref = 0;
+character.modifattribut.Ent = 0;
+character.modifattribut.Inv = 0;
+character.modifattribut.Mem = 0;
+character.modifattribut.Vol = 0;
+character.modifattribut.Per = 0;
+character.modifattribut.Cha = 0;
 
+// Attributes Description
 var attribut = {};
+// cost in PP starting at -4 (index 0) and ending at +4 (index 8)
+attribut.costs =  [-40,-25,-12,-5,0,10,20,32,45];
 attribut.phys =  [
 	{ att_short:'For', att_name:"Force" },
 	{ att_short:'End', att_name:"Endurance" },
@@ -59,6 +82,7 @@ attribut.ment = [
 	{ att_short:'Cha', att_name:"Charisme" }
 ];
 
+//Races attributes values
 var human = {};
 human.attribut = {};
 human.attribut.phys = [
@@ -132,6 +156,7 @@ minotaur.attribut.ment = [
 	{ att_name:'Cha', att_value:4 }
 ];
 
+// Skills descriptions
 var comp = {};
 comp.physiques = [
 	{id:'p0',name:'Athlétisme', attr:'For/End', desc:"Permet de courir, de sauter, et de faire plein d'autres trucs du genre"},
@@ -199,6 +224,8 @@ comp.niveaux  = [
 	{ name:'Expert', shortname:'E', price:40 },
 	{ name:'Maître', shortname:'M', price:59 }
 ]
+
+// Items
 var items = {};
 items.money = [];
 items.weapons = [

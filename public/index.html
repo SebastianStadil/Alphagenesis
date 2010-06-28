@@ -117,53 +117,71 @@
 				</div>
 				<div id="attributs" title="Attributs (0pp)"> 
 					<h3>Attributs (<span on="l:attributs.calculated then value[pp]">0</span>pp)</h3>			
-					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render and javascript[buttonify()]" id="a_test">
+					<table class="table attributs" control="iterator[property=phys]" on="l:race.chosen.response then render and javascript[buttonify()] and javascript[scrollingify()]" id="table-phys-attributes">
 						<tr>
 							<td class="nameCell" id="an_#{att_name}">
 								<span id="key_#{att_name}" fieldset="field_#{att_name}" class="hidden" name="att_name">#{att_name}</span>
 								<span id="attspan_#{att_name}"></span>:
-								<script type="text/javascript">
-								      jQuery("#attspan_#{att_name}").html(findAttributeLongName('#{att_name}'));
-								</script>
 							</td>
 							<td class="valueCell" id="av_#{att_name}">
-								<div  style="float:left;margin:1px;">
-									<input fieldset="field_#{att_name}" type="text" value="#{att_value}" size="1" disabled
-									on="l:attr.update.response[att_name=#{att_name}] then value[att_value]" id="avi_#{att_name}" name="att_value" />
-								</div>
-								<div class="my-button ui-button ui-state-default ui-corner-all" style="float:left;margin:1px;" >
-									<span id="ava_#{att_name}" class="ui-icon ui-icon-plus" style="width:16px;height:16px;" on="click then l:attr.update.request[op=add]" fieldset="field_#{att_name}"></span>
-								</div>
-								<div class="my-button ui-button ui-state-default ui-corner-all"  style="float:right;margin:1px;" >
-									<span id="avs_#{att_name}" class="ui-icon ui-icon-minus" style="width:16px;height:16px;" on="click then l:attr.update.request[op=sub]" fieldset="field_#{att_name}"></span>
+								<div id="avi_#{att_name}" class="valSpan" fieldset="field_#{att_name}" type="text" on="l:attr.update.response[att_name=#{att_name}] then value[att_value]" name="att_value">#{att_value}</div>
+								<div id="avi_#{att_name}_sct" class="ava_#{att_name}_sct avs_#{att_name}_sct valSpanSCT sct" fieldset="field_#{att_name}" type="text" on="l:attr.update.response[att_name=#{att_name}] then value[att_modif]">0</div>
+							</td>
+							<td>
+								<div class="my-button small-icon-container ui-button ui-state-default ui-corner-all sct_trigger" id="ava_#{att_name}" fieldset="field_#{att_name}"  on="click then l:attr.update.request[op=add]">
+									<span class="ui-icon ui-icon-plus small-icon-position"></span>
 								</div>
 							</td>
+							<td>
+								<div class="my-button small-icon-container ui-button ui-state-default ui-corner-all sct_trigger" id="avs_#{att_name}" fieldset="field_#{att_name}"  on="click then l:attr.update.request[op=sub]">
+									<span class="ui-icon ui-icon-minus small-icon-position"></span>
+								</div>
+							</td>
+							<td style="width:40px;">
+								<span  id="avp_#{att_name}" fieldset="field_#{att_name}" type="text" on="l:attr.update.response[att_name=#{att_name}] then value[att_cost]">0</span> PP
+							</td>
+							
 						</tr>
+						<script type="text/javascript">
+						    jQuery("#attspan_#{att_name}").html(findAttributeLongName('#{att_name}'));	
+						</script>
+						
 					</table>
-					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render and javascript[buttonify()]">
+					<table class="table attributs" control="iterator[property=ment]" on="l:race.chosen.response then render and javascript[buttonify()] and javascript[scrollingify()]" id="table-ment-attributes">
 						<tr>
 							<td class="nameCell" id="an_#{att_name}">
-								<span id = "attspan_#{att_name}" fieldset="field_#{att_name}" name="att_name">#{att_name}</span>: 
+								<span id="key_#{att_name}" fieldset="field_#{att_name}" class="hidden" name="att_name">#{att_name}</span>
+								<span id="attspan_#{att_name}"></span>:
 							</td>
-							<script type="text/javascript">
-							      jQuery("#attspan_#{att_name}").innerHTML = findAttributeLongName('#{att_name}');
-							</script>
 							<td class="valueCell" id="av_#{att_name}">
-								<div  style="float:left;margin:1px;">
-									<input fieldset="field_#{att_name}" type="text" value="#{att_value}" size="1" disabled
-									on="l:attr.update.response[att_name=#{att_name}] then value[att_value]" id="avi_#{att_name}" name="att_value" />
-								</div>
-								<div class="my-button ui-button ui-state-default ui-corner-all" style="float:left;margin:1px;" >
-									<span id="ava_#{att_name}" class="ui-icon ui-icon-plus" style="width:16px;height:16px;" on="click then l:attr.update.request[op=add]" fieldset="field_#{att_name}"></span>
-								</div>
-								<div class="my-button ui-button ui-state-default ui-corner-all"  style="float:left;margin:1px;" >
-									<span id="avs_#{att_name}" class="ui-icon ui-icon-minus" style="width:16px;height:16px;" on="click then l:attr.update.request[op=sub]" fieldset="field_#{att_name}"></span>
+								<div id="avi_#{att_name}" class="valSpan" fieldset="field_#{att_name}" type="text" on="l:attr.update.response[att_name=#{att_name}] then value[att_value]" name="att_value">#{att_value}</div>
+								<div id="avi_#{att_name}_sct" class="ava_#{att_name}_sct avs_#{att_name}_sct valSpanSCT sct" fieldset="field_#{att_name}" type="text" on="l:attr.update.response[att_name=#{att_name}] then value[att_modif]">0</div>
+							</td>
+							<td>
+								<div class="my-button small-icon-container ui-button ui-state-default ui-corner-all sct_trigger" id="ava_#{att_name}" fieldset="field_#{att_name}"  on="click then l:attr.update.request[op=add]">
+									<span class="ui-icon ui-icon-plus small-icon-position"></span>
 								</div>
 							</td>
+							<td>
+								<div class="my-button small-icon-container ui-button ui-state-default ui-corner-all sct_trigger" id="avs_#{att_name}" fieldset="field_#{att_name}"  on="click then l:attr.update.request[op=sub]">
+									<span class="ui-icon ui-icon-minus small-icon-position"></span>
+								</div>
+							</td>
+							<td style="width:40px;">
+								<span  id="avp_#{att_name}" fieldset="field_#{att_name}" type="text" on="l:attr.update.response[att_name=#{att_name}] then value[att_cost]">0</span> PP
+							</td>
+							
 						</tr>
+						<script type="text/javascript">
+				      		jQuery("#attspan_#{att_name}").html(findAttributeLongName('#{att_name}'));
+						</script>
 					</table>
 					<div style="clear:left;"></div>
 					<br>
+					<div class="my-button ui-button ui-state-default ui-corner-all" id="attr-reset" on="click then l:attr.update.request[op=reset]" style='width:100px;padding:4px;text-align:center;margin-left:20px;'>
+						Remise à zero
+					</div>
+					
 				</div>
 				<div id="competences" title="Compétences (0pp)">
 					<div id="div_comp_p" on="l:skills.physiques.show then remove[class=hidden] or l:skills.physiques.hide then add[class=hidden]" class="hidden">
@@ -192,8 +210,8 @@
 										<div class="ui-slider" style="width:50px;margin-left:4px;" id="char_comp_slider_#{id}" control="jquery_slider[min=0, max = 6, value=#{slidervalue}]"></div>
 									</td>
 									<td>
-										<div class="my-button ui-button ui-state-default ui-corner-all">
-											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close" style="width:16px;height:16px;"  on="click then l:char.skills.remove[skillId=#{id}]" ></span>
+										<div class="my-button icon-container ui-button ui-state-default ui-corner-all">
+											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close"   on="click then l:char.skills.remove[skillId=#{id}]" ></span>
 										</div>
 									</td>
 								</tr>
@@ -226,8 +244,8 @@
 										<div class="ui-slider" style="width:50px;margin-left:4px;" id="char_comp_slider_#{id}" control="jquery_slider[min=0, max = 6, value=#{slidervalue}]"></div>
 									</td>
 									<td id="char_comp_delete_#{id}"   >
-										<div class="my-button ui-button ui-state-default ui-corner-all">
-											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close" style="width:16px;height:16px;"  on="click then l:char.skills.remove[skillId=#{id}]"></span>
+										<div class="my-button icon-container ui-button ui-state-default ui-corner-all">
+											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close"   on="click then l:char.skills.remove[skillId=#{id}]"></span>
 										</div>
 									</td>
 								</tr>
@@ -261,8 +279,8 @@
 										<div class="ui-slider" style="width:50px;margin-left:4px;" id="char_comp_slider_#{id}" control="jquery_slider[min=0, max = 6, value=#{slidervalue}]"></div>
 									</td>
 									<td id="char_comp_delete_#{id}"   >
-										<div class="my-button ui-button ui-state-default ui-corner-all">
-											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close" style="width:16px;height:16px;"  on="click then l:char.skills.remove[skillId=#{id}]"></span>
+										<div class="my-button icon-container ui-button ui-state-default ui-corner-all">
+											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close"   on="click then l:char.skills.remove[skillId=#{id}]"></span>
 										</div>
 									</td>
 								</tr>
@@ -296,8 +314,8 @@
 										<div class="ui-slider" style="width:50px;margin-left:4px;" id="char_comp_slider_#{id}" control="jquery_slider[min=0, max = 6, value=#{slidervalue}]"></div>
 									</td>
 									<td id="char_comp_delete_#{id}"   >
-										<div class="my-button ui-button ui-state-default ui-corner-all">
-											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close" style="width:16px;height:16px;"  on="click then l:char.skills.remove[skillId=#{id}]"></span>
+										<div class="my-button icon-container ui-button ui-state-default ui-corner-all"  on="click then l:char.skills.remove[skillId=#{id}]" style="width:16px;height:16px;">
+											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close"  ></span>
 										</div>
 									</td>
 								</tr>
@@ -332,8 +350,8 @@
 										<div class="ui-slider" style="width:50px;margin-left:4px;" id="char_comp_slider_#{id}" control="jquery_slider[min=0, max = 6, value=#{slidervalue}]"></div>
 									</td>
 									<td id="char_comp_delete_#{id}"   >
-										<div class="my-button ui-button ui-state-default ui-corner-all">
-											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close" style="width:16px;height:16px;"  on="click then l:char.skills.remove[skillId=#{id}]"></span>
+										<div class="my-button icon-container ui-button ui-state-default ui-corner-all">
+											<span id="char_comp_delete_td_#{id}" class="ui-icon ui-icon-close"   on="click then l:char.skills.remove[skillId=#{id}]"></span>
 										</div>
 									</td>
 								</tr>

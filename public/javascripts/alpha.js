@@ -9,20 +9,21 @@ var armor = [];
 
 // Makes tags.class editable in place
 function a_load() {
+	
+	//DEBUG
+	// Choose human at start
+	$MQ('l:race.chosen.response', {'race':'Humain','phys':human.attribut.phys,'ment':human.attribut.ment});
+	
+	//END DEBUG
+	
 	$('#create_character').click(function(){$('#character').toggle('drop',{direction:'up'});});
 	$('#create_character').click(function(){$('#helper').toggle('drop',{direction:'up'});});
 	$('span#name').editable({submitterId:'name'});
 	$('span#age').editable({submitterId:'age'});
 	$('span#sex').editable({type:'select',options:{'male':'Mâle','female':'Femelle','other':'Spécial'},submit:'Ok',cancel:'Annuler',
 	submitterId:'sex'});
-	// When user clicks on element with 'item' class, show elements of class sct scrolling up
-	$('.sct_trigger').click(function(){
-		sctObject = $('#' + this.id + '_sct');
-		sctObject.html("");
-		sctObject.css("color", "red");
-		sctObject.hide("drop", { direction: "up" }, 500);
-		});
-	
+	// When user clicks on element with 'sct_trigger' class, show element with id = id_sct scrolling up
+	scrollingify();
 	$('#skillDialog').dialog('option', 'buttons',
 		{
 			"Ajouter":function()
@@ -149,13 +150,30 @@ function a_load() {
 	$MQL('l:attr.update.request', function(message) {
 		name = message.payload.att_name;
 		value = message.payload.att_value;
+		modif = character.modifattribut[name];
 		op = message.payload.op;
-		if (op == 'add') {
-			value++;
-		} else {
-			value--;
+		if (op=="reset")
+		{
+			$MQ('l:race.chosen.request', {'race':character.race});
+			
 		}
-		$MQ('l:attr.update.response', {'att_name':name,'att_value':value});
+		if ((modif<4 && op == 'add') || (modif>-4 && value>0 && op == 'sub'))
+		{
+			if (op == 'add') {
+				value++;
+				modif++;
+			} else {
+				value--;
+				modif--;
+			}
+			character.modifattribut[name] = modif;
+			modifFormat = modif;
+			if (modif>0) {modifFormat = "+" + modif;}
+			cost = attribut.costs[modif+4];
+			$MQ('l:attr.update.response', {'att_name':name,'att_value':value, 'att_modif':modifFormat, 'att_cost':cost});
+		}
+		updatePP();
+		
 	});
 	
 	// Listeners (races)
@@ -185,7 +203,10 @@ function a_load() {
 				phys = human.attribut.phys;
 				ment = human.attribut.ment;
 				break;
-		};
+		}
+		
+		character.race = race;
+		resetModifAttribute();
 		$MQ('l:race.chosen.response', {'race':race,'phys':phys,'ment':ment});
 	});
 	$MQL('l:race.selected', function(message) {$('body').data('race', message.payload.race)});
@@ -244,7 +265,7 @@ function a_load() {
 	});
 	$MQL("l:purchase.armor", function(message) {
 		armor.push(message.payload);
-	});
+	});	
 }; // End of function a_load
 
 function isInCharSkills(skillId)
@@ -367,8 +388,15 @@ function updatePP()
 	{
 		compPP += character.skills.magiques[j].cost;
 	}
-	$('#mainTabs li:eq(2) a').html("Compétences : " + compPP + " PP");
-	//Le reste
+	$('#mainTabs li:eq(2) a').html("Compétences (" + compPP + " PP)");
+	
+	//Attributs
+	attrPP = 0;
+	for (x in character.modifattribut)
+	{
+		attrPP += attribut.costs[character.modifattribut[x] + 4];
+	}	
+	$('#mainTabs li:eq(1) a').html("Attributs (" + attrPP + " PP)");
 	
 	
 	totalPP = compPP + attrPP;
@@ -391,6 +419,30 @@ function buttonify() {
 	.mouseup(function(){
 			$(this).removeClass("ui-state-active");
 	})
+}
+
+function scrollingify()
+{
+	$('.sct_trigger').click(function(){		
+		// gets all objects with class = id the trigger + _sct
+		sctObject = $('.' + this.id + '_sct');
+		// stops previous animation on same object if any and executes post animation code
+		sctObject.stop(true, true);
+		// sets opacity to 100%
+		sctObject.css("opacity", "100");
+		// begins animation to opacity 0 , margin top reduced to go up, fontsize growing in 1 second.
+		sctObject.animate({
+		    opacity: 0,
+		    marginTop: '-=12',
+			 //fontSize: '+=6' finalement bof la font size
+		  }, 1000, function() {
+				// anonymous function to execute after an animation is done
+				// initial values of animation to reset
+				// must do similar commands for the other implementation
+				$('.valSpanSCT').css("margin-top","-12px");
+				//$('.valSpanSCT').css("font-size","11px"); finalement bof la font size
+		  });
+		});
 }
 
 function sliderify()
@@ -424,6 +476,22 @@ function findAttributeLongName(shortname)
 		}
 	}	
 	return shortname;
+}
+
+function resetModifAttribute()
+{ 	
+	character.modifattribut.For = 0;
+	character.modifattribut.End = 0;
+	character.modifattribut.Agi = 0;
+	character.modifattribut.Dex = 0;
+	character.modifattribut.Met = 0;
+	character.modifattribut.Ref = 0;
+	character.modifattribut.Ent = 0;
+	character.modifattribut.Inv = 0;
+	character.modifattribut.Mem = 0;
+	character.modifattribut.Vol = 0;
+	character.modifattribut.Per = 0;
+	character.modifattribut.Cha = 0;
 }
 
 function scanObject(obj, nom)
