@@ -155,6 +155,7 @@ function a_load() {
 		if (op=="reset")
 		{
 			$MQ('l:race.chosen.request', {'race':character.race});
+			updatePP();
 			
 		}
 		if ((modif<4 && op == 'add') || (modif>-4 && value>0 && op == 'sub'))
