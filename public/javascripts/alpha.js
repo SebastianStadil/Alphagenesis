@@ -206,7 +206,7 @@ function a_load() {
 				break;
 		}
 		
-		character.race = race;
+		character.race = message.payload.race;
 		resetModifAttribute();
 		$MQ('l:race.chosen.response', {'race':race,'phys':phys,'ment':ment});
 	});
